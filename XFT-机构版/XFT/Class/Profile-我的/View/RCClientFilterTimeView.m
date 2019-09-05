@@ -20,7 +20,12 @@
 }
 - (IBAction)timeClicked:(UIButton *)sender {
     if (self.filterTimeCall) {
-        self.filterTimeCall(sender.tag == 1?self.beginTime:self.endTime);
+        self.filterTimeCall(sender.tag == 1?self.reportBeginTime:self.reportEndTime);
+    }
+}
+- (IBAction)visitTimeClicked:(UIButton *)sender {
+    if (self.filterTimeCall) {
+        self.filterTimeCall(sender.tag == 1?self.visitBeginTime:self.visitEndTime);
     }
 }
 

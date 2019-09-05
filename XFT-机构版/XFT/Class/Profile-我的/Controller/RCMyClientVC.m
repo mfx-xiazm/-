@@ -20,6 +20,7 @@ static NSString *const MyClientCell = @"MyClientCell";
 static NSString *const MyClientStateCell = @"MyClientStateCell";
 
 @interface RCMyClientVC ()<UITableViewDelegate,UITableViewDataSource,RCClientFilterViewDelegate>
+@property (weak, nonatomic) IBOutlet UIView *contentView;
 @property (weak, nonatomic) IBOutlet UITableView *leftTableView;
 @property (weak, nonatomic) IBOutlet UITableView *rightTableView;
 
@@ -51,23 +52,13 @@ static NSString *const MyClientStateCell = @"MyClientStateCell";
 }
 -(void)setUpNavBar
 {
-    SPButton *filterItem = [[SPButton alloc] initWithImagePosition:SPButtonImagePositionLeft];
-    filterItem.hxn_size = CGSizeMake(70, 44);
-    filterItem.imageTitleSpace = 5.f;
-    filterItem.titleLabel.font = [UIFont systemFontOfSize:16 weight:UIFontWeightMedium];
-    [filterItem setTitleColor:UIColorFromRGB(0x333333) forState:UIControlStateNormal];
-    [filterItem setImage:HXGetImage(@"搜索") forState:UIControlStateNormal];
-    [filterItem setTitle:@"筛选" forState:UIControlStateNormal];
-    [filterItem addTarget:self action:@selector(filterClicked) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *item1 = [[UIBarButtonItem alloc] initWithCustomView:filterItem];
-    
     SPButton *searchItem = [[SPButton alloc] initWithImagePosition:SPButtonImagePositionLeft];
     searchItem.hxn_size = CGSizeMake(44, 44);
     [searchItem setImage:HXGetImage(@"搜索") forState:UIControlStateNormal];
     [searchItem addTarget:self action:@selector(searchClicked) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *item2 = [[UIBarButtonItem alloc] initWithCustomView:searchItem];
     
-    self.navigationItem.rightBarButtonItems = @[item2,item1];
+    self.navigationItem.rightBarButtonItem = item2;
 }
 -(void)setUpTableView
 {
@@ -120,11 +111,15 @@ static NSString *const MyClientStateCell = @"MyClientStateCell";
     [self.leftTableView registerNib:[UINib nibWithNibName:NSStringFromClass([RCMyClientStateCell class]) bundle:nil] forCellReuseIdentifier:MyClientStateCell];
 }
 #pragma mark -- 点击事件
--(void)filterClicked
+-(IBAction)filterClicked:(UIButton *)sender
 {
     RCClientFilterView *filter = [RCClientFilterView loadXibView];
     filter.delegate = self;
-    [filter filterShowInSuperView:self.view];
+    filter.hxn_size = CGSizeMake(HX_SCREEN_WIDTH-80, self.view.hxn_height);
+    self.zh_popupController = [[zhPopupController alloc] init];
+    self.zh_popupController.layoutType = zhPopupLayoutTypeRight;
+    self.zh_popupController.maskAlpha = 0.15;
+    [self.zh_popupController presentContentView:filter duration:0.25 springAnimated:NO inView:self.contentView];
 }
 -(void)searchClicked
 {
@@ -133,14 +128,8 @@ static NSString *const MyClientStateCell = @"MyClientStateCell";
     [self.navigationController pushViewController:cvc animated:YES];
 }
 #pragma mark -- RCClientFilterViewDelegate
-//出现位置
-- (CGPoint)filter_positionInSuperView
-{
-    return CGPointMake(0.f, 0.f);
-}
 -(void)filterDidConfirm:(RCClientFilterView *)filter beginTime:(NSString *)begin endTime:(NSString *)end
 {
-    [filter filterHidden];
     HXLog(@"开始时间-%@结束时间-%@",begin,end);
 }
 #pragma mark -- UITableView数据源和代理
@@ -159,7 +148,15 @@ static NSString *const MyClientStateCell = @"MyClientStateCell";
         //无色
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.target = self;
-        
+        if (indexPath.row %2) {
+            cell.remarkView.hidden = NO;
+            cell.brokerView.hidden = NO;
+            cell.mangeView.hidden = YES;
+        }else{
+            cell.remarkView.hidden = YES;
+            cell.brokerView.hidden = YES;
+            cell.mangeView.hidden = NO;
+        }
         return cell;
     }
 }
@@ -167,9 +164,13 @@ static NSString *const MyClientStateCell = @"MyClientStateCell";
 {
     // 返回这个模型对应的cell高度
     if (tableView == self.leftTableView) {
-        return 80.f;
+        return 75.f;
     }else{
-        return 180.f;
+        if (indexPath.row %2) {
+            return 160.f+60.f;
+        }else{
+            return 160.f;
+        }
     }
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

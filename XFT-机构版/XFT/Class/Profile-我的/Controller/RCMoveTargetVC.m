@@ -8,10 +8,11 @@
 
 #import "RCMoveTargetVC.h"
 #import "RCMoveTargetCell.h"
+#import "HXSearchBar.h"
 
 static NSString *const MoveTargetCell = @"MoveTargetCell";
 
-@interface RCMoveTargetVC ()<UITableViewDelegate,UITableViewDataSource>
+@interface RCMoveTargetVC ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @end
@@ -25,16 +26,14 @@ static NSString *const MoveTargetCell = @"MoveTargetCell";
 }
 -(void)setUpNavBar
 {
-    [self.navigationItem setTitle:@"客户转移"];
-    
-    SPButton *sureItem = [[SPButton alloc] initWithImagePosition:SPButtonImagePositionLeft];
-    sureItem.hxn_size = CGSizeMake(60, 44);
-    sureItem.titleLabel.font = [UIFont systemFontOfSize:15 weight:UIFontWeightMedium];
-    [sureItem setTitleColor:HXControlBg forState:UIControlStateNormal];
-    [sureItem setTitle:@"提交" forState:UIControlStateNormal];
-    [sureItem addTarget:self action:@selector(sureClicked) forControlEvents:UIControlEventTouchUpInside];
-    
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:sureItem];
+    HXSearchBar *search = [HXSearchBar searchBar];
+    search.backgroundColor = UIColorFromRGB(0xf5f5f5);
+    search.hxn_width = HX_SCREEN_WIDTH - 80;
+    search.hxn_height = 32;
+    search.layer.cornerRadius = 32/2.f;
+    search.layer.masksToBounds = YES;
+    search.delegate = self;
+    self.navigationItem.titleView = search;
 }
 -(void)setUpTableView
 {
@@ -63,10 +62,7 @@ static NSString *const MoveTargetCell = @"MoveTargetCell";
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([RCMoveTargetCell class]) bundle:nil] forCellReuseIdentifier:MoveTargetCell];
 }
 #pragma mark -- 点击事件
--(void)sureClicked
-{
-    
-}
+
 #pragma mark -- UITableView数据源和代理
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {

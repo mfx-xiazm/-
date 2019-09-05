@@ -13,6 +13,9 @@ NS_ASSUME_NONNULL_BEGIN
 @interface RCMyClientCell : UITableViewCell
 /* 目标控制器 */
 @property (nonatomic,weak) UIViewController *target;
+@property (weak, nonatomic) IBOutlet UIView *brokerView;
+@property (weak, nonatomic) IBOutlet UIView *mangeView;
+@property (weak, nonatomic) IBOutlet UIView *remarkView;
 
 @end
 

@@ -14,8 +14,11 @@ typedef void(^filterTimeCall)(UITextField *textField);
 @interface RCClientFilterTimeView : UICollectionReusableView
 /* 时间 */
 @property(nonatomic,copy) filterTimeCall filterTimeCall;
-@property (weak, nonatomic) IBOutlet UITextField *beginTime;
-@property (weak, nonatomic) IBOutlet UITextField *endTime;
+@property (weak, nonatomic) IBOutlet UITextField *reportBeginTime;
+@property (weak, nonatomic) IBOutlet UITextField *reportEndTime;
+@property (weak, nonatomic) IBOutlet UITextField *visitBeginTime;
+@property (weak, nonatomic) IBOutlet UITextField *visitEndTime;
+
 @end
 
 NS_ASSUME_NONNULL_END

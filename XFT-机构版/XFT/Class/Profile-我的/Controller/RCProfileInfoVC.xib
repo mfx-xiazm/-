@@ -515,7 +515,7 @@
                                     </constraints>
                                 </view>
                                 <button opaque="NO" clipsSubviews="YES" tag="6" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B3a-2K-HlQ">
-                                    <rect key="frame" x="30" y="378" width="354" height="44"/>
+                                    <rect key="frame" x="15" y="378" width="384" height="44"/>
                                     <color key="backgroundColor" red="0.95294117649999999" green="0.2784313725" blue="0.35686274509999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="44" id="h6r-Rk-Z8M"/>
@@ -524,7 +524,7 @@
                                     <state key="normal" title="退出登录"/>
                                     <userDefinedRuntimeAttributes>
                                         <userDefinedRuntimeAttribute type="number" keyPath="layerBoderCorner">
-                                            <real key="value" value="22"/>
+                                            <real key="value" value="6"/>
                                         </userDefinedRuntimeAttribute>
                                     </userDefinedRuntimeAttributes>
                                     <connections>
@@ -541,7 +541,7 @@
                                 <constraint firstAttribute="trailing" secondItem="LwU-pN-rwA" secondAttribute="trailing" id="AVm-eL-Pzm"/>
                                 <constraint firstItem="nGB-Qp-9I7" firstAttribute="leading" secondItem="Z0k-M3-hoC" secondAttribute="leading" id="Ark-iy-zJa"/>
                                 <constraint firstItem="zeQ-KY-pdS" firstAttribute="leading" secondItem="Z0k-M3-hoC" secondAttribute="leading" id="B0V-sg-22J"/>
-                                <constraint firstAttribute="trailing" secondItem="B3a-2K-HlQ" secondAttribute="trailing" constant="30" id="E93-vo-ZxB"/>
+                                <constraint firstAttribute="trailing" secondItem="B3a-2K-HlQ" secondAttribute="trailing" constant="15" id="E93-vo-ZxB"/>
                                 <constraint firstItem="RLh-IA-0Bc" firstAttribute="leading" secondItem="Z0k-M3-hoC" secondAttribute="leading" id="FBV-nb-rb7"/>
                                 <constraint firstItem="LwU-pN-rwA" firstAttribute="leading" secondItem="Z0k-M3-hoC" secondAttribute="leading" id="JxI-QP-Q2t"/>
                                 <constraint firstItem="3q8-3G-vhL" firstAttribute="top" secondItem="gDP-Zy-ckB" secondAttribute="bottom" id="MuK-ft-XIL"/>
@@ -552,7 +552,7 @@
                                 <constraint firstAttribute="trailing" secondItem="zeQ-KY-pdS" secondAttribute="trailing" id="d6n-qo-Ki1"/>
                                 <constraint firstAttribute="trailing" secondItem="MgM-Oy-hUe" secondAttribute="trailing" id="ebq-L8-Ht4"/>
                                 <constraint firstItem="nGB-Qp-9I7" firstAttribute="top" secondItem="hjJ-Ic-wHw" secondAttribute="bottom" id="fOO-Vt-Ot5"/>
-                                <constraint firstItem="B3a-2K-HlQ" firstAttribute="leading" secondItem="Z0k-M3-hoC" secondAttribute="leading" constant="30" id="gUf-Vb-aS8"/>
+                                <constraint firstItem="B3a-2K-HlQ" firstAttribute="leading" secondItem="Z0k-M3-hoC" secondAttribute="leading" constant="15" id="gUf-Vb-aS8"/>
                                 <constraint firstItem="hjJ-Ic-wHw" firstAttribute="top" secondItem="3q8-3G-vhL" secondAttribute="bottom" id="hzz-In-eub"/>
                                 <constraint firstItem="3q8-3G-vhL" firstAttribute="leading" secondItem="Z0k-M3-hoC" secondAttribute="leading" id="kxA-bY-qvf"/>
                                 <constraint firstItem="gDP-Zy-ckB" firstAttribute="leading" secondItem="Z0k-M3-hoC" secondAttribute="leading" id="obz-9l-qN9"/>

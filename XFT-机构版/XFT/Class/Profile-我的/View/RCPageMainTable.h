@@ -1,8 +1,8 @@
 //
-//  RCClientDetailFooter.h
+//  RCPageMainTable.h
 //  XFT
 //
-//  Created by 夏增明 on 2019/9/2.
+//  Created by 夏增明 on 2019/8/28.
 //  Copyright © 2019 夏增明. All rights reserved.
 //
 
@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface RCClientDetailFooter : UIView
+@interface RCPageMainTable : UITableView
 
 @end
 

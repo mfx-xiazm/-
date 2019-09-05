@@ -105,16 +105,16 @@
                     </constraints>
                 </view>
                 <button opaque="NO" clipsSubviews="YES" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jZS-ei-ON9">
-                    <rect key="frame" x="30" y="208" width="354" height="44"/>
+                    <rect key="frame" x="15" y="208" width="384" height="44"/>
                     <color key="backgroundColor" red="1" green="0.62352941179999999" blue="0.031372549020000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="44" id="QBv-Un-3Nw"/>
                     </constraints>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                     <state key="normal" title="确认提交"/>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="number" keyPath="layerBoderCorner">
-                            <real key="value" value="22"/>
+                            <real key="value" value="6"/>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </button>
@@ -128,8 +128,8 @@
                 <constraint firstItem="Q5M-cg-NOt" firstAttribute="top" secondItem="zBq-6r-cNp" secondAttribute="top" id="YNd-cw-VsI"/>
                 <constraint firstItem="zBq-6r-cNp" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="caA-AV-wxt"/>
                 <constraint firstItem="jZS-ei-ON9" firstAttribute="top" secondItem="UFU-L3-035" secondAttribute="bottom" constant="64" id="m2P-GJ-lA7"/>
-                <constraint firstItem="jZS-ei-ON9" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" constant="30" id="qhv-jg-UnE"/>
-                <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="jZS-ei-ON9" secondAttribute="trailing" constant="30" id="zMn-Gf-utX"/>
+                <constraint firstItem="jZS-ei-ON9" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" constant="15" id="qhv-jg-UnE"/>
+                <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="jZS-ei-ON9" secondAttribute="trailing" constant="15" id="zMn-Gf-utX"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="Q5M-cg-NOt"/>
         </view>

@@ -7,7 +7,7 @@
 //
 
 #import "RCProfileCollectChildVC.h"
-#import "RCNewsCell.h"
+#import "RCHouseDetailNewsCell.h"
 #import "RCHouseCell.h"
 #import "RCHouseDetailVC.h"
 #import "RCNewsDetailVC.h"
@@ -57,7 +57,7 @@ static NSString *const HouseCell = @"HouseCell";
     self.tableView.backgroundColor = [UIColor clearColor];
     
     // 注册cell
-    [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([RCNewsCell class]) bundle:nil] forCellReuseIdentifier:NewsCell];
+    [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([RCHouseDetailNewsCell class]) bundle:nil] forCellReuseIdentifier:NewsCell];
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([RCHouseCell class]) bundle:nil] forCellReuseIdentifier:HouseCell];
 }
 #pragma mark -- UITableView数据源和代理
@@ -72,7 +72,7 @@ static NSString *const HouseCell = @"HouseCell";
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
     }else{
-        RCNewsCell *cell = [tableView dequeueReusableCellWithIdentifier:NewsCell forIndexPath:indexPath];
+        RCHouseDetailNewsCell *cell = [tableView dequeueReusableCellWithIdentifier:NewsCell forIndexPath:indexPath];
         //无色
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
@@ -84,7 +84,7 @@ static NSString *const HouseCell = @"HouseCell";
     if (self.collectType == 0) {
         return 120.f;
     }else{
-        return 130.f;
+        return 120.f;
     }
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

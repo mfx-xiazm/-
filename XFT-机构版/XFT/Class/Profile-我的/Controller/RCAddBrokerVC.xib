@@ -208,16 +208,16 @@
                                     </constraints>
                                 </view>
                                 <button opaque="NO" clipsSubviews="YES" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FAY-la-CJB">
-                                    <rect key="frame" x="30" y="284" width="354" height="44"/>
+                                    <rect key="frame" x="15" y="284" width="384" height="44"/>
                                     <color key="backgroundColor" red="1" green="0.62352941179999999" blue="0.031372549020000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="44" id="sOk-Ew-dWY"/>
                                     </constraints>
-                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                     <state key="normal" title="确认提交"/>
                                     <userDefinedRuntimeAttributes>
                                         <userDefinedRuntimeAttribute type="number" keyPath="layerBoderCorner">
-                                            <real key="value" value="22"/>
+                                            <real key="value" value="6"/>
                                         </userDefinedRuntimeAttribute>
                                     </userDefinedRuntimeAttributes>
                                 </button>
@@ -256,7 +256,7 @@
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
                                 <constraint firstAttribute="trailing" secondItem="auf-nX-igC" secondAttribute="trailing" id="FjB-cx-Mn5"/>
-                                <constraint firstItem="FAY-la-CJB" firstAttribute="leading" secondItem="xDm-Q6-QAa" secondAttribute="leading" constant="30" id="HJr-mb-cwm"/>
+                                <constraint firstItem="FAY-la-CJB" firstAttribute="leading" secondItem="xDm-Q6-QAa" secondAttribute="leading" constant="15" id="HJr-mb-cwm"/>
                                 <constraint firstItem="Q08-v2-sDu" firstAttribute="top" secondItem="qdG-Jf-5da" secondAttribute="bottom" id="JS3-T2-pWa"/>
                                 <constraint firstItem="auf-nX-igC" firstAttribute="top" secondItem="xDm-Q6-QAa" secondAttribute="top" id="SB3-0y-cPh"/>
                                 <constraint firstItem="FAY-la-CJB" firstAttribute="top" secondItem="ZJp-bu-yHk" secondAttribute="bottom" constant="60" id="SEI-nj-8VU"/>
@@ -270,7 +270,7 @@
                                 <constraint firstItem="Q08-v2-sDu" firstAttribute="leading" secondItem="xDm-Q6-QAa" secondAttribute="leading" id="rfq-gX-EeP"/>
                                 <constraint firstItem="eMk-M7-TlH" firstAttribute="leading" secondItem="xDm-Q6-QAa" secondAttribute="leading" id="smB-ae-fkJ"/>
                                 <constraint firstAttribute="trailing" secondItem="Q08-v2-sDu" secondAttribute="trailing" id="v3K-3F-hhi"/>
-                                <constraint firstAttribute="trailing" secondItem="FAY-la-CJB" secondAttribute="trailing" constant="30" id="wHL-yW-6t4"/>
+                                <constraint firstAttribute="trailing" secondItem="FAY-la-CJB" secondAttribute="trailing" constant="15" id="wHL-yW-6t4"/>
                                 <constraint firstItem="qdG-Jf-5da" firstAttribute="top" secondItem="auf-nX-igC" secondAttribute="bottom" id="yEZ-fe-Hec"/>
                                 <constraint firstItem="qdG-Jf-5da" firstAttribute="leading" secondItem="xDm-Q6-QAa" secondAttribute="leading" id="yeS-82-qhb"/>
                             </constraints>

@@ -22,16 +22,45 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="s9y-7f-zke">
-                    <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                    <rect key="frame" x="0.0" y="44" width="414" height="763"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </tableView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HnH-Jg-x3u">
+                    <rect key="frame" x="0.0" y="807" width="414" height="55"/>
+                    <subviews>
+                        <button opaque="NO" clipsSubviews="YES" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zbr-J0-Rbp">
+                            <rect key="frame" x="15" y="0.0" width="384" height="44"/>
+                            <color key="backgroundColor" red="1" green="0.62352941179999999" blue="0.031372549020000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="44" id="lqX-oW-ePw"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
+                            <state key="normal" title="确定移交"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="layerBoderCorner">
+                                    <real key="value" value="6"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" red="0.96470588239999999" green="0.96862745100000003" blue="0.98431372549999996" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="55" id="70b-FM-oHj"/>
+                        <constraint firstItem="zbr-J0-Rbp" firstAttribute="leading" secondItem="HnH-Jg-x3u" secondAttribute="leading" constant="15" id="JR5-yJ-OIM"/>
+                        <constraint firstItem="zbr-J0-Rbp" firstAttribute="top" secondItem="HnH-Jg-x3u" secondAttribute="top" id="Ncn-Np-J8d"/>
+                        <constraint firstAttribute="trailing" secondItem="zbr-J0-Rbp" secondAttribute="trailing" constant="15" id="wVb-hl-Gyh"/>
+                    </constraints>
+                </view>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="s9y-7f-zke" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" id="7AH-29-VfH"/>
                 <constraint firstItem="s9y-7f-zke" firstAttribute="top" secondItem="Q5M-cg-NOt" secondAttribute="top" id="BQz-BQ-76v"/>
-                <constraint firstItem="Q5M-cg-NOt" firstAttribute="bottom" secondItem="s9y-7f-zke" secondAttribute="bottom" id="Dlr-9t-Omn"/>
+                <constraint firstItem="Q5M-cg-NOt" firstAttribute="bottom" secondItem="HnH-Jg-x3u" secondAttribute="bottom" id="GnA-iX-32D"/>
+                <constraint firstItem="HnH-Jg-x3u" firstAttribute="trailing" secondItem="Q5M-cg-NOt" secondAttribute="trailing" id="Na2-gC-vGF"/>
                 <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="s9y-7f-zke" secondAttribute="trailing" id="tOj-UZ-ixp"/>
+                <constraint firstItem="HnH-Jg-x3u" firstAttribute="top" secondItem="s9y-7f-zke" secondAttribute="bottom" id="yhU-pH-lVN"/>
+                <constraint firstItem="HnH-Jg-x3u" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" id="ztI-ak-MUK"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="Q5M-cg-NOt"/>
         </view>

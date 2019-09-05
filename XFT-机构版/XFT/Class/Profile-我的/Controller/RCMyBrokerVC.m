@@ -12,13 +12,11 @@
 #import <zhPopupController.h>
 #import "RCSearchClientVC.h"
 #import "RCAddBrokerVC.h"
-#import "RCTimeFilterView.h"
 #import "RCChangePwdVC.h"
-#import "WSDatePickerView.h"
 
 static NSString *const MyBrokerCell = @"MyBrokerCell";
 
-@interface RCMyBrokerVC ()<UITableViewDelegate,UITableViewDataSource,RCTimeFilterViewDelegate>
+@interface RCMyBrokerVC ()<UITableViewDelegate,UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @end
@@ -89,36 +87,6 @@ static NSString *const MyBrokerCell = @"MyBrokerCell";
     cvc.dataType = 2;
     [self.navigationController pushViewController:cvc animated:YES];
 }
--(void)filterBtnClicked
-{
-    RCTimeFilterView *filter = [RCTimeFilterView loadXibView];
-    filter.delegate = self;
-    [filter filterShowInSuperView:self.view];
-}
-#pragma mark -- RCTimeFilterViewDelegate
-//出现位置
-- (CGPoint)filter_positionInSuperView
-{
-    return CGPointMake(0.f, 0.f);
-}
-- (void)filter:(RCTimeFilterView *)filter  didSelectTextField:(UITextField *)textField
-{
-    //年-月-日
-    WSDatePickerView *datepicker = [[WSDatePickerView alloc] initWithDateStyle:DateStyleShowYearMonthDay CompleteBlock:^(NSDate *selectDate) {
-        
-        NSString *dateString = [selectDate stringWithFormat:@"yyyy-MM-dd"];
-        textField.text = dateString;
-    }];
-    datepicker.dateLabelColor = HXControlBg;//年-月-日 颜色
-    datepicker.datePickerColor = [UIColor blackColor];//滚轮日期颜色
-    datepicker.doneButtonColor = HXControlBg;//确定按钮的颜色
-    [datepicker show];
-}
-- (void)filter:(RCTimeFilterView *)filter begin:(NSString *)beginTime end:(NSString *)endTime
-{
-    [filter filterHidden];
-    HXLog(@"开始时间-结束时间");
-}
 #pragma mark -- UITableView数据源和代理
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -137,7 +105,7 @@ static NSString *const MyBrokerCell = @"MyBrokerCell";
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 140.f;
+    return 165.f;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
@@ -155,17 +123,6 @@ static NSString *const MyBrokerCell = @"MyBrokerCell";
     label.font = [UIFont systemFontOfSize:13];
     label.text = @"共6个经纪人";
     [bgView addSubview:label];
-    
-    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-    btn.frame = CGRectMake(HX_SCREEN_WIDTH/2.0, 0, HX_SCREEN_WIDTH/2.0-15, 44);
-    btn.titleLabel.font = [UIFont systemFontOfSize:14];
-    [btn setImage:HXGetImage(@"搜索") forState:UIControlStateNormal];
-    [btn setTitle:@"筛选" forState:UIControlStateNormal];
-    [btn setTitleColor:HXControlBg forState:UIControlStateNormal];
-    btn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
-    btn.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 6);
-    [btn addTarget:self action:@selector(filterBtnClicked) forControlEvents:UIControlEventTouchUpInside];
-    [bgView addSubview:btn];
     
     return bgView;
 }

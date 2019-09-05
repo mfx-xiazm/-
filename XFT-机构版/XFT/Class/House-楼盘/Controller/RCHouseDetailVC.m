@@ -335,7 +335,7 @@ static NSString *const HouseStyleCell = @"HouseStyleCell";
     if (tableView == self.houseInfoTableView) {
         return UITableViewAutomaticDimension;
     }else{
-        return 120.f;
+        return 110.f;
     }
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

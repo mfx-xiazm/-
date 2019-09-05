@@ -24,7 +24,7 @@
 {
     [super viewDidLoad];
     
-    self.view.backgroundColor = HXGlobalBg;
+//    self.view.backgroundColor = HXGlobalBg;
     
     if ([self isiPhoneXLater]) {
         self.iPhoneXLater = YES;

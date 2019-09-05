@@ -87,6 +87,15 @@ static NSString *const MyStoreCell = @"MyStoreCell";
         //无色
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.target = self;
+        if (indexPath.row %2) {
+            cell.remarkView.hidden = NO;
+            cell.brokerView.hidden = NO;
+            cell.mangeView.hidden = YES;
+        }else{
+            cell.remarkView.hidden = YES;
+            cell.brokerView.hidden = YES;
+            cell.mangeView.hidden = NO;
+        }
         return cell;
     }else if (self.dataType == 2){
         RCMyBrokerCell *cell = [tableView dequeueReusableCellWithIdentifier:MyBrokerCell forIndexPath:indexPath];
@@ -113,9 +122,13 @@ static NSString *const MyStoreCell = @"MyStoreCell";
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (self.dataType == 1) {
-        return 180.f;
+        if (indexPath.row %2) {
+            return 160.f+60.f;
+        }else{
+            return 160.f;
+        }
     }else if (self.dataType == 2){
-        return 140.f;
+        return 165.f;
     }else{
         return 160.f;
     }

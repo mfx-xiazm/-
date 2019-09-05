@@ -19,7 +19,7 @@
 - (IBAction)clientBtnClicked:(UIButton *)sender {
     
     RCClientCodeView *codeView = [RCClientCodeView loadXibView];
-    codeView.hxn_size = CGSizeMake(HX_SCREEN_WIDTH, 255.f);
+    codeView.hxn_size = CGSizeMake(HX_SCREEN_WIDTH, 265.f);
     hx_weakify(self);
     codeView.closeBtnCall = ^{
         [weakSelf.target.zh_popupController dismissWithDuration:0.25 springAnimated:NO];
