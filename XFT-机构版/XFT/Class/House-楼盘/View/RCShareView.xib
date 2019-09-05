@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="RCShareView">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="248"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="分享到" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FaJ-CR-VVQ">
+                    <rect key="frame" x="183.5" y="0.0" width="47.5" height="40"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="Irm-ci-ZF8"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0dQ-hT-4oW" customClass="SPButton">
+                    <rect key="frame" x="0.0" y="40" width="138" height="134"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <state key="normal" title="微信好友" image="share_wx">
+                        <color key="titleColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="imagePosition">
+                            <integer key="value" value="2"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="imageTitleSpace">
+                            <real key="value" value="10"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="shareTypeClicked:" destination="iN0-l3-epB" eventType="touchUpInside" id="LZ3-0G-4Xt"/>
+                    </connections>
+                </button>
+                <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1dl-PS-KOS" customClass="SPButton">
+                    <rect key="frame" x="138" y="40" width="138" height="134"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <state key="normal" title="朋友圈" image="share_wx">
+                        <color key="titleColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="imagePosition">
+                            <integer key="value" value="2"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="imageTitleSpace">
+                            <real key="value" value="10"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="shareTypeClicked:" destination="iN0-l3-epB" eventType="touchUpInside" id="OWt-cA-KjH"/>
+                    </connections>
+                </button>
+                <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kln-w5-vwF" customClass="SPButton">
+                    <rect key="frame" x="276" y="40" width="138" height="134"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <state key="normal" title="链接分享" image="share_wx">
+                        <color key="titleColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="imagePosition">
+                            <integer key="value" value="2"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="imageTitleSpace">
+                            <real key="value" value="10"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="shareTypeClicked:" destination="iN0-l3-epB" eventType="touchUpInside" id="TGx-kb-6dJ"/>
+                    </connections>
+                </button>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tCA-bw-47g">
+                    <rect key="frame" x="0.0" y="174" width="414" height="40"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GiD-Wk-Jvx" userLabel="分割线">
+                            <rect key="frame" x="15" y="0.0" width="384" height="1"/>
+                            <color key="backgroundColor" red="0.96470588239999999" green="0.96862745100000003" blue="0.98431372549999996" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="1" id="UgH-8v-dpJ"/>
+                            </constraints>
+                        </view>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kjk-0F-0r5">
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="40"/>
+                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
+                            <state key="normal" title="取消">
+                                <color key="titleColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </state>
+                            <connections>
+                                <action selector="cancelClicked:" destination="iN0-l3-epB" eventType="touchUpInside" id="jjC-oj-wnu"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="GiD-Wk-Jvx" firstAttribute="leading" secondItem="tCA-bw-47g" secondAttribute="leading" constant="15" id="CGW-ML-E3n"/>
+                        <constraint firstAttribute="trailing" secondItem="GiD-Wk-Jvx" secondAttribute="trailing" constant="15" id="CLd-h2-IOd"/>
+                        <constraint firstItem="kjk-0F-0r5" firstAttribute="leading" secondItem="tCA-bw-47g" secondAttribute="leading" id="Dzs-K3-y0u"/>
+                        <constraint firstAttribute="trailing" secondItem="kjk-0F-0r5" secondAttribute="trailing" id="Ufy-dx-xZd"/>
+                        <constraint firstItem="GiD-Wk-Jvx" firstAttribute="top" secondItem="tCA-bw-47g" secondAttribute="top" id="V1C-AP-QKD"/>
+                        <constraint firstItem="kjk-0F-0r5" firstAttribute="top" secondItem="tCA-bw-47g" secondAttribute="top" id="VTj-se-b3b"/>
+                        <constraint firstAttribute="height" constant="40" id="naw-uD-P3h"/>
+                        <constraint firstAttribute="bottom" secondItem="kjk-0F-0r5" secondAttribute="bottom" id="wDH-aX-KGU"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="tCA-bw-47g" firstAttribute="leading" secondItem="vb9-96-nXJ" secondAttribute="leading" id="8gn-ca-k0K"/>
+                <constraint firstItem="0dQ-hT-4oW" firstAttribute="top" secondItem="FaJ-CR-VVQ" secondAttribute="bottom" id="Dbg-KT-QGu"/>
+                <constraint firstItem="tCA-bw-47g" firstAttribute="bottom" secondItem="vb9-96-nXJ" secondAttribute="bottom" id="G4B-Bu-fYI"/>
+                <constraint firstItem="Kln-w5-vwF" firstAttribute="width" secondItem="0dQ-hT-4oW" secondAttribute="width" id="NyT-b5-gFw"/>
+                <constraint firstItem="tCA-bw-47g" firstAttribute="top" secondItem="1dl-PS-KOS" secondAttribute="bottom" id="Oeh-Hk-yPL"/>
+                <constraint firstItem="vb9-96-nXJ" firstAttribute="trailing" secondItem="tCA-bw-47g" secondAttribute="trailing" id="OtD-Hz-811"/>
+                <constraint firstItem="FaJ-CR-VVQ" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="SE6-q3-luG"/>
+                <constraint firstItem="Kln-w5-vwF" firstAttribute="top" secondItem="FaJ-CR-VVQ" secondAttribute="bottom" id="XNb-Ta-OJ4"/>
+                <constraint firstItem="Kln-w5-vwF" firstAttribute="leading" secondItem="1dl-PS-KOS" secondAttribute="trailing" id="YFF-Ul-PUS"/>
+                <constraint firstItem="1dl-PS-KOS" firstAttribute="width" secondItem="0dQ-hT-4oW" secondAttribute="width" id="csX-Ot-2LD"/>
+                <constraint firstItem="0dQ-hT-4oW" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="daf-nv-dtU"/>
+                <constraint firstAttribute="trailing" secondItem="Kln-w5-vwF" secondAttribute="trailing" id="ePs-ea-VaO"/>
+                <constraint firstItem="1dl-PS-KOS" firstAttribute="top" secondItem="FaJ-CR-VVQ" secondAttribute="bottom" id="hXK-ey-RaH"/>
+                <constraint firstItem="tCA-bw-47g" firstAttribute="top" secondItem="0dQ-hT-4oW" secondAttribute="bottom" id="nfP-9C-WJr"/>
+                <constraint firstItem="tCA-bw-47g" firstAttribute="top" secondItem="Kln-w5-vwF" secondAttribute="bottom" id="pni-DH-pvu"/>
+                <constraint firstItem="FaJ-CR-VVQ" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="rKm-WR-9V2"/>
+                <constraint firstItem="1dl-PS-KOS" firstAttribute="leading" secondItem="0dQ-hT-4oW" secondAttribute="trailing" id="tod-rL-XSD"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vb9-96-nXJ"/>
+            <point key="canvasLocation" x="31.884057971014496" y="328.79464285714283"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="share_wx" width="70" height="70"/>
+    </resources>
+</document>

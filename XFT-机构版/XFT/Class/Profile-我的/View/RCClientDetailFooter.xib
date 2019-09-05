@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="RCClientDetailFooter">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="260"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="重新报备原因" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NjU-GA-YMU">
+                    <rect key="frame" x="15" y="15" width="104" height="20.5"/>
+                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
+                    <color key="textColor" white="0.10000000000000001" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="diR-IF-jWB" customClass="HXPlaceholderTextView">
+                    <rect key="frame" x="15" y="50.5" width="384" height="120"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="120" id="oDq-N5-uJY"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layerBoderCorner">
+                            <real key="value" value="6"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </textView>
+                <button opaque="NO" clipsSubviews="YES" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m2h-aR-kkV">
+                    <rect key="frame" x="30" y="200.5" width="354" height="44"/>
+                    <color key="backgroundColor" red="1" green="0.62352941179999999" blue="0.031372549020000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="44" id="0fv-7j-AM1"/>
+                        <constraint firstAttribute="height" constant="44" id="s0Y-zM-PvZ"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <state key="normal" title="确认提交"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layerBoderCorner">
+                            <real key="value" value="22"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="0.96470588239999999" green="0.96862745100000003" blue="0.98431372549999996" alpha="1" colorSpace="calibratedRGB"/>
+            <constraints>
+                <constraint firstItem="NjU-GA-YMU" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="15" id="JON-Bm-Zq1"/>
+                <constraint firstItem="diR-IF-jWB" firstAttribute="top" secondItem="NjU-GA-YMU" secondAttribute="bottom" constant="15" id="P5A-M9-OZ9"/>
+                <constraint firstAttribute="trailing" secondItem="m2h-aR-kkV" secondAttribute="trailing" constant="30" id="QCz-QJ-52d"/>
+                <constraint firstAttribute="trailing" secondItem="diR-IF-jWB" secondAttribute="trailing" constant="15" id="Sus-CP-vJ4"/>
+                <constraint firstItem="m2h-aR-kkV" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="30" id="VVE-Pl-kAM"/>
+                <constraint firstItem="NjU-GA-YMU" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="15" id="lDF-Sd-rxw"/>
+                <constraint firstItem="diR-IF-jWB" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="15" id="lvJ-6T-TuN"/>
+                <constraint firstItem="m2h-aR-kkV" firstAttribute="top" secondItem="diR-IF-jWB" secondAttribute="bottom" constant="30" id="on5-VB-lap"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="remark" destination="diR-IF-jWB" id="m4L-7x-u8f"/>
+            </connections>
+            <point key="canvasLocation" x="137.68115942028987" y="348.21428571428572"/>
+        </view>
+    </objects>
+</document>

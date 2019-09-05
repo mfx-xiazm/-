@@ -1,0 +1,22 @@
+platform :ios, "9.0"
+inhibit_all_warnings!
+
+target 'XFT' do
+    pod "AFNetworking"
+    pod "ZLPhotoBrowser"
+    pod "MJRefresh"
+    pod "zhPopupController"
+    pod "IQKeyboardManager"
+    pod "NHHUDExtend"
+    pod "JJFontFit"
+    pod "YYCache"
+    pod "YYModel"
+    pod "JXCategoryView"
+    pod "UMCCommon"
+    pod "UMCSecurityPlugins"
+    pod "UMCShare/Social/ReducedWeChat"
+    pod "JPush"
+    pod "TYCyclePagerView"
+    pod "ZLCollectionViewFlowLayout"
+    pod "AMap3DMap-NO-IDFA"
+end

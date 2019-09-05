@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.70"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="RCHouseBannerHeader">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="183"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Kxt-4r-Edt" customClass="TYCyclePagerView">
+                    <rect key="frame" x="0.0" y="10" width="414" height="173"/>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="Kxt-4r-Edt" secondAttribute="trailing" id="5yv-3Y-QKZ"/>
+                <constraint firstItem="Kxt-4r-Edt" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="KXG-LI-NwE"/>
+                <constraint firstAttribute="bottom" secondItem="Kxt-4r-Edt" secondAttribute="bottom" id="nLd-9Q-0gY"/>
+                <constraint firstItem="Kxt-4r-Edt" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="10" id="o3F-7o-He7"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="cycleView" destination="Kxt-4r-Edt" id="XtO-LQ-yaW"/>
+            </connections>
+            <point key="canvasLocation" x="137.68115942028987" y="352.56696428571428"/>
+        </view>
+    </objects>
+</document>

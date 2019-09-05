@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="RCNavBarView">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="74"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lsA-Ia-ffZ">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="74"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XCG-dN-2du" userLabel="分割线">
+                            <rect key="frame" x="0.0" y="73" width="414" height="1"/>
+                            <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="1" id="z9o-Xg-JAC"/>
+                            </constraints>
+                        </view>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="bottom" secondItem="XCG-dN-2du" secondAttribute="bottom" id="8BJ-AT-P6O"/>
+                        <constraint firstItem="XCG-dN-2du" firstAttribute="leading" secondItem="lsA-Ia-ffZ" secondAttribute="leading" id="VI7-Ii-Ol8"/>
+                        <constraint firstAttribute="trailing" secondItem="XCG-dN-2du" secondAttribute="trailing" id="tsw-xK-e2f"/>
+                    </constraints>
+                </view>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="标题" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qcZ-jd-TGj">
+                    <rect key="frame" x="59" y="41.5" width="296" height="21.5"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fu5-aK-S7l">
+                    <rect key="frame" x="0.0" y="30" width="44" height="44"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="44" id="4vK-Jt-hpx"/>
+                        <constraint firstAttribute="width" constant="44" id="j4k-iN-Keu"/>
+                    </constraints>
+                    <state key="normal" image="返回"/>
+                    <connections>
+                        <action selector="backClicked:" destination="iN0-l3-epB" eventType="touchUpInside" id="R0l-YP-Msz"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="fu5-aK-S7l" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="3Y4-IK-Vc0"/>
+                <constraint firstAttribute="trailing" secondItem="lsA-Ia-ffZ" secondAttribute="trailing" id="3hT-sl-nix"/>
+                <constraint firstItem="qcZ-jd-TGj" firstAttribute="leading" secondItem="fu5-aK-S7l" secondAttribute="trailing" constant="15" id="Dwf-Sl-BKZ"/>
+                <constraint firstItem="lsA-Ia-ffZ" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="E36-dS-LUY"/>
+                <constraint firstAttribute="bottom" secondItem="lsA-Ia-ffZ" secondAttribute="bottom" id="Fv1-wK-WPc"/>
+                <constraint firstAttribute="trailing" secondItem="qcZ-jd-TGj" secondAttribute="trailing" constant="59" id="PaU-3b-ckt"/>
+                <constraint firstItem="lsA-Ia-ffZ" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="V4D-M5-wkO"/>
+                <constraint firstItem="qcZ-jd-TGj" firstAttribute="centerY" secondItem="fu5-aK-S7l" secondAttribute="centerY" id="X38-81-7o2"/>
+                <constraint firstAttribute="bottom" secondItem="fu5-aK-S7l" secondAttribute="bottom" id="yY6-GH-2pq"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="backBtn" destination="fu5-aK-S7l" id="5HQ-z1-e3E"/>
+                <outlet property="bgView" destination="lsA-Ia-ffZ" id="ghS-cJ-uZy"/>
+                <outlet property="titleL" destination="qcZ-jd-TGj" id="ZZn-da-h8M"/>
+            </connections>
+            <point key="canvasLocation" x="137.68115942028987" y="389.0625"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="返回" width="11" height="20"/>
+    </resources>
+</document>

@@ -1,0 +1,80 @@
+//
+//  RCPrefixHeader.pch
+//  XFT
+//
+//  Created by 夏增明 on 2019/8/26.
+//  Copyright © 2019 夏增明. All rights reserved.
+//
+
+#ifndef RCPrefixHeader_pch
+#define RCPrefixHeader_pch
+
+#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
+#import "UIView+HXNExtension.h"
+#import "HXConst.h"
+#import "UILabel+HXNExtension.h"
+#import <MJRefresh.h>
+#import <UIButton+WebCache.h>
+#import <UIImageView+WebCache.h>
+#import "HXNetworkTool.h"
+#import <YYModel.h>
+#import "MSUserManager.h"
+#import "UIBarButtonItem+HXNExtension.h"
+#import "JMNotifyView.h"
+#import "UIButton+HXCode.h"
+#import "LYEmptyViewHeader.h"
+#import "SPButton.h"
+#import <MBProgressHUD+NHAdd.h>
+
+/**
+ 调试阶段，用HXLog代替NSLog
+ 发布阶段，HXLog就不会打印
+ */
+#ifdef DEBUG
+#define HXLog(...) NSLog(__VA_ARGS__)
+#else
+#define HXLog(...)
+#endif
+/**宏定义方法的打印方式*/
+#define HXLogFunc HXLog(@"%s", __func__)
+
+/**宏定义RGB颜色的调用方式*/
+#define HXRGBColor(r, g, b) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:1.0]
+/**宏定义RGBA颜色的调用方式*/
+#define HXRGBAColor(r, g, b, a) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:(a)]
+/// rgb颜色转换（16进制->10进制）
+#define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
+/**宏定义项目的视图背景色调用方式*/
+#define HXGlobalBg UIColorFromRGB(0xEFEFF4)
+/**宏定义项目的主色调调用方式*/
+#define HXControlBg UIColorFromRGB(0xFF9F08)
+/**设置随机颜色*/
+#define HXRandomColor [UIColor colorWithRed:arc4random_uniform(256)/255.0 green:arc4random_uniform(256)/255.0 blue:arc4random_uniform(256)/255.0 alpha:1.0]
+
+/**宏定义屏宽*/
+#define HX_SCREEN_WIDTH ([UIScreen mainScreen].bounds.size.width)
+/**宏定义屏高*/
+#define HX_SCREEN_HEIGHT ([UIScreen mainScreen].bounds.size.height)
+
+/**弱引用*/
+#define hx_weakify(var)   __weak typeof(var) weakSelf = var
+#define hx_strongify(var) __strong typeof(var) strongSelf = var
+
+/**设置 view 圆角和边框*/
+#define HXViewBorderRadius(View, Radius, Width, Color)\
+\
+[View.layer setCornerRadius:(Radius)];\
+[View.layer setMasksToBounds:YES];\
+[View.layer setBorderWidth:(Width)];\
+[View.layer setBorderColor:[Color CGColor]]
+/**获取图片资源*/
+#define HXGetImage(imageName) [UIImage imageNamed:[NSString stringWithFormat:@"%@",imageName]]
+//https://sapi.1qibang.cn/index
+#define HXRC_M_URL @"http://api.1qibang.cn/index/"
+//#define HXRC_M_URL @"http://yiqibangtestapi.mfxapp.com/index/"
+//https://sapi.1qibang.cn/
+#define HXRC_URL_HEADER @"http://api.1qibang.cn/"
+//#define HXRC_URL_HEADER @"http://yiqibangtestapi.mfxapp.com/"
+
+#endif /* RCPrefixHeader_pch */

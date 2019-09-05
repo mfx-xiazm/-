@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="RCGoHouseVC">
+            <connections>
+                <outlet property="codeImg" destination="4Fm-GI-e1X" id="9op-CJ-YeF"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sY2-ed-8aK">
+                    <rect key="frame" x="35" y="144" width="344" height="516"/>
+                    <subviews>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="4Fm-GI-e1X">
+                            <rect key="frame" x="55" y="40" width="234" height="234"/>
+                            <constraints>
+                                <constraint firstAttribute="width" secondItem="4Fm-GI-e1X" secondAttribute="height" multiplier="1:1" id="ucx-mt-Bxn"/>
+                            </constraints>
+                        </imageView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="客户姓名：彭**" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wqD-1o-V2K">
+                            <rect key="frame" x="115.5" y="282" width="113" height="20"/>
+                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
+                            <color key="textColor" white="0.10000000000000001" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fmq-Lu-PcH">
+                            <rect key="frame" x="92" y="310" width="160" height="17"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="160" id="lv5-AA-YUW"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <inset key="titleEdgeInsets" minX="5" minY="0.0" maxX="0.0" maxY="0.0"/>
+                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="5" maxY="0.0"/>
+                            <state key="normal" title="139****2657" image="搜索">
+                                <color key="titleColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
+                            </state>
+                        </button>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="报备项目：武汉融公馆" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k6q-UL-rWT">
+                            <rect key="frame" x="110.5" y="335" width="123" height="14.5"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                            <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="报备时间: 2019-08-10 21:09" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gjo-il-GSB">
+                            <rect key="frame" x="92.5" y="357.5" width="159" height="14.5"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                            <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="04P-pL-8UL">
+                            <rect key="frame" x="0.0" y="413" width="344" height="103"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WgN-gY-wEs">
+                                    <rect key="frame" x="15" y="35" width="314" height="33"/>
+                                    <attributedString key="attributedText">
+                                        <fragment content="请案场接待人员在接待系统中">
+                                            <attributes>
+                                                <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                <font key="NSFont" size="14" name=".PingFangSC-Regular"/>
+                                                <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineSpacing="5" tighteningFactorForTruncation="0.0"/>
+                                            </attributes>
+                                        </fragment>
+                                        <fragment content="录入该客户">
+                                            <attributes>
+                                                <color key="NSColor" red="1" green="0.62352941176470589" blue="0.031372549019607843" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <font key="NSFont" size="14" name=".PingFangSC-Regular"/>
+                                                <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineSpacing="5" tighteningFactorForTruncation="0.0"/>
+                                            </attributes>
+                                        </fragment>
+                                        <fragment content="并让其">
+                                            <attributes>
+                                                <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                <font key="NSFont" size="14" name=".PingFangSC-Regular"/>
+                                                <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineSpacing="5" tighteningFactorForTruncation="0.0"/>
+                                            </attributes>
+                                        </fragment>
+                                        <fragment content="扫描此二维码">
+                                            <attributes>
+                                                <color key="NSColor" red="1" green="0.62352941176470589" blue="0.031372549019607843" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <font key="NSFont" size="14" name=".PingFangSC-Regular"/>
+                                                <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineSpacing="5" tighteningFactorForTruncation="0.0"/>
+                                            </attributes>
+                                        </fragment>
+                                        <fragment content="以完成带客看房">
+                                            <attributes>
+                                                <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                <font key="NSFont" size="14" name=".PingFangSC-Regular"/>
+                                                <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineSpacing="5" tighteningFactorForTruncation="0.0"/>
+                                            </attributes>
+                                        </fragment>
+                                    </attributedString>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="trailing" secondItem="WgN-gY-wEs" secondAttribute="trailing" constant="15" id="0Yn-9j-U5h"/>
+                                <constraint firstItem="WgN-gY-wEs" firstAttribute="centerY" secondItem="04P-pL-8UL" secondAttribute="centerY" id="a3q-bd-Zej"/>
+                                <constraint firstItem="WgN-gY-wEs" firstAttribute="leading" secondItem="04P-pL-8UL" secondAttribute="leading" constant="15" id="o5S-W3-cwt"/>
+                            </constraints>
+                        </view>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="bottom" secondItem="04P-pL-8UL" secondAttribute="bottom" id="1zH-p0-zXo"/>
+                        <constraint firstAttribute="width" secondItem="sY2-ed-8aK" secondAttribute="height" multiplier="2:3" id="950-hD-Hum"/>
+                        <constraint firstItem="Gjo-il-GSB" firstAttribute="centerX" secondItem="sY2-ed-8aK" secondAttribute="centerX" id="CEH-o2-nIT"/>
+                        <constraint firstItem="fmq-Lu-PcH" firstAttribute="centerX" secondItem="sY2-ed-8aK" secondAttribute="centerX" id="FVD-eN-N7j"/>
+                        <constraint firstItem="wqD-1o-V2K" firstAttribute="top" secondItem="4Fm-GI-e1X" secondAttribute="bottom" constant="8" id="JZX-Pu-ZpZ"/>
+                        <constraint firstItem="fmq-Lu-PcH" firstAttribute="top" secondItem="wqD-1o-V2K" secondAttribute="bottom" constant="8" id="LOT-cu-9Z1"/>
+                        <constraint firstItem="Gjo-il-GSB" firstAttribute="top" secondItem="k6q-UL-rWT" secondAttribute="bottom" constant="8" id="Pyr-ac-5RQ"/>
+                        <constraint firstItem="k6q-UL-rWT" firstAttribute="top" secondItem="fmq-Lu-PcH" secondAttribute="bottom" constant="8" id="Tno-pr-jE2"/>
+                        <constraint firstItem="wqD-1o-V2K" firstAttribute="centerX" secondItem="sY2-ed-8aK" secondAttribute="centerX" id="ZPb-Zy-gwd"/>
+                        <constraint firstAttribute="trailing" secondItem="4Fm-GI-e1X" secondAttribute="trailing" constant="55" id="a8b-UH-k36"/>
+                        <constraint firstAttribute="trailing" secondItem="04P-pL-8UL" secondAttribute="trailing" id="eVl-qE-AvK"/>
+                        <constraint firstItem="k6q-UL-rWT" firstAttribute="centerX" secondItem="sY2-ed-8aK" secondAttribute="centerX" id="h5I-Z7-Hk4"/>
+                        <constraint firstItem="4Fm-GI-e1X" firstAttribute="leading" secondItem="sY2-ed-8aK" secondAttribute="leading" constant="55" id="oEf-BM-rYr"/>
+                        <constraint firstItem="04P-pL-8UL" firstAttribute="height" secondItem="sY2-ed-8aK" secondAttribute="height" multiplier="1:5" id="pza-XE-W02"/>
+                        <constraint firstItem="4Fm-GI-e1X" firstAttribute="top" secondItem="sY2-ed-8aK" secondAttribute="top" constant="40" id="wyM-K7-fKl"/>
+                        <constraint firstItem="04P-pL-8UL" firstAttribute="leading" secondItem="sY2-ed-8aK" secondAttribute="leading" id="xiz-wW-ZUt"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="1" green="0.75294117650000003" blue="0.36078431370000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="sY2-ed-8aK" firstAttribute="top" secondItem="Q5M-cg-NOt" secondAttribute="top" constant="100" id="Hjs-b3-Ust"/>
+                <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="sY2-ed-8aK" secondAttribute="trailing" constant="35" id="Q53-pQ-3PY"/>
+                <constraint firstItem="sY2-ed-8aK" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" constant="35" id="Qn3-uf-Ci2"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="Q5M-cg-NOt"/>
+            <point key="canvasLocation" x="76.811594202898561" y="35.491071428571423"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="搜索" width="15" height="15"/>
+    </resources>
+</document>
