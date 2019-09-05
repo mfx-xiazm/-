@@ -29,7 +29,7 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    self.view.backgroundColor = HXControlBg;
     [self setAgreeMentProtocol];
 }
 

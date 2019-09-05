@@ -24,6 +24,8 @@
 {
     [super viewDidLoad];
     
+    self.view.backgroundColor = HXGlobalBg;
+    
     if ([self isiPhoneXLater]) {
         self.iPhoneXLater = YES;
         self.HXNavBarHeight = 88.f;

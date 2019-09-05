@@ -12,17 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 typedef void(^pushHouseFilterCall)(NSInteger, NSInteger);
 
 @interface RCWishHouseFilterView : UIView
-@property (nonatomic,weak) UIViewController *target;
-@property(nonatomic,strong) UITableView *tableView;
-/** 区域 */
-@property (nonatomic,strong) NSArray *areas;
-/** 物业 */
-@property (nonatomic,strong) NSArray *wuye;
-/** 户型 */
-@property (nonatomic,strong) NSArray *huxing;
-/** 面积 */
-@property (nonatomic,strong) NSArray *mianji;
-/** 筛选点击回调 */
+/** 点击回调 */
 @property (nonatomic,copy) pushHouseFilterCall pushHouseFilterCall;
 @end
 

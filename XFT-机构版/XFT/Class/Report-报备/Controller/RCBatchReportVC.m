@@ -10,24 +10,23 @@
 #import "RCFilterCell.h"
 #import "HXPlaceholderTextView.h"
 #import "RCWishHouseVC.h"
-#import "FSActionSheet.h"
 #import "RCAddClientCell.h"
 #import "WSDatePickerView.h"
+#import "RCReportPersonVC.h"
+#import "RCReportResultVC.h"
 
 static NSString *const FilterCell = @"FilterCell";
 static NSString *const AddClientCell = @"AddClientCell";
 
-@interface RCBatchReportVC ()<UITableViewDelegate,UITableViewDataSource,FSActionSheetDelegate>
+@interface RCBatchReportVC ()<UITableViewDelegate,UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *houseViewHeight;
 @property (weak, nonatomic) IBOutlet UITableView *houseTableView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *moreClientViewHeight;
 @property (weak, nonatomic) IBOutlet UITableView *moreClientTableView;
 @property (weak, nonatomic) IBOutlet HXPlaceholderTextView *remark;
 @property (weak, nonatomic) IBOutlet UITextField *appointDate;
-@property (weak, nonatomic) IBOutlet UITextField *appointTime;
-
-/* 上一次选择的性别 */
-@property(nonatomic,strong) UIButton *sexBtn;
+@property (weak, nonatomic) IBOutlet UIView *reportPersonView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *reportPersonViewHeight;
 /* 选择的楼盘 */
 @property(nonatomic,strong) NSArray *houses;
 /* 多加的客户 */
@@ -40,7 +39,7 @@ static NSString *const AddClientCell = @"AddClientCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.navigationItem setTitle:@"批量报备"];
-    self.remark.placeholder = @"请输入客户购房的补充说明(选填)";
+    self.remark.placeholder = @"请输入补充说明(选填)";
     [self setUpTableView];
 }
 -(NSArray *)houses
@@ -85,12 +84,7 @@ static NSString *const AddClientCell = @"AddClientCell";
 #pragma mark -- 点击事件
 - (IBAction)reportBtnClicked:(UIButton *)sender {
     hx_weakify(self);
-    if (sender.tag == 0) {
-        FSActionSheet *sheet = [[FSActionSheet alloc] initWithTitle:@"报备对象" delegate:self cancelButtonTitle:@"取消" highlightedButtonTitle:nil otherButtonTitles:@[@"融创西南展厅",@"融创西北展厅"]];
-        [sheet showWithSelectedCompletion:^(NSInteger selectedIndex) {
-            HXLog(@"报备对象-%zd",selectedIndex);
-        }];
-    }else if (sender.tag == 1) {
+    if (sender.tag == 1) {
         RCWishHouseVC *hvc = [RCWishHouseVC new];
         [self.navigationController pushViewController:hvc animated:YES];
         self.houses = @[@"",@"",@""];
@@ -98,7 +92,7 @@ static NSString *const AddClientCell = @"AddClientCell";
         [self.houseTableView reloadData];
     }else if (sender.tag == 2) {
         [self.clients addObject:@""];
-        self.moreClientViewHeight.constant = 160.f*self.clients.count;
+        self.moreClientViewHeight.constant = 110.f*self.clients.count;
         [self.moreClientTableView reloadData];
     }else if (sender.tag == 3) {
         //年-月-日
@@ -112,25 +106,15 @@ static NSString *const AddClientCell = @"AddClientCell";
         datepicker.doneButtonColor = HXControlBg;//确定按钮的颜色
         [datepicker show];
     }else{
-        //时-分
-        WSDatePickerView *datepicker = [[WSDatePickerView alloc] initWithDateStyle:DateStyleShowHourMinute CompleteBlock:^(NSDate *selectDate) {
-            
-            NSString *dateString = [selectDate stringWithFormat:@"HH:mm"];
-            weakSelf.appointTime.text = dateString;
-        }];
-        datepicker.dateLabelColor = HXControlBg;//年-月-日 颜色
-        datepicker.datePickerColor = [UIColor blackColor];//滚轮日期颜色
-        datepicker.doneButtonColor = HXControlBg;//确定按钮的颜色
-        [datepicker show];
+        RCReportPersonVC *pvc = [RCReportPersonVC new];
+        [self.navigationController pushViewController:pvc animated:YES];
     }
 }
-- (IBAction)clientSexClicked:(UIButton *)sender {
-    self.sexBtn.selected = NO;
-    self.sexBtn.boderColor = UIColorFromRGB(0xCCCCCC);
-    sender.selected = YES;
-    sender.boderColor = UIColorFromRGB(0x666666);
-    self.sexBtn = sender;
+- (IBAction)reportClicked:(UIButton *)sender {
+    RCReportResultVC *rvc = [RCReportResultVC  new];
+    [self.navigationController pushViewController:rvc animated:YES];
 }
+
 #pragma mark -- UITableView数据源和代理
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -151,7 +135,7 @@ static NSString *const AddClientCell = @"AddClientCell";
         cell.cutBtnCall = ^{
             hx_strongify(weakSelf);
             [strongSelf.clients removeLastObject];
-            strongSelf.moreClientViewHeight.constant = 160.f*strongSelf.clients.count;
+            strongSelf.moreClientViewHeight.constant = 110.f*strongSelf.clients.count;
             [tableView reloadData];
         };
         return cell;
@@ -160,7 +144,7 @@ static NSString *const AddClientCell = @"AddClientCell";
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // 返回这个模型对应的cell高度
-    return (tableView == self.houseTableView)?44.f:160.f;
+    return (tableView == self.houseTableView)?44.f:110.f;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
