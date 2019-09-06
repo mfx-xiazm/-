@@ -14,5 +14,10 @@
 {
     [super awakeFromNib];
 }
+- (IBAction)loanDetailClicked:(UIButton *)sender {
+    if (self.loanDetailCall) {
+        self.loanDetailCall();
+    }
+}
 
 @end

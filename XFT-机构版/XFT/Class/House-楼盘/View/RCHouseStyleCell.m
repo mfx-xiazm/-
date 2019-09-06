@@ -8,11 +8,19 @@
 
 #import "RCHouseStyleCell.h"
 
+@interface RCHouseStyleCell ()
+@property (weak, nonatomic) IBOutlet UILabel *styleTag;
+
+@end
 @implementation RCHouseStyleCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
 }
-
+-(void)layoutSubviews
+{
+    [super layoutSubviews];
+    [self.styleTag bezierPathByRoundingCorners:UIRectCornerTopLeft|UIRectCornerBottomRight cornerRadii:CGSizeMake(6.f, 6.f)];
+}
 @end

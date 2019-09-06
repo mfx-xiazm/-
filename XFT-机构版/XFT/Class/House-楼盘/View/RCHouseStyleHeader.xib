@@ -27,12 +27,24 @@
                                     <color key="textColor" white="0.10000000000000001" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <nil key="highlightedColor"/>
                                 </label>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DRw-Mr-C51">
+                                    <rect key="frame" x="237" y="12" width="104" height="18"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <state key="normal" title="一份算价清单" image="计算机">
+                                        <color key="titleColor" red="1" green="0.62352941179999999" blue="0.031372549020000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="loanDetailClicked:" destination="iN0-l3-epB" eventType="touchUpInside" id="nj0-4f-qUw"/>
+                                    </connections>
+                                </button>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
                                 <constraint firstItem="urw-u3-vuN" firstAttribute="centerY" secondItem="fa0-dE-P75" secondAttribute="centerY" id="KAv-3D-xnn"/>
                                 <constraint firstAttribute="height" constant="44" id="Le6-TG-9qI"/>
+                                <constraint firstAttribute="trailing" secondItem="DRw-Mr-C51" secondAttribute="trailing" constant="15" id="ZDB-Uw-uo1"/>
                                 <constraint firstItem="urw-u3-vuN" firstAttribute="leading" secondItem="fa0-dE-P75" secondAttribute="leading" constant="15" id="gJ9-3V-pcF"/>
+                                <constraint firstItem="DRw-Mr-C51" firstAttribute="top" secondItem="fa0-dE-P75" secondAttribute="top" constant="12" id="jxQ-4V-Umc"/>
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KAb-5j-Lca">
@@ -287,4 +299,7 @@
             <point key="canvasLocation" x="5.7971014492753632" y="216.62946428571428"/>
         </view>
     </objects>
+    <resources>
+        <image name="计算机" width="18" height="18"/>
+    </resources>
 </document>

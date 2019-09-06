@@ -22,11 +22,9 @@
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ceshitu" translatesAutoresizingMaskIntoConstraints="NO" id="15s-RB-8sw">
                         <rect key="frame" x="0.0" y="0.0" width="371" height="155"/>
                         <color key="backgroundColor" red="0.96470588239999999" green="0.96862745100000003" blue="0.98431372549999996" alpha="1" colorSpace="calibratedRGB"/>
-                        <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="number" keyPath="layerBoderCorner">
-                                <real key="value" value="5"/>
-                            </userDefinedRuntimeAttribute>
-                        </userDefinedRuntimeAttributes>
+                    </imageView>
+                    <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_vr" translatesAutoresizingMaskIntoConstraints="NO" id="yyd-EM-uuk">
+                        <rect key="frame" x="154" y="51" width="63" height="63"/>
                     </imageView>
                 </subviews>
             </view>
@@ -34,15 +32,22 @@
             <constraints>
                 <constraint firstItem="15s-RB-8sw" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="O0b-Ta-lAW"/>
                 <constraint firstAttribute="trailing" secondItem="15s-RB-8sw" secondAttribute="trailing" id="aKN-Fa-mfE"/>
+                <constraint firstItem="yyd-EM-uuk" firstAttribute="centerY" secondItem="SEy-5g-ep8" secondAttribute="centerY" id="efG-nU-Sv4"/>
+                <constraint firstItem="yyd-EM-uuk" firstAttribute="centerX" secondItem="SEy-5g-ep8" secondAttribute="centerX" id="gdU-ie-uYU"/>
                 <constraint firstAttribute="bottom" secondItem="15s-RB-8sw" secondAttribute="bottom" id="hdy-jL-EdC"/>
                 <constraint firstItem="15s-RB-8sw" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="oqT-Sd-l4u"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="SEy-5g-ep8"/>
             <size key="customSize" width="371" height="155"/>
+            <connections>
+                <outlet property="bannerTagImg" destination="yyd-EM-uuk" id="FT1-6W-d7d"/>
+                <outlet property="contentImg" destination="15s-RB-8sw" id="AJn-0v-Zh3"/>
+            </connections>
             <point key="canvasLocation" x="18.115942028985508" y="95.424107142857139"/>
         </collectionViewCell>
     </objects>
     <resources>
         <image name="ceshitu" width="648" height="418"/>
+        <image name="icon_vr" width="63" height="63"/>
     </resources>
 </document>

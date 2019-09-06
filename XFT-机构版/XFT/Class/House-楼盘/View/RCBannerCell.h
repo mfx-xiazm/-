@@ -11,6 +11,8 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface RCBannerCell : UICollectionViewCell
+@property (weak, nonatomic) IBOutlet UIImageView *bannerTagImg;
+@property (weak, nonatomic) IBOutlet UIImageView *contentImg;
 
 @end
 

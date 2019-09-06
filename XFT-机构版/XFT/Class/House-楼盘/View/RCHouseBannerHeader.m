@@ -53,7 +53,8 @@
 
 - (UICollectionViewCell *)pagerView:(TYCyclePagerView *)pagerView cellForItemAtIndex:(NSInteger)index {
     RCBannerCell *cell = [pagerView dequeueReusableCellWithReuseIdentifier:@"BannerCell" forIndex:index];
-    
+    cell.contentImg.layer.cornerRadius = 6.f;
+    cell.contentImg.layer.masksToBounds = YES;
     return cell;
 }
 

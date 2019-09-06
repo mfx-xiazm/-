@@ -23,20 +23,36 @@
 #import "RCHouseNearbyVC.h"
 #import "RCReportVC.h"
 #import "RCNewsDetailVC.h"
+#import "NSString+HXNExtension.h"
+#import <JXCategoryTitleView.h>
+#import <JXCategoryIndicatorBackgroundView.h>
+#import "RCHouseNearbyCell.h"
+#import "RCHouseInfoVC.h"
+#import "RCPanoramaVC.h"
+#import "HXNavigationController.h"
+#import "RCVideoFullScreenVC.h"
+#import "RCHouseGoodsCell.h"
 
+static NSString *const HouseNearbyCell = @"HouseNearbyCell";
 static NSString *const HouseDetailInfoCell = @"HouseDetailInfoCell";
 static NSString *const HouseDetailNewsCell = @"HouseDetailNewsCell";
 static NSString *const HouseStyleCell = @"HouseStyleCell";
+static NSString *const HouseGoodsCell = @"HouseGoodsCell";
 
-@interface RCHouseDetailVC ()<TYCyclePagerViewDataSource, TYCyclePagerViewDelegate, UICollectionViewDelegate,UICollectionViewDataSource,ZLCollectionViewBaseFlowLayoutDelegate,UITableViewDelegate,UITableViewDataSource,MAMapViewDelegate>
+@interface RCHouseDetailVC ()<TYCyclePagerViewDataSource, TYCyclePagerViewDelegate, UICollectionViewDelegate,UICollectionViewDataSource,ZLCollectionViewBaseFlowLayoutDelegate,UITableViewDelegate,UITableViewDataSource,MAMapViewDelegate,JXCategoryViewDelegate>
 /** 轮播图 */
 @property (weak, nonatomic) IBOutlet TYCyclePagerView *cycleView;
 @property (weak, nonatomic) IBOutlet UILabel *cycleNum;
+@property (weak, nonatomic) IBOutlet JXCategoryTitleView *categoryView;
 /** 楼盘基础信息 */
 @property (weak, nonatomic) IBOutlet UIView *houseInfoView;
 /** 楼盘信息展示 */
 @property (weak, nonatomic) IBOutlet UITableView *houseInfoTableView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *houseInfoTableViewHeight;
+/** 楼盘亮点 */
+@property (weak, nonatomic) IBOutlet UILabel *houseGoodsLabel;
+@property (weak, nonatomic) IBOutlet UITableView *houseGoodsTableView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *houseGoodsViewHeight;
 /** 楼盘动态 */
 @property (weak, nonatomic) IBOutlet UITableView *houseNewsTableView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *houseNewsTableViewHeight;
@@ -44,6 +60,9 @@ static NSString *const HouseStyleCell = @"HouseStyleCell";
 @property (weak, nonatomic) IBOutlet UICollectionView *houseStyleCollectionView;
 /** 周边配套 */
 @property (weak, nonatomic) IBOutlet UIView *mapSuperView;
+@property (weak, nonatomic) IBOutlet UITableView *houseNearbyTableView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *houseNearbyViewHeight;
+
 @property (nonatomic, strong) MAMapView *mapView;
 @end
 
@@ -78,19 +97,30 @@ static NSString *const HouseStyleCell = @"HouseStyleCell";
 -(void)viewDidLayoutSubviews
 {
     [super viewDidLayoutSubviews];
-    [self.houseInfoView bezierPathByRoundingCorners:UIRectCornerTopLeft|UIRectCornerTopRight cornerRadii:CGSizeMake(6, 6)];
     
     [self.cycleView reloadData];
     
     [self.houseInfoTableView reloadData];
     hx_weakify(self);
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.05 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        weakSelf.houseInfoTableViewHeight.constant = 10.f+44.f+weakSelf.houseInfoTableView.contentSize.height;
+        weakSelf.houseInfoTableViewHeight.constant = 10.f+44.f+weakSelf.houseInfoTableView.contentSize.height+64.f;
+    });
+    
+    CGFloat textHeight = [@"项目秉承东方造园初衷，以中国东方美学为魂，以龙兴文脉基奠为师，匠心修为城市高端人居产品。在格局上，致力于打造移步易景、清韵优雅的山水归家画卷，依循东方园林的中轴布局，体现出开阔的视野。在建筑上，屋檐师法重檐，以简洁的建筑形体，深远的大屋面，虚实结合的立面效果，呈现大气而典雅的整体效果。在景观上，扎根东方美学，每处细节的点缀透露出匠心之精良，让山林丘木溪石湖等文化元素落位理想居住生活。" textHeightSize:CGSizeMake(HX_SCREEN_WIDTH-15*2, CGFLOAT_MAX) font:[UIFont fontWithName:@"PingFangSC-Medium" size: 14] lineSpacing:5.f];
+    [self.houseGoodsLabel setTextWithLineSpace:5.f withString:@"项目秉承东方造园初衷，以中国东方美学为魂，以龙兴文脉基奠为师，匠心修为城市高端人居产品。在格局上，致力于打造移步易景、清韵优雅的山水归家画卷，依循东方园林的中轴布局，体现出开阔的视野。在建筑上，屋檐师法重檐，以简洁的建筑形体，深远的大屋面，虚实结合的立面效果，呈现大气而典雅的整体效果。在景观上，扎根东方美学，每处细节的点缀透露出匠心之精良，让山林丘木溪石湖等文化元素落位理想居住生活。" withFont:[UIFont fontWithName:@"PingFangSC-Medium" size: 14]];
+    [self.houseGoodsTableView reloadData];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.05 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        weakSelf.houseGoodsViewHeight.constant = 10.f+44.f+textHeight+weakSelf.houseGoodsTableView.contentSize.height;
+    });
+
+    [self.houseNearbyTableView reloadData];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.05 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        weakSelf.houseNearbyViewHeight.constant = 10.f+44.f+260.f+weakSelf.houseNearbyTableView.contentSize.height;
     });
     
     [self.houseNewsTableView reloadData];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.05 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        weakSelf.houseNewsTableViewHeight.constant = 10.f+44.f+weakSelf.houseNewsTableView.contentSize.height;
+        weakSelf.houseNewsTableViewHeight.constant = 10.f+44.f+weakSelf.houseNewsTableView.contentSize.height+64.f;
     });
     
     self.mapView.frame = self.mapSuperView.bounds;
@@ -103,12 +133,29 @@ static NSString *const HouseStyleCell = @"HouseStyleCell";
 }
 -(void)setUpCycleView
 {
-    self.cycleView.isInfiniteLoop = YES;
-    self.cycleView.autoScrollInterval = 3.0;
+    self.cycleView.isInfiniteLoop = NO;
+    //self.cycleView.autoScrollInterval = 3.f;
     self.cycleView.dataSource = self;
     self.cycleView.delegate = self;
     // registerClass or registerNib
     [self.cycleView registerNib:[UINib nibWithNibName:NSStringFromClass([RCBannerCell class]) bundle:nil] forCellWithReuseIdentifier:@"BannerCell"];
+    
+    self.categoryView.layer.cornerRadius = 12.f;
+    self.categoryView.layer.masksToBounds = YES;
+    self.categoryView.titles = @[@"VR",@"视频",@"图片"];
+    self.categoryView.titleFont = [UIFont systemFontOfSize:11];
+    self.categoryView.cellSpacing = 0;
+    self.categoryView.cellWidth = 150.f/3;
+    self.categoryView.titleColor = UIColorFromRGB(0x333333);
+    self.categoryView.titleSelectedColor = [UIColor whiteColor];
+    self.categoryView.titleLabelMaskEnabled = YES;
+    self.categoryView.delegate = self;
+    
+    JXCategoryIndicatorBackgroundView *backgroundView = [[JXCategoryIndicatorBackgroundView alloc] init];
+    backgroundView.indicatorHeight = 24;
+    backgroundView.indicatorWidthIncrement = 0;
+    backgroundView.indicatorColor = HXControlBg;
+    self.categoryView.indicators = @[backgroundView];
 }
 -(void)setUpCollectionView
 {
@@ -132,7 +179,7 @@ static NSString *const HouseStyleCell = @"HouseStyleCell";
         // 不要自动调整inset
         self.automaticallyAdjustsScrollViewInsets = NO;
     }
-    self.houseInfoTableView.estimatedRowHeight = UITableViewAutomaticDimension;//预估高度
+    self.houseInfoTableView.rowHeight = UITableViewAutomaticDimension;//预估高度
     self.houseInfoTableView.estimatedSectionHeaderHeight = 0;
     self.houseInfoTableView.estimatedSectionFooterHeight = 0;
     
@@ -170,6 +217,53 @@ static NSString *const HouseStyleCell = @"HouseStyleCell";
     
     // 注册cell
     [self.houseNewsTableView registerNib:[UINib nibWithNibName:NSStringFromClass([RCHouseDetailNewsCell class]) bundle:nil] forCellReuseIdentifier:HouseDetailNewsCell];
+    
+    // 针对 11.0 以上的iOS系统进行处理
+    if (@available(iOS 11.0, *)) {
+        self.houseGoodsTableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentAutomatic;
+    } else {
+        // 针对 11.0 以下的iOS系统进行处理
+        // 不要自动调整inset
+        self.automaticallyAdjustsScrollViewInsets = NO;
+    }
+    self.houseGoodsTableView.estimatedRowHeight = 0;//预估高度
+    self.houseGoodsTableView.estimatedSectionHeaderHeight = 0;
+    self.houseGoodsTableView.estimatedSectionFooterHeight = 0;
+    
+    self.houseGoodsTableView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
+    self.houseGoodsTableView.dataSource = self;
+    self.houseGoodsTableView.delegate = self;
+    
+    self.houseGoodsTableView.showsVerticalScrollIndicator = NO;
+    
+    self.houseGoodsTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    
+    // 注册cell
+    [self.houseGoodsTableView registerNib:[UINib nibWithNibName:NSStringFromClass([RCHouseGoodsCell class]) bundle:nil] forCellReuseIdentifier:HouseGoodsCell];
+    
+    
+    // 针对 11.0 以上的iOS系统进行处理
+    if (@available(iOS 11.0, *)) {
+        self.houseNearbyTableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentAutomatic;
+    } else {
+        // 针对 11.0 以下的iOS系统进行处理
+        // 不要自动调整inset
+        self.automaticallyAdjustsScrollViewInsets = NO;
+    }
+    self.houseNearbyTableView.estimatedRowHeight = 0;//预估高度
+    self.houseNearbyTableView.estimatedSectionHeaderHeight = 0;
+    self.houseNearbyTableView.estimatedSectionFooterHeight = 0;
+    
+    self.houseNearbyTableView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
+    self.houseNearbyTableView.dataSource = self;
+    self.houseNearbyTableView.delegate = self;
+    
+    self.houseNearbyTableView.showsVerticalScrollIndicator = NO;
+    
+    self.houseNearbyTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    
+    // 注册cell
+    [self.houseNearbyTableView registerNib:[UINib nibWithNibName:NSStringFromClass([RCHouseNearbyCell class]) bundle:nil] forCellReuseIdentifier:HouseNearbyCell];
 }
 #pragma mark -- 点击事件
 -(void)shareClicked
@@ -197,6 +291,10 @@ static NSString *const HouseStyleCell = @"HouseStyleCell";
 }
 - (IBAction)houseCollectClicked:(SPButton *)sender {
     HXLog(@"收藏");
+}
+- (IBAction)houseInfoClicked:(UIButton *)sender {
+    RCHouseInfoVC *ivc = [RCHouseInfoVC new];
+    [self.navigationController pushViewController:ivc animated:YES];
 }
 
 - (IBAction)houseNewsClicked:(UIButton *)sender {
@@ -232,7 +330,7 @@ static NSString *const HouseStyleCell = @"HouseStyleCell";
         [self.zh_popupController presentContentView:alert duration:0.25 springAnimated:NO];
     }
 }
-#pragma mark - Map Delegate
+#pragma mark -- Map Delegate
 /*!
  @brief 根据anntation生成对应的View
  @param mapView 地图View
@@ -257,12 +355,32 @@ static NSString *const HouseStyleCell = @"HouseStyleCell";
     
     return nil;
 }
+#pragma mark -- JXCategoryView代理
+/**
+ 点击选中的情况才会调用该方法
+ 
+ @param categoryView categoryView对象
+ @param index 选中的index
+ */
+- (void)categoryView:(JXCategoryBaseView *)categoryView didClickSelectedItemAtIndex:(NSInteger)index
+{
+    [self.cycleView scrollToItemAtIndex:index animate:YES];
+}
 #pragma mark -- TYCyclePagerView代理
 - (NSInteger)numberOfItemsInPagerView:(TYCyclePagerView *)pageView {
-    return 3;
+    return 5;
 }
 - (UICollectionViewCell *)pagerView:(TYCyclePagerView *)pagerView cellForItemAtIndex:(NSInteger)index {
     RCBannerCell *cell = [pagerView dequeueReusableCellWithReuseIdentifier:@"BannerCell" forIndex:index];
+    if (index == 0) {
+        cell.bannerTagImg.hidden = NO;
+        cell.bannerTagImg.image = HXGetImage(@"icon_vr");
+    }else if (index == 1) {
+        cell.bannerTagImg.hidden = NO;
+        cell.bannerTagImg.image = HXGetImage(@"icon_shipin");
+    }else{
+        cell.bannerTagImg.hidden = YES;
+    }
     return cell;
 }
 - (TYCyclePagerViewLayout *)layoutForPagerView:(TYCyclePagerView *)pageView {
@@ -274,12 +392,28 @@ static NSString *const HouseStyleCell = @"HouseStyleCell";
 }
 
 - (void)pagerView:(TYCyclePagerView *)pageView didScrollFromIndex:(NSInteger)fromIndex toIndex:(NSInteger)toIndex {
-    self.cycleNum.text = [NSString stringWithFormat:@"%zd/3",toIndex+1];
+    if (toIndex > 1) {
+        self.cycleNum.hidden = NO;
+        self.cycleNum.text = [NSString stringWithFormat:@"%zd/3",toIndex-1];
+        [self.categoryView selectItemAtIndex:2];
+    }else{
+        self.cycleNum.hidden = YES;
+        [self.categoryView selectItemAtIndex:toIndex];
+    }
 }
 
 - (void)pagerView:(TYCyclePagerView *)pageView didSelectedItemCell:(__kindof UICollectionViewCell *)cell atIndex:(NSInteger)index
 {
-    
+    if (index == 0) {
+        RCPanoramaVC *pvc = [RCPanoramaVC new];
+        HXNavigationController *nav = [[HXNavigationController alloc] initWithRootViewController:pvc];
+        [self presentViewController:nav animated:YES completion:nil];
+    }else if (index == 1) {
+        RCVideoFullScreenVC *fvc = [RCVideoFullScreenVC new];
+        [self.navigationController pushViewController:fvc animated:NO];
+    }else{
+        HXLog(@"点击图片");
+    }
 }
 #pragma mark -- UICollectionView 数据源和代理
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
@@ -315,16 +449,35 @@ static NSString *const HouseStyleCell = @"HouseStyleCell";
 #pragma mark -- UITableView数据源和代理
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return tableView == self.houseInfoTableView?7:2;
+    if (tableView == self.houseInfoTableView) {
+        return 7;
+    }else if (tableView == self.houseNewsTableView) {
+        return 2;
+    }else if (tableView == self.houseGoodsTableView) {
+        return 4;
+    }else{
+        return 5;
+    }
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (tableView == self.houseInfoTableView) {
         RCHouseDetailInfoCell *cell = [tableView dequeueReusableCellWithIdentifier:HouseDetailInfoCell forIndexPath:indexPath];
         //无色
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.locationBtn.hidden = indexPath.row;
+        return cell;
+    }else if (tableView == self.houseNewsTableView) {
+        RCHouseDetailNewsCell *cell = [tableView dequeueReusableCellWithIdentifier:HouseDetailNewsCell forIndexPath:indexPath];
+        //无色
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        return cell;
+    }else if (tableView == self.houseGoodsTableView) {
+        RCHouseGoodsCell *cell = [tableView dequeueReusableCellWithIdentifier:HouseGoodsCell forIndexPath:indexPath];
+        //无色
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
     }else{
-        RCHouseDetailNewsCell *cell = [tableView dequeueReusableCellWithIdentifier:HouseDetailNewsCell forIndexPath:indexPath];
+        RCHouseNearbyCell *cell = [tableView dequeueReusableCellWithIdentifier:HouseNearbyCell forIndexPath:indexPath];
         //无色
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
@@ -334,8 +487,12 @@ static NSString *const HouseStyleCell = @"HouseStyleCell";
 {
     if (tableView == self.houseInfoTableView) {
         return UITableViewAutomaticDimension;
+    }else if (tableView == self.houseNewsTableView) {
+        return 120.f;
+    }else if (tableView == self.houseGoodsTableView) {
+        return 36.f;
     }else{
-        return 110.f;
+        return 44.f;
     }
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

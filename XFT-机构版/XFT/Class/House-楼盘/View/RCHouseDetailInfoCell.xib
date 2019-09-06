@@ -12,11 +12,11 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="59" id="KGk-i7-Jjw" customClass="RCHouseDetailInfoCell">
-            <rect key="frame" x="0.0" y="0.0" width="332" height="59"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="32" id="KGk-i7-Jjw" customClass="RCHouseDetailInfoCell">
+            <rect key="frame" x="0.0" y="0.0" width="348" height="32"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="332" height="58.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="348" height="31.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="开盘时间：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C18-NH-PgX">
@@ -26,14 +26,19 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="住宅70年" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P2j-QA-Hfw">
-                        <rect key="frame" x="91.5" y="0.0" width="225.5" height="43.5"/>
+                        <rect key="frame" x="91.5" y="0.0" width="241.5" height="16.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_place" translatesAutoresizingMaskIntoConstraints="NO" id="gab-zi-kK9">
+                        <rect key="frame" x="314" y="0.0" width="24" height="24"/>
+                    </imageView>
                 </subviews>
                 <constraints>
                     <constraint firstItem="C18-NH-PgX" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="21B-JC-qNo"/>
+                    <constraint firstItem="gab-zi-kK9" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="GDC-kV-XDa"/>
+                    <constraint firstAttribute="trailing" secondItem="gab-zi-kK9" secondAttribute="trailing" constant="10" id="I8r-0y-SzT"/>
                     <constraint firstAttribute="bottom" secondItem="P2j-QA-Hfw" secondAttribute="bottom" constant="15" id="JLA-C0-KAg"/>
                     <constraint firstItem="P2j-QA-Hfw" firstAttribute="leading" secondItem="C18-NH-PgX" secondAttribute="trailing" id="JS1-Nb-tVY"/>
                     <constraint firstItem="C18-NH-PgX" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="PZn-KC-qgx"/>
@@ -42,7 +47,13 @@
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="aW0-zy-SZf"/>
-            <point key="canvasLocation" x="73.913043478260875" y="116.18303571428571"/>
+            <connections>
+                <outlet property="locationBtn" destination="gab-zi-kK9" id="Nan-pN-moe"/>
+            </connections>
+            <point key="canvasLocation" x="85.507246376811594" y="107.14285714285714"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="icon_place" width="24" height="24"/>
+    </resources>
 </document>

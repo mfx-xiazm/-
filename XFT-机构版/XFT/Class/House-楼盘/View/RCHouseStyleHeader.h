@@ -9,9 +9,10 @@
 #import <UIKit/UIKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
-
+typedef void(^loanDetailCall)(void);
 @interface RCHouseStyleHeader : UIView
-
+/* 算价详情 */
+@property(nonatomic,copy) loanDetailCall loanDetailCall;
 @end
 
 NS_ASSUME_NONNULL_END

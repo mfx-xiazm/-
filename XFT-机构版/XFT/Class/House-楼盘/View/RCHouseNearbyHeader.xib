@@ -27,10 +27,10 @@
                         <button opaque="NO" tag="1" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uTw-Kt-0ab" customClass="SPButton">
                             <rect key="frame" x="0.0" y="0.0" width="103.5" height="63"/>
                             <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                            <state key="normal" title="交通(3)" image="搜索">
+                            <state key="normal" title="交通(3)" image="icon_bus">
                                 <color key="titleColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
-                            <state key="selected">
+                            <state key="selected" image="icon_bus_click">
                                 <color key="titleColor" red="1" green="0.62352941179999999" blue="0.031372549020000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </state>
                             <userDefinedRuntimeAttributes>
@@ -48,10 +48,10 @@
                         <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sag-j5-X8C" customClass="SPButton">
                             <rect key="frame" x="103.5" y="0.0" width="103.5" height="63"/>
                             <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                            <state key="normal" title="教育(3)" image="搜索">
+                            <state key="normal" title="教育(3)" image="icon_education">
                                 <color key="titleColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
-                            <state key="selected">
+                            <state key="selected" image="icon_education_click">
                                 <color key="titleColor" red="1" green="0.62352941179999999" blue="0.031372549020000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </state>
                             <userDefinedRuntimeAttributes>
@@ -69,10 +69,10 @@
                         <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pYL-RW-h8k" customClass="SPButton">
                             <rect key="frame" x="207" y="0.0" width="103.5" height="63"/>
                             <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                            <state key="normal" title="医疗(3)" image="搜索">
+                            <state key="normal" title="医疗" image="icon_medical">
                                 <color key="titleColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
-                            <state key="selected">
+                            <state key="selected" image="icon_medical_click">
                                 <color key="titleColor" red="1" green="0.62352941179999999" blue="0.031372549020000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </state>
                             <userDefinedRuntimeAttributes>
@@ -90,10 +90,10 @@
                         <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VYb-ek-IQW" customClass="SPButton">
                             <rect key="frame" x="310.5" y="0.0" width="103.5" height="63"/>
                             <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                            <state key="normal" title="商业(3)" image="搜索">
+                            <state key="normal" title="商业(3)" image="icon_business">
                                 <color key="titleColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
-                            <state key="selected">
+                            <state key="selected" image="icon_business_click">
                                 <color key="titleColor" red="1" green="0.62352941179999999" blue="0.031372549020000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </state>
                             <userDefinedRuntimeAttributes>
@@ -158,7 +158,14 @@
         </view>
     </objects>
     <resources>
+        <image name="icon_bus" width="24" height="24"/>
+        <image name="icon_bus_click" width="24" height="24"/>
+        <image name="icon_business" width="24" height="24"/>
+        <image name="icon_business_click" width="24" height="24"/>
+        <image name="icon_education" width="24" height="24"/>
+        <image name="icon_education_click" width="24" height="24"/>
+        <image name="icon_medical" width="24" height="24"/>
+        <image name="icon_medical_click" width="24" height="24"/>
         <image name="tohousetag" width="64" height="64"/>
-        <image name="搜索" width="15" height="15"/>
     </resources>
 </document>

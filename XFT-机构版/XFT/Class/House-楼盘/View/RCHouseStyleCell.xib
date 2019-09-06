@@ -29,6 +29,17 @@
                                     <constraint firstAttribute="width" secondItem="T9x-CJ-ExH" secondAttribute="height" multiplier="1:1" id="yYX-2W-dwm"/>
                                 </constraints>
                             </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="销售中" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tol-2V-Ovp">
+                                <rect key="frame" x="0.0" y="0.0" width="55" height="18"/>
+                                <color key="backgroundColor" red="0.92549019610000005" green="0.078431372550000003" blue="0.1764705882" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="18" id="5iW-wL-UZw"/>
+                                    <constraint firstAttribute="width" constant="55" id="L23-FD-S02"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="A1户型(1室1厅1卫)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KDF-aU-Jyy">
                                 <rect key="frame" x="10" y="164" width="134" height="17"/>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
@@ -47,24 +58,22 @@
                                 <color key="textColor" red="0.92549019610000005" green="0.078431372550000003" blue="0.1764705882" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="s7o-Ok-yR6">
-                                <rect key="frame" x="119" y="193" width="25" height="25"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="计算机" translatesAutoresizingMaskIntoConstraints="NO" id="s7o-Ok-yR6">
+                                <rect key="frame" x="126" y="205" width="18" height="18"/>
                                 <color key="backgroundColor" red="0.96470588239999999" green="0.96862745100000003" blue="0.98431372549999996" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="25" id="F5h-52-yNJ"/>
-                                    <constraint firstAttribute="height" constant="25" id="xzW-m4-2LJ"/>
-                                </constraints>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.96470588239999999" green="0.96862745100000003" blue="0.98431372549999996" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="T9x-CJ-ExH" firstAttribute="leading" secondItem="PZG-l5-9WA" secondAttribute="leading" id="EQT-6p-IMJ"/>
                             <constraint firstAttribute="trailing" secondItem="0RA-gt-yh1" secondAttribute="trailing" constant="10" id="Gjw-I8-IfS"/>
+                            <constraint firstItem="Tol-2V-Ovp" firstAttribute="top" secondItem="PZG-l5-9WA" secondAttribute="top" id="KWe-Ft-fMa"/>
                             <constraint firstItem="0RA-gt-yh1" firstAttribute="top" secondItem="KDF-aU-Jyy" secondAttribute="bottom" constant="5" id="Kbj-SO-fGv"/>
                             <constraint firstItem="T9x-CJ-ExH" firstAttribute="top" secondItem="PZG-l5-9WA" secondAttribute="top" id="RDr-wp-mSB"/>
                             <constraint firstAttribute="trailing" secondItem="T9x-CJ-ExH" secondAttribute="trailing" id="Sek-L4-Flh"/>
                             <constraint firstAttribute="trailing" secondItem="s7o-Ok-yR6" secondAttribute="trailing" constant="10" id="VgF-MU-YKD"/>
-                            <constraint firstAttribute="bottom" secondItem="s7o-Ok-yR6" secondAttribute="bottom" constant="10" id="WaT-Pr-A17"/>
+                            <constraint firstAttribute="bottom" secondItem="s7o-Ok-yR6" secondAttribute="bottom" constant="5" id="WaT-Pr-A17"/>
+                            <constraint firstItem="Tol-2V-Ovp" firstAttribute="leading" secondItem="PZG-l5-9WA" secondAttribute="leading" id="bEj-Sw-qjY"/>
                             <constraint firstAttribute="trailing" secondItem="KDF-aU-Jyy" secondAttribute="trailing" constant="10" id="cDi-ft-RNi"/>
                             <constraint firstItem="0RA-gt-yh1" firstAttribute="leading" secondItem="PZG-l5-9WA" secondAttribute="leading" constant="10" id="k2j-1o-5ZV"/>
                             <constraint firstItem="Eqv-Jw-nIb" firstAttribute="leading" secondItem="PZG-l5-9WA" secondAttribute="leading" constant="10" id="m4f-P5-hct"/>
@@ -89,7 +98,13 @@
             </constraints>
             <viewLayoutGuide key="safeArea" id="SEy-5g-ep8"/>
             <size key="customSize" width="154" height="228"/>
+            <connections>
+                <outlet property="styleTag" destination="Tol-2V-Ovp" id="nFE-EV-Drs"/>
+            </connections>
             <point key="canvasLocation" x="-62.318840579710148" y="66.294642857142861"/>
         </collectionViewCell>
     </objects>
+    <resources>
+        <image name="计算机" width="18" height="18"/>
+    </resources>
 </document>
