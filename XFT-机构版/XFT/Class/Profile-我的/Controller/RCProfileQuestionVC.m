@@ -37,7 +37,7 @@ static NSString *const ProfileQuestionCell = @"ProfileQuestionCell";
     self.tableView.estimatedSectionHeaderHeight = 0;
     self.tableView.estimatedSectionFooterHeight = 0;
     
-    self.tableView.contentInset = UIEdgeInsetsMake(150, 0, 15, 0);
+    self.tableView.contentInset = UIEdgeInsetsMake(240, 0, 15, 0);
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     
@@ -49,8 +49,9 @@ static NSString *const ProfileQuestionCell = @"ProfileQuestionCell";
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([RCProfileQuestionCell class]) bundle:nil] forCellReuseIdentifier:ProfileQuestionCell];
     
     self.tableView.backgroundColor= [UIColor clearColor];
-    UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ceshibg"]];
-    
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"pic_question"]];
+    imageView.backgroundColor = UIColorFromRGB(0xE3F4FF);
+    imageView.contentMode = UIViewContentModeTop;
     self.tableView.backgroundView = imageView;
 }
 #pragma mark -- UITableView数据源和代理

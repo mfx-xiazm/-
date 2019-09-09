@@ -43,7 +43,7 @@
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0On-Zu-eZ9" customClass="SPButton">
                                             <rect key="frame" x="0.0" y="0.0" width="109.5" height="36"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                            <state key="normal" title="最后备注" image="Shape">
+                                            <state key="normal" title="最后备注" image="icon_qiehuan_moren">
                                                 <color key="titleColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                                             </state>
                                             <userDefinedRuntimeAttributes>
@@ -58,7 +58,7 @@
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YHB-wC-I0s" customClass="SPButton">
                                             <rect key="frame" x="109.5" y="0.0" width="109" height="36"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                            <state key="normal" title="报备时间" image="Shape">
+                                            <state key="normal" title="报备时间" image="icon_qiehuan_moren">
                                                 <color key="titleColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                                             </state>
                                             <userDefinedRuntimeAttributes>
@@ -73,7 +73,7 @@
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DGN-qZ-vcQ" customClass="SPButton">
                                             <rect key="frame" x="218.5" y="0.0" width="109.5" height="36"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                            <state key="normal" title="筛选" image="Shape">
+                                            <state key="normal" title="筛选" image="icon_shaixuan_ce">
                                                 <color key="titleColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                                             </state>
                                             <userDefinedRuntimeAttributes>
@@ -148,6 +148,7 @@
         </view>
     </objects>
     <resources>
-        <image name="Shape" width="8" height="5"/>
+        <image name="icon_qiehuan_moren" width="18" height="18"/>
+        <image name="icon_shaixuan_ce" width="24" height="24"/>
     </resources>
 </document>

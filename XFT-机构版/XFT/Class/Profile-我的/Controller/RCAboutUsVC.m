@@ -39,9 +39,14 @@
         _navBarView = [RCNavBarView loadXibView];
         _navBarView.frame = CGRectMake(0, 0, HX_SCREEN_WIDTH, self.HXNavBarHeight);
         _navBarView.backBtn.hidden = NO;
+        [_navBarView.backBtn setImage:HXGetImage(@"icon_wback") forState:UIControlStateNormal];
         _navBarView.titleL.text = @"关于我们";
         _navBarView.titleL.hidden = NO;
         _navBarView.titleL.textAlignment = NSTextAlignmentCenter;
+        hx_weakify(self);
+        _navBarView.navBackCall = ^{
+            [weakSelf.navigationController popViewControllerAnimated:YES];
+        };
     }
     return _navBarView;
 }

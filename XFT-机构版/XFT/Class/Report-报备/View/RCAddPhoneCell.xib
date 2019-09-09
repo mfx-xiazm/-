@@ -43,7 +43,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入电话号码" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="7mg-2d-tXl">
-                                <rect key="frame" x="93" y="2" width="182" height="40"/>
+                                <rect key="frame" x="93" y="2" width="172" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="z0M-vr-hAC"/>
                                 </constraints>
@@ -53,12 +53,11 @@
                             </textField>
                             <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vp0-ru-3MK">
                                 <rect key="frame" x="275" y="7" width="30" height="30"/>
-                                <color key="backgroundColor" red="0.92549019610000005" green="0.078431372550000003" blue="0.1764705882" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="30" id="DOy-qs-Fyu"/>
                                     <constraint firstAttribute="height" constant="30" id="UpC-2w-zw0"/>
                                 </constraints>
-                                <state key="normal" title="-"/>
+                                <state key="normal" image="icon_del"/>
                                 <connections>
                                     <action selector="cutBtnClicked:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="51V-m0-8Md"/>
                                 </connections>
@@ -80,7 +79,7 @@
                             <constraint firstItem="UR2-Pe-DnS" firstAttribute="centerY" secondItem="aUi-78-oLn" secondAttribute="centerY" id="bWb-Nu-Ma1"/>
                             <constraint firstItem="O9o-x3-7On" firstAttribute="leading" secondItem="aUi-78-oLn" secondAttribute="leading" constant="15" id="dMC-69-2Zl"/>
                             <constraint firstAttribute="trailing" secondItem="Vp0-ru-3MK" secondAttribute="trailing" constant="15" id="dSK-7F-hMi"/>
-                            <constraint firstItem="Vp0-ru-3MK" firstAttribute="leading" secondItem="7mg-2d-tXl" secondAttribute="trailing" id="lK8-kl-IK3"/>
+                            <constraint firstItem="Vp0-ru-3MK" firstAttribute="leading" secondItem="7mg-2d-tXl" secondAttribute="trailing" constant="10" id="lK8-kl-IK3"/>
                             <constraint firstAttribute="bottom" secondItem="O9o-x3-7On" secondAttribute="bottom" id="ugT-39-DCL"/>
                             <constraint firstAttribute="trailing" secondItem="O9o-x3-7On" secondAttribute="trailing" constant="15" id="v74-xJ-FuX"/>
                         </constraints>
@@ -96,4 +95,7 @@
             <viewLayoutGuide key="safeArea" id="aW0-zy-SZf"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="icon_del" width="24" height="24"/>
+    </resources>
 </document>

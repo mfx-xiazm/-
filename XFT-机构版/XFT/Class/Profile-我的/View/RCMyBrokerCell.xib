@@ -31,13 +31,8 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="AH4-kA-XYt">
-                                        <rect key="frame" x="275" y="12" width="20" height="20"/>
-                                        <color key="backgroundColor" red="0.96470588239999999" green="0.96862745100000003" blue="0.98431372549999996" alpha="1" colorSpace="calibratedRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="20" id="COj-zP-e7s"/>
-                                            <constraint firstAttribute="height" constant="20" id="sou-jx-SnZ"/>
-                                        </constraints>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_next" translatesAutoresizingMaskIntoConstraints="NO" id="AH4-kA-XYt">
+                                        <rect key="frame" x="283" y="16" width="12" height="12"/>
                                     </imageView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eCb-KI-SKU" userLabel="分割线">
                                         <rect key="frame" x="15" y="43" width="280" height="1"/>
@@ -102,19 +97,20 @@
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hLG-uG-jJ9">
                                         <rect key="frame" x="15" y="7" width="30" height="30"/>
-                                        <color key="backgroundColor" red="0.96470588239999999" green="0.96862745100000003" blue="0.98431372549999996" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="91e-6B-hgs"/>
                                             <constraint firstAttribute="width" constant="30" id="zCf-vI-MF3"/>
                                         </constraints>
+                                        <state key="normal" image="icon_prohibit"/>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Xr-eg-a6R">
                                         <rect key="frame" x="60" y="7" width="30" height="30"/>
-                                        <color key="backgroundColor" red="0.96470588239999999" green="0.96862745100000003" blue="0.98431372549999996" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="30" id="3st-74-l0i"/>
                                             <constraint firstAttribute="height" constant="30" id="7rm-SW-d0R"/>
                                         </constraints>
+                                        <state key="normal" image="iocn_del_2"/>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -169,4 +165,9 @@
             <point key="canvasLocation" x="152.17391304347828" y="161.04910714285714"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="icon_next" width="12" height="12"/>
+        <image name="icon_prohibit" width="24" height="24"/>
+        <image name="iocn_del_2" width="24" height="24"/>
+    </resources>
 </document>

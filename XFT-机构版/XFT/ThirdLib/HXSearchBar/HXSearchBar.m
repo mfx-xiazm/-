@@ -21,7 +21,7 @@
         self.textAlignment = NSTextAlignmentCenter;
         
         UIImageView *searchIcon = [[UIImageView alloc] init];
-        searchIcon.image = [UIImage imageNamed:@"搜索"];
+        searchIcon.image = [UIImage imageNamed:@"icon_search_gray"];
         searchIcon.hxn_width = 26;
         searchIcon.hxn_height = 26;
         searchIcon.contentMode = UIViewContentModeCenter;

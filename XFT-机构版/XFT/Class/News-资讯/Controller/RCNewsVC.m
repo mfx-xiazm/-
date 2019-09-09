@@ -11,7 +11,6 @@
 #import "RCNewsDetailVC.h"
 #import <JXCategoryView.h>
 #import "RCHouseBannerHeader.h"
-#import "RCSearchCityVC.h"
 
 static NSString *const NewsCell = @"NewsCell";
 @interface RCNewsVC ()<UITableViewDelegate,UITableViewDataSource,JXCategoryViewDelegate>
@@ -27,7 +26,6 @@ static NSString *const NewsCell = @"NewsCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.navigationItem setTitle:@"资讯"];
-    [self setUpNavBar];
     [self setUpTableView];
 }
 -(void)viewDidLayoutSubviews
@@ -50,14 +48,6 @@ static NSString *const NewsCell = @"NewsCell";
         _categoryView.titleColor = UIColorFromRGB(0x666666);
         _categoryView.titleSelectedColor = UIColorFromRGB(0x333333);
         _categoryView.delegate = self;
-
-        JXCategoryIndicatorLineView *lineView = [[JXCategoryIndicatorLineView alloc] init];
-        lineView.verticalMargin = 15.f;
-        lineView.indicatorCornerRadius = 0.f;
-        lineView.indicatorHeight = 6.f;
-        lineView.indicatorWidthIncrement = 8.f;
-        lineView.indicatorColor = HXRGBAColor(255, 159, 8, 0.6);
-        _categoryView.indicators = @[lineView];
     }
     return _categoryView;
 }
@@ -67,19 +57,6 @@ static NSString *const NewsCell = @"NewsCell";
         _header = [RCHouseBannerHeader loadXibView];
     }
     return _header;
-}
--(void)setUpNavBar
-{
-    SPButton *item = [[SPButton alloc] initWithImagePosition:SPButtonImagePositionLeft];
-    item.hxn_size = CGSizeMake(70, 30);
-    item.imageTitleSpace = 5.f;
-    item.titleLabel.font = [UIFont systemFontOfSize:16 weight:UIFontWeightMedium];
-    [item setTitleColor:UIColorFromRGB(0x333333) forState:UIControlStateNormal];
-    [item setImage:HXGetImage(@"搜索") forState:UIControlStateNormal];
-    [item setTitle:@"武汉" forState:UIControlStateNormal];
-    [item addTarget:self action:@selector(cityClicked) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:item];
-    
 }
 -(void)setUpTableView
 {
@@ -112,11 +89,7 @@ static NSString *const NewsCell = @"NewsCell";
     self.tableView.tableHeaderView = self.header;
 }
 #pragma mark -- 点击事件
--(void)cityClicked
-{
-    RCSearchCityVC *hvc = [RCSearchCityVC new];
-    [self.navigationController pushViewController:hvc animated:YES];
-}
+
 #pragma mark -- UITableView数据源和代理
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
@@ -130,6 +103,10 @@ static NSString *const NewsCell = @"NewsCell";
     header.hxn_width = HX_SCREEN_WIDTH;
     [header addSubview:self.categoryView];
     return header;
+}
+-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    return 0.1f;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {

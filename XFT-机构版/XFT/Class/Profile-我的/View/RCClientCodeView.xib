@@ -35,11 +35,11 @@
                         </imageView>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tdl-Ar-22g">
                             <rect key="frame" x="330" y="10" width="30" height="30"/>
-                            <color key="backgroundColor" red="0.96470588239999999" green="0.96862745100000003" blue="0.98431372549999996" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="30" id="TRy-Ad-50r"/>
                                 <constraint firstAttribute="width" constant="30" id="x3Q-dM-DIH"/>
                             </constraints>
+                            <state key="normal" image="icon_close"/>
                             <connections>
                                 <action selector="closeBtnClicked:" destination="iN0-l3-epB" eventType="touchUpInside" id="beW-Of-HBo"/>
                             </connections>
@@ -84,11 +84,11 @@
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b3W-pO-zuj">
                             <rect key="frame" x="330" y="10" width="30" height="30"/>
-                            <color key="backgroundColor" red="0.96470588239999999" green="0.96862745100000003" blue="0.98431372549999996" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="30" id="YIO-i2-e64"/>
                                 <constraint firstAttribute="width" constant="30" id="cRp-2n-Ued"/>
                             </constraints>
+                            <state key="normal" image="icon_close"/>
                             <connections>
                                 <action selector="closeBtnClicked:" destination="iN0-l3-epB" eventType="touchUpInside" id="QgZ-qF-rkq"/>
                             </connections>
@@ -176,4 +176,7 @@
             <point key="canvasLocation" x="136.95652173913044" y="367.63392857142856"/>
         </view>
     </objects>
+    <resources>
+        <image name="icon_close" width="24" height="24"/>
+    </resources>
 </document>

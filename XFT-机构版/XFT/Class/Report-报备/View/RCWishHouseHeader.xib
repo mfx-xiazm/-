@@ -18,9 +18,8 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vd2-I0-8jN">
                     <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
                     <subviews>
-                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="FOG-Zn-4Ah">
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_bulding" translatesAutoresizingMaskIntoConstraints="NO" id="FOG-Zn-4Ah">
                             <rect key="frame" x="15" y="10" width="30" height="30"/>
-                            <color key="backgroundColor" red="0.96470588239999999" green="0.96862745100000003" blue="0.98431372549999996" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="30" id="BZk-LB-yu6"/>
                                 <constraint firstAttribute="height" constant="30" id="Kgz-EX-PVE"/>
@@ -62,4 +61,7 @@
             <point key="canvasLocation" x="76.811594202898561" y="304.6875"/>
         </view>
     </objects>
+    <resources>
+        <image name="icon_bulding" width="24" height="24"/>
+    </resources>
 </document>

@@ -30,8 +30,8 @@
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                     </label>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="栏目删除" translatesAutoresizingMaskIntoConstraints="NO" id="Gba-u1-JhR">
-                        <rect key="frame" x="164" y="18.5" width="13" height="13"/>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="label_icon_del" translatesAutoresizingMaskIntoConstraints="NO" id="Gba-u1-JhR">
+                        <rect key="frame" x="153" y="13" width="24" height="24"/>
                     </imageView>
                 </subviews>
             </view>
@@ -52,6 +52,6 @@
         </collectionViewCell>
     </objects>
     <resources>
-        <image name="栏目删除" width="13" height="13"/>
+        <image name="label_icon_del" width="24" height="24"/>
     </resources>
 </document>

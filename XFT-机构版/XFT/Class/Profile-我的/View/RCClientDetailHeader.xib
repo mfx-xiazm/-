@@ -100,7 +100,7 @@
                                 <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dWz-oE-ve5" customClass="SPButton">
                                     <rect key="frame" x="0.0" y="0.0" width="145" height="70"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                    <state key="normal" title="15327427571" image="搜索">
+                                    <state key="normal" title="15327427571" image="icon_telphone">
                                         <color key="titleColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </state>
                                     <userDefinedRuntimeAttributes>
@@ -115,7 +115,7 @@
                                 <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w5b-Ar-GMf" customClass="SPButton">
                                     <rect key="frame" x="145" y="0.0" width="145" height="70"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                    <state key="normal" title="发送短信" image="搜索">
+                                    <state key="normal" title="发送短信" image="icon_news_48">
                                         <color key="titleColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </state>
                                     <userDefinedRuntimeAttributes>
@@ -130,7 +130,7 @@
                                 <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rMT-9g-0wT" customClass="SPButton">
                                     <rect key="frame" x="290" y="0.0" width="145" height="70"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                    <state key="normal" title="带看码" image="搜索">
+                                    <state key="normal" title="带看码" image="icon_erweima_48">
                                         <color key="titleColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </state>
                                     <userDefinedRuntimeAttributes>
@@ -190,6 +190,8 @@
         </view>
     </objects>
     <resources>
-        <image name="搜索" width="15" height="15"/>
+        <image name="icon_erweima_48" width="24" height="24"/>
+        <image name="icon_news_48" width="24" height="24"/>
+        <image name="icon_telphone" width="24" height="24"/>
     </resources>
 </document>

@@ -23,8 +23,8 @@
 }
 -(void)setUpNavBar
 {
-    UIBarButtonItem *shareItem = [UIBarButtonItem itemWithTarget:self action:@selector(shareClicked) nomalImage:HXGetImage(@"搜索") higeLightedImage:HXGetImage(@"搜索") imageEdgeInsets:UIEdgeInsetsZero];
-    UIBarButtonItem *collectItem = [UIBarButtonItem itemWithTarget:self action:@selector(collectClicked) nomalImage:HXGetImage(@"搜索") higeLightedImage:HXGetImage(@"搜索") imageEdgeInsets:UIEdgeInsetsZero];
+    UIBarButtonItem *shareItem = [UIBarButtonItem itemWithTarget:self action:@selector(shareClicked) nomalImage:HXGetImage(@"icon_share_top") higeLightedImage:HXGetImage(@"icon_share_top") imageEdgeInsets:UIEdgeInsetsZero];
+    UIBarButtonItem *collectItem = [UIBarButtonItem itemWithTarget:self action:@selector(collectClicked) nomalImage:HXGetImage(@"icon_sc_top") higeLightedImage:HXGetImage(@"icon_sc_top") imageEdgeInsets:UIEdgeInsetsZero];
 
     self.navigationItem.rightBarButtonItems = @[shareItem,collectItem];
 

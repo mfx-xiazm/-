@@ -39,13 +39,9 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aNz-6U-ODO">
-                                        <rect key="frame" x="300" y="7" width="30" height="30"/>
-                                        <color key="backgroundColor" red="0.96470588239999999" green="0.96862745100000003" blue="0.98431372549999996" alpha="1" colorSpace="calibratedRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="30" id="2x4-0u-Bf1"/>
-                                            <constraint firstAttribute="height" constant="30" id="a7g-BB-NC9"/>
-                                        </constraints>
+                                        <rect key="frame" x="306" y="10" width="24" height="24"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <state key="normal" image="icon_choose_frame"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="color" keyPath="boderColor">
                                                 <color key="value" red="1" green="0.62352941179999999" blue="0.031372549020000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -69,17 +65,17 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hcn-PD-2fl">
                                 <rect key="frame" x="0.0" y="44" width="345" height="65.5"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="搜索" translatesAutoresizingMaskIntoConstraints="NO" id="feE-jp-KZe">
-                                        <rect key="frame" x="15" y="12" width="15" height="15"/>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_telphone_zy" translatesAutoresizingMaskIntoConstraints="NO" id="feE-jp-KZe">
+                                        <rect key="frame" x="15" y="8" width="24" height="24"/>
                                     </imageView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xva-Zs-HzZ">
                                         <rect key="frame" x="289" y="13" width="40" height="40"/>
-                                        <color key="backgroundColor" red="0.96470588239999999" green="0.96862745100000003" blue="0.98431372549999996" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="40" id="I6m-yc-tsw"/>
                                             <constraint firstAttribute="height" constant="40" id="LtW-XY-qlQ"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <state key="normal" image="icon_phone_circle"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="color" keyPath="boderColor">
                                                 <color key="value" red="1" green="0.62352941179999999" blue="0.031372549020000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -87,16 +83,16 @@
                                         </userDefinedRuntimeAttributes>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="13938762657" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rnr-hn-exU">
-                                        <rect key="frame" x="40" y="11" width="91" height="17"/>
+                                        <rect key="frame" x="49" y="11.5" width="91" height="17"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="搜索" translatesAutoresizingMaskIntoConstraints="NO" id="eBd-7v-x1y">
-                                        <rect key="frame" x="15" y="38.5" width="15" height="15"/>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_bulding_zy" translatesAutoresizingMaskIntoConstraints="NO" id="eBd-7v-x1y">
+                                        <rect key="frame" x="15" y="33.5" width="24" height="24"/>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="武汉 融创公馆" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SO4-ET-ivN">
-                                        <rect key="frame" x="40" y="37.5" width="89.5" height="17"/>
+                                        <rect key="frame" x="49" y="37" width="89.5" height="17"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -105,13 +101,13 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="Rnr-hn-exU" firstAttribute="leading" secondItem="feE-jp-KZe" secondAttribute="trailing" constant="10" id="1dD-Lg-GYE"/>
-                                    <constraint firstItem="feE-jp-KZe" firstAttribute="top" secondItem="hcn-PD-2fl" secondAttribute="top" constant="12" id="5fd-Qo-b2c"/>
+                                    <constraint firstItem="feE-jp-KZe" firstAttribute="top" secondItem="hcn-PD-2fl" secondAttribute="top" constant="8" id="5fd-Qo-b2c"/>
                                     <constraint firstItem="feE-jp-KZe" firstAttribute="leading" secondItem="hcn-PD-2fl" secondAttribute="leading" constant="15" id="EY6-kG-Qwh"/>
                                     <constraint firstItem="xva-Zs-HzZ" firstAttribute="centerY" secondItem="hcn-PD-2fl" secondAttribute="centerY" id="HfC-lO-eGf"/>
                                     <constraint firstItem="eBd-7v-x1y" firstAttribute="leading" secondItem="hcn-PD-2fl" secondAttribute="leading" constant="15" id="IqQ-FE-K1p"/>
                                     <constraint firstItem="SO4-ET-ivN" firstAttribute="centerY" secondItem="eBd-7v-x1y" secondAttribute="centerY" id="RJq-cz-qVA"/>
                                     <constraint firstItem="SO4-ET-ivN" firstAttribute="leading" secondItem="eBd-7v-x1y" secondAttribute="trailing" constant="10" id="Tiz-kz-bzU"/>
-                                    <constraint firstAttribute="bottom" secondItem="eBd-7v-x1y" secondAttribute="bottom" constant="12" id="hmh-IK-Xne"/>
+                                    <constraint firstAttribute="bottom" secondItem="eBd-7v-x1y" secondAttribute="bottom" constant="8" id="hmh-IK-Xne"/>
                                     <constraint firstItem="Rnr-hn-exU" firstAttribute="centerY" secondItem="feE-jp-KZe" secondAttribute="centerY" id="sPn-qx-MMf"/>
                                     <constraint firstAttribute="trailing" secondItem="xva-Zs-HzZ" secondAttribute="trailing" constant="16" id="th5-co-f7m"/>
                                 </constraints>
@@ -193,6 +189,9 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="搜索" width="15" height="15"/>
+        <image name="icon_bulding_zy" width="24" height="24"/>
+        <image name="icon_choose_frame" width="24" height="24"/>
+        <image name="icon_phone_circle" width="34" height="34"/>
+        <image name="icon_telphone_zy" width="24" height="24"/>
     </resources>
 </document>

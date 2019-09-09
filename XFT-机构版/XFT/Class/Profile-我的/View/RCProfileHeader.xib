@@ -18,9 +18,8 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nlr-vZ-Knj">
                     <rect key="frame" x="0.0" y="0.0" width="414" height="240"/>
                     <subviews>
-                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="c0B-GL-BRv">
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pic_mine_background" translatesAutoresizingMaskIntoConstraints="NO" id="c0B-GL-BRv">
                             <rect key="frame" x="0.0" y="0.0" width="414" height="170"/>
-                            <color key="backgroundColor" red="1" green="0.62352941179999999" blue="0.031372549020000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="170" id="2Fz-ZC-q1X"/>
                             </constraints>
@@ -28,9 +27,8 @@
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PNQ-Kc-bbF">
                             <rect key="frame" x="15" y="75" width="384" height="150"/>
                             <subviews>
-                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="2dg-Jp-Pd5">
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pic_header" translatesAutoresizingMaskIntoConstraints="NO" id="2dg-Jp-Pd5">
                                     <rect key="frame" x="159" y="25" width="66" height="66"/>
-                                    <color key="backgroundColor" red="0.96470588239999999" green="0.96862745100000003" blue="0.98431372549999996" alpha="1" colorSpace="calibratedRGB"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="66" id="IcN-Ek-Ou0"/>
                                         <constraint firstAttribute="width" secondItem="2dg-Jp-Pd5" secondAttribute="height" multiplier="1:1" id="ugy-Qu-ehd"/>
@@ -47,6 +45,9 @@
                                     <color key="textColor" white="0.10000000000000001" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <nil key="highlightedColor"/>
                                 </label>
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_next" translatesAutoresizingMaskIntoConstraints="NO" id="ASq-5u-ZPx">
+                                    <rect key="frame" x="223" y="108.5" width="12" height="12"/>
+                                </imageView>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gft-0r-XnQ">
                                     <rect key="frame" x="0.0" y="0.0" width="384" height="150"/>
                                     <connections>
@@ -58,8 +59,10 @@
                             <constraints>
                                 <constraint firstItem="2dg-Jp-Pd5" firstAttribute="centerX" secondItem="PNQ-Kc-bbF" secondAttribute="centerX" id="76r-eL-aGY"/>
                                 <constraint firstAttribute="bottom" secondItem="gft-0r-XnQ" secondAttribute="bottom" id="B2Q-9D-Ae1"/>
+                                <constraint firstItem="ASq-5u-ZPx" firstAttribute="leading" secondItem="p21-wz-AkL" secondAttribute="trailing" constant="5" id="I5c-jg-L0t"/>
                                 <constraint firstItem="p21-wz-AkL" firstAttribute="centerX" secondItem="PNQ-Kc-bbF" secondAttribute="centerX" id="S1f-do-bEI"/>
                                 <constraint firstAttribute="trailing" secondItem="gft-0r-XnQ" secondAttribute="trailing" id="VcI-aP-Du9"/>
+                                <constraint firstItem="ASq-5u-ZPx" firstAttribute="centerY" secondItem="p21-wz-AkL" secondAttribute="centerY" id="ZYP-AK-alJ"/>
                                 <constraint firstAttribute="height" constant="150" id="ai6-O9-1cU"/>
                                 <constraint firstItem="gft-0r-XnQ" firstAttribute="leading" secondItem="PNQ-Kc-bbF" secondAttribute="leading" id="ina-W4-dvh"/>
                                 <constraint firstItem="2dg-Jp-Pd5" firstAttribute="top" secondItem="PNQ-Kc-bbF" secondAttribute="top" constant="25" id="m9N-Ix-tKy"/>
@@ -107,4 +110,9 @@
             <point key="canvasLocation" x="137.68115942028987" y="306.69642857142856"/>
         </view>
     </objects>
+    <resources>
+        <image name="icon_next" width="12" height="12"/>
+        <image name="pic_header" width="65" height="65"/>
+        <image name="pic_mine_background" width="375" height="170"/>
+    </resources>
 </document>

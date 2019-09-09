@@ -56,12 +56,12 @@ static NSString *const HouseCell = @"HouseCell";
     item.imageTitleSpace = 5.f;
     item.titleLabel.font = [UIFont systemFontOfSize:16 weight:UIFontWeightMedium];
     [item setTitleColor:UIColorFromRGB(0x333333) forState:UIControlStateNormal];
-    [item setImage:HXGetImage(@"搜索") forState:UIControlStateNormal];
+    [item setImage:HXGetImage(@"icon_home_place") forState:UIControlStateNormal];
     [item setTitle:@"武汉" forState:UIControlStateNormal];
     [item addTarget:self action:@selector(cityClicked) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:item];
     
-    self.navigationItem.rightBarButtonItem = [UIBarButtonItem itemWithTarget:self action:@selector(searchClicked) nomalImage:HXGetImage(@"搜索") higeLightedImage:HXGetImage(@"搜索") imageEdgeInsets:UIEdgeInsetsZero];
+    self.navigationItem.rightBarButtonItem = [UIBarButtonItem itemWithTarget:self action:@selector(searchClicked) nomalImage:HXGetImage(@"icon_search ") higeLightedImage:HXGetImage(@"icon_search ") imageEdgeInsets:UIEdgeInsetsZero];
     
     
     SPButton *menu = [[SPButton alloc] initWithImagePosition:SPButtonImagePositionRight];

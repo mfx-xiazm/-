@@ -84,6 +84,7 @@ static NSString *const ClientNoteCell = @"ClientNoteCell";
     RCClientNoteCell *cell = [tableView dequeueReusableCellWithIdentifier:ClientNoteCell forIndexPath:indexPath];
     //无色
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    cell.tagImg.image = indexPath.row ?HXGetImage(@"circle_jindu_gray"):HXGetImage(@"circle_jindu_yellow");
     cell.buttomLine.hidden = (indexPath.row == 3)?YES:NO;
     return cell;
 }

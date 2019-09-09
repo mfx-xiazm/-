@@ -30,11 +30,11 @@
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f2q-sa-jKu">
                                 <rect key="frame" x="265" y="17.5" width="30" height="30"/>
-                                <color key="backgroundColor" red="0.96470588239999999" green="0.96862745100000003" blue="0.98431372549999996" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="LUt-dv-7Vj"/>
                                     <constraint firstAttribute="width" constant="30" id="eJo-NB-Z9e"/>
                                 </constraints>
+                                <state key="normal" image="icon_choose_frame"/>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nMG-c0-XYq">
                                 <rect key="frame" x="12" y="63.5" width="286" height="1"/>
@@ -68,4 +68,7 @@
             <point key="canvasLocation" x="152.17391304347828" y="120.87053571428571"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="icon_choose_frame" width="24" height="24"/>
+    </resources>
 </document>

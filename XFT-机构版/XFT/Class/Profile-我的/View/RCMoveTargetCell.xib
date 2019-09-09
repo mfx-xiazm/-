@@ -39,13 +39,9 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Aem-Pz-UBN">
-                                        <rect key="frame" x="246" y="7" width="30" height="30"/>
-                                        <color key="backgroundColor" red="0.96470588239999999" green="0.96862745100000003" blue="0.98431372549999996" alpha="1" colorSpace="calibratedRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="30" id="5TN-SM-e9s"/>
-                                            <constraint firstAttribute="width" constant="30" id="xhF-vA-0Wb"/>
-                                        </constraints>
+                                        <rect key="frame" x="252" y="10" width="24" height="24"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <state key="normal" image="icon_choose_frame"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="color" keyPath="boderColor">
                                                 <color key="value" red="1" green="0.62352941179999999" blue="0.031372549020000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -112,4 +108,7 @@
             <point key="canvasLocation" x="138.40579710144928" y="139.95535714285714"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="icon_choose_frame" width="24" height="24"/>
+    </resources>
 </document>

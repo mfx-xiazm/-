@@ -129,7 +129,7 @@
                                 <subviews>
                                     <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I1f-Xs-Ddq">
                                         <rect key="frame" x="0.0" y="0.0" width="50" height="99.5"/>
-                                        <state key="normal" title="-">
+                                        <state key="normal" image="icon_del">
                                             <color key="titleColor" red="0.92549019610000005" green="0.078431372550000003" blue="0.1764705882" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <connections>
@@ -189,4 +189,7 @@
             <point key="canvasLocation" x="-17" y="146"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="icon_del" width="24" height="24"/>
+    </resources>
 </document>

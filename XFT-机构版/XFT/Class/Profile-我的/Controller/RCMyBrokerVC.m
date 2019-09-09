@@ -37,13 +37,13 @@ static NSString *const MyBrokerCell = @"MyBrokerCell";
     filterItem.imageTitleSpace = 5.f;
     filterItem.titleLabel.font = [UIFont systemFontOfSize:16 weight:UIFontWeightMedium];
     [filterItem setTitleColor:UIColorFromRGB(0x333333) forState:UIControlStateNormal];
-    [filterItem setImage:HXGetImage(@"搜索") forState:UIControlStateNormal];
+    [filterItem setImage:HXGetImage(@"icon__top_add") forState:UIControlStateNormal];
     [filterItem addTarget:self action:@selector(addBrokerClicked) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *item1 = [[UIBarButtonItem alloc] initWithCustomView:filterItem];
     
     SPButton *searchItem = [[SPButton alloc] initWithImagePosition:SPButtonImagePositionLeft];
     searchItem.hxn_size = CGSizeMake(44, 44);
-    [searchItem setImage:HXGetImage(@"搜索") forState:UIControlStateNormal];
+    [searchItem setImage:HXGetImage(@"icon_search") forState:UIControlStateNormal];
     [searchItem addTarget:self action:@selector(searchClicked) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *item2 = [[UIBarButtonItem alloc] initWithCustomView:searchItem];
     

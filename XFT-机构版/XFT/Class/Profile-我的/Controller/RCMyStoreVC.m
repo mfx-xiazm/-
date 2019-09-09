@@ -36,13 +36,13 @@ static NSString *const MyStoreCell = @"MyStoreCell";
     filterItem.imageTitleSpace = 5.f;
     filterItem.titleLabel.font = [UIFont systemFontOfSize:16 weight:UIFontWeightMedium];
     [filterItem setTitleColor:UIColorFromRGB(0x333333) forState:UIControlStateNormal];
-    [filterItem setImage:HXGetImage(@"搜索") forState:UIControlStateNormal];
+    [filterItem setImage:HXGetImage(@"icon__top_add") forState:UIControlStateNormal];
     [filterItem addTarget:self action:@selector(addStoreClicked) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *item1 = [[UIBarButtonItem alloc] initWithCustomView:filterItem];
     
     SPButton *searchItem = [[SPButton alloc] initWithImagePosition:SPButtonImagePositionLeft];
     searchItem.hxn_size = CGSizeMake(44, 44);
-    [searchItem setImage:HXGetImage(@"搜索") forState:UIControlStateNormal];
+    [searchItem setImage:HXGetImage(@"icon_search") forState:UIControlStateNormal];
     [searchItem addTarget:self action:@selector(searchClicked) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *item2 = [[UIBarButtonItem alloc] initWithCustomView:searchItem];
     
@@ -149,14 +149,14 @@ static NSString *const MyStoreCell = @"MyStoreCell";
     UILabel *label = [[UILabel alloc] init];
     label.frame = CGRectMake(15, 0, HX_SCREEN_WIDTH/2.0, 44);
     label.textColor = [UIColor lightGrayColor];
-    label.font = [UIFont systemFontOfSize:13];
-    label.text = @"共6个经纪人";
+    label.font = [UIFont systemFontOfSize:14];
+    label.text = @"共6个门店";
     [bgView addSubview:label];
     
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     btn.frame = CGRectMake(HX_SCREEN_WIDTH/2.0, 0, HX_SCREEN_WIDTH/2.0-15, 44);
     btn.titleLabel.font = [UIFont systemFontOfSize:14];
-    [btn setImage:HXGetImage(@"搜索") forState:UIControlStateNormal];
+    [btn setImage:HXGetImage(@"icon_shaixuan_click") forState:UIControlStateNormal];
     [btn setTitle:@"筛选" forState:UIControlStateNormal];
     [btn setTitleColor:HXControlBg forState:UIControlStateNormal];
     btn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;

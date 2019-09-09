@@ -37,9 +37,8 @@
                             <constraint firstAttribute="trailing" secondItem="maR-R2-fkp" secondAttribute="trailing" constant="15" id="tnr-L5-FQJ"/>
                         </constraints>
                     </view>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Udc-fh-n6H">
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_question_tag" translatesAutoresizingMaskIntoConstraints="NO" id="Udc-fh-n6H">
                         <rect key="frame" x="30" y="15" width="25" height="25"/>
-                        <color key="backgroundColor" red="0.96470588239999999" green="0.96862745100000003" blue="0.98431372549999996" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="25" id="66T-Lf-DxS"/>
                             <constraint firstAttribute="width" constant="25" id="7s3-pk-iwS"/>
@@ -80,4 +79,7 @@
             <point key="canvasLocation" x="-42.028985507246382" y="108.14732142857143"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="icon_question_tag" width="24" height="24"/>
+    </resources>
 </document>

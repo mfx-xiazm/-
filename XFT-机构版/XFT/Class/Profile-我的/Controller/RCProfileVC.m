@@ -87,7 +87,7 @@ static NSString *const ProfileCell = @"ProfileCell";
 -(NSArray *)titles
 {
     if (_titles == nil) {
-        _titles = @[@[@"我的门店",@"我的经纪人",@"我的客户",@"转移客户"],@[@"我的收藏",@"常见问题",@"更改密码",@"关于我们"]];
+        _titles = @[@[@{@"title":@"我的门店",@"imagename":@"icon_store"},@{@"title":@"我的经纪人",@"imagename":@"icon_jingjiren"},@{@"title":@"我的客户",@"imagename":@"icon_wdkehu"},@{@"title":@"转移客户",@"imagename":@"icon_zykehu"}],@[@{@"title":@"我的收藏",@"imagename":@"icon_mine_sc"},@{@"title":@"常见问题",@"imagename":@"icon_question"},@{@"title":@"更改密码",@"imagename":@"icon_change_key"},@{@"title":@"关于我们",@"imagename":@"icon_about"}]];
     }
     return _titles;
 }
@@ -154,7 +154,9 @@ static NSString *const ProfileCell = @"ProfileCell";
     RCProfileCell *cell = [tableView dequeueReusableCellWithIdentifier:ProfileCell forIndexPath:indexPath];
     //无色
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    cell.name.text = self.titles[indexPath.section][indexPath.row];
+    NSDictionary *temp = self.titles[indexPath.section][indexPath.row];
+    cell.name.text = temp[@"title"];
+    cell.img.image = HXGetImage(temp[@"imagename"]);
     return cell;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath

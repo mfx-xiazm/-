@@ -29,7 +29,7 @@
                         <constraint firstAttribute="width" constant="60" id="dje-IN-wFk"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <state key="normal" title="全部" image="Shape">
+                    <state key="normal" title="全部" image="icon_next_small">
                         <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </state>
                     <userDefinedRuntimeAttributes>
@@ -60,6 +60,6 @@
         </view>
     </objects>
     <resources>
-        <image name="Shape" width="8" height="5"/>
+        <image name="icon_next_small" width="16" height="16"/>
     </resources>
 </document>
