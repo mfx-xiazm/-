@@ -61,7 +61,7 @@ static NSString *const HouseCell = @"HouseCell";
     [item addTarget:self action:@selector(cityClicked) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:item];
     
-    self.navigationItem.rightBarButtonItem = [UIBarButtonItem itemWithTarget:self action:@selector(searchClicked) nomalImage:HXGetImage(@"icon_search ") higeLightedImage:HXGetImage(@"icon_search ") imageEdgeInsets:UIEdgeInsetsZero];
+    self.navigationItem.rightBarButtonItem = [UIBarButtonItem itemWithTarget:self action:@selector(searchClicked) nomalImage:HXGetImage(@"icon_search") higeLightedImage:HXGetImage(@"icon_search") imageEdgeInsets:UIEdgeInsetsZero];
     
     
     SPButton *menu = [[SPButton alloc] initWithImagePosition:SPButtonImagePositionRight];

@@ -13,7 +13,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="RCReportVC">
             <connections>
                 <outlet property="appointDate" destination="tRX-ah-Vtt" id="mGy-jl-x9N"/>
-                <outlet property="houseTableView" destination="EtP-TU-iXa" id="4dj-2b-4pl"/>
+                <outlet property="collectionView" destination="jZ5-vk-J48" id="y4X-se-BI4"/>
                 <outlet property="houseViewHeight" destination="RDs-r7-CEu" id="5jz-hJ-ckh"/>
                 <outlet property="morePhoneView" destination="RuF-Sc-Xf9" id="sSt-X0-Lfa"/>
                 <outlet property="morePhoneViewHeight" destination="Nef-Ba-4eq" id="ED8-sp-vaq"/>
@@ -88,26 +88,27 @@
                                                 </userDefinedRuntimeAttribute>
                                             </userDefinedRuntimeAttributes>
                                         </view>
-                                        <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="EtP-TU-iXa">
+                                        <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="jZ5-vk-J48">
                                             <rect key="frame" x="0.0" y="50" width="414" height="0.0"/>
-                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            <userDefinedRuntimeAttributes>
-                                                <userDefinedRuntimeAttribute type="number" keyPath="layerBoderCorner">
-                                                    <real key="value" value="8"/>
-                                                </userDefinedRuntimeAttribute>
-                                            </userDefinedRuntimeAttributes>
-                                        </tableView>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="ymf-Jt-LKH">
+                                                <size key="itemSize" width="50" height="50"/>
+                                                <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                                <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                                <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                            </collectionViewFlowLayout>
+                                        </collectionView>
                                     </subviews>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
-                                        <constraint firstAttribute="bottom" secondItem="EtP-TU-iXa" secondAttribute="bottom" id="CYq-c3-XvE"/>
-                                        <constraint firstAttribute="trailing" secondItem="EtP-TU-iXa" secondAttribute="trailing" id="KWL-S6-0je"/>
+                                        <constraint firstItem="jZ5-vk-J48" firstAttribute="leading" secondItem="qZe-L6-bv8" secondAttribute="leading" id="1I2-13-O4b"/>
+                                        <constraint firstItem="jZ5-vk-J48" firstAttribute="top" secondItem="d0a-6A-CDl" secondAttribute="bottom" id="Fzl-G8-9ep"/>
+                                        <constraint firstAttribute="trailing" secondItem="jZ5-vk-J48" secondAttribute="trailing" id="HaT-vv-2LI"/>
                                         <constraint firstAttribute="height" constant="50" id="RDs-r7-CEu"/>
+                                        <constraint firstAttribute="bottom" secondItem="jZ5-vk-J48" secondAttribute="bottom" id="UGc-eH-M5j"/>
                                         <constraint firstItem="d0a-6A-CDl" firstAttribute="leading" secondItem="qZe-L6-bv8" secondAttribute="leading" id="bgs-a4-Sok"/>
                                         <constraint firstAttribute="trailing" secondItem="d0a-6A-CDl" secondAttribute="trailing" id="dkX-zs-A55"/>
                                         <constraint firstItem="d0a-6A-CDl" firstAttribute="top" secondItem="qZe-L6-bv8" secondAttribute="top" id="uIS-ea-BB5"/>
-                                        <constraint firstItem="EtP-TU-iXa" firstAttribute="top" secondItem="d0a-6A-CDl" secondAttribute="bottom" id="v6a-cV-4QH"/>
-                                        <constraint firstItem="EtP-TU-iXa" firstAttribute="leading" secondItem="qZe-L6-bv8" secondAttribute="leading" id="yXr-KN-UHy"/>
                                     </constraints>
                                     <userDefinedRuntimeAttributes>
                                         <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">

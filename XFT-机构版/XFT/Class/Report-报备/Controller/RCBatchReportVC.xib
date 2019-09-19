@@ -13,7 +13,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="RCBatchReportVC">
             <connections>
                 <outlet property="appointDate" destination="hrq-RE-r2r" id="FKu-Hc-fst"/>
-                <outlet property="houseTableView" destination="wtH-qh-90F" id="ogo-3E-mZP"/>
+                <outlet property="collectionView" destination="4dg-za-Ya6" id="8ZM-gS-afh"/>
                 <outlet property="houseViewHeight" destination="efH-qr-S8V" id="EX7-ka-Zwi"/>
                 <outlet property="moreClientTableView" destination="yHt-xU-qj1" id="d26-O7-jjm"/>
                 <outlet property="moreClientViewHeight" destination="B6U-aa-NPw" id="Roj-Bw-mrt"/>
@@ -88,26 +88,27 @@
                                                 </userDefinedRuntimeAttribute>
                                             </userDefinedRuntimeAttributes>
                                         </view>
-                                        <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="wtH-qh-90F">
+                                        <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="4dg-za-Ya6">
                                             <rect key="frame" x="0.0" y="50" width="414" height="0.0"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            <userDefinedRuntimeAttributes>
-                                                <userDefinedRuntimeAttribute type="number" keyPath="layerBoderCorner">
-                                                    <real key="value" value="8"/>
-                                                </userDefinedRuntimeAttribute>
-                                            </userDefinedRuntimeAttributes>
-                                        </tableView>
+                                            <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="TWO-JW-xOq">
+                                                <size key="itemSize" width="50" height="50"/>
+                                                <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                                <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                                <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                            </collectionViewFlowLayout>
+                                        </collectionView>
                                     </subviews>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
-                                        <constraint firstAttribute="trailing" secondItem="wtH-qh-90F" secondAttribute="trailing" id="9Fh-7j-7MS"/>
+                                        <constraint firstAttribute="trailing" secondItem="4dg-za-Ya6" secondAttribute="trailing" id="2I9-2a-Vkn"/>
+                                        <constraint firstItem="4dg-za-Ya6" firstAttribute="leading" secondItem="Gnq-vy-Oyh" secondAttribute="leading" id="529-dr-Ia0"/>
+                                        <constraint firstAttribute="bottom" secondItem="4dg-za-Ya6" secondAttribute="bottom" id="6K1-sg-E80"/>
                                         <constraint firstAttribute="trailing" secondItem="3nh-26-ueL" secondAttribute="trailing" id="QFP-KJ-VE1"/>
-                                        <constraint firstItem="wtH-qh-90F" firstAttribute="leading" secondItem="Gnq-vy-Oyh" secondAttribute="leading" id="YWq-VP-vvB"/>
-                                        <constraint firstItem="wtH-qh-90F" firstAttribute="top" secondItem="3nh-26-ueL" secondAttribute="bottom" id="boo-cS-IdG"/>
                                         <constraint firstAttribute="height" constant="50" id="efH-qr-S8V"/>
                                         <constraint firstItem="3nh-26-ueL" firstAttribute="leading" secondItem="Gnq-vy-Oyh" secondAttribute="leading" id="fv9-13-94H"/>
-                                        <constraint firstAttribute="bottom" secondItem="wtH-qh-90F" secondAttribute="bottom" id="rHI-S7-Ya1"/>
                                         <constraint firstItem="3nh-26-ueL" firstAttribute="top" secondItem="Gnq-vy-Oyh" secondAttribute="top" id="vxa-0Q-aMQ"/>
+                                        <constraint firstItem="4dg-za-Ya6" firstAttribute="top" secondItem="3nh-26-ueL" secondAttribute="bottom" id="wyg-U5-9nK"/>
                                     </constraints>
                                     <userDefinedRuntimeAttributes>
                                         <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
@@ -604,6 +605,7 @@
                 <constraint firstItem="Q5M-cg-NOt" firstAttribute="bottom" secondItem="C8l-Vt-edv" secondAttribute="bottom" id="mb3-t0-HuD"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="Q5M-cg-NOt"/>
+            <point key="canvasLocation" x="137.68115942028987" y="96.428571428571431"/>
         </view>
     </objects>
     <resources>

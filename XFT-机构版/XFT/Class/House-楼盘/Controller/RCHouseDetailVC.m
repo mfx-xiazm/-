@@ -341,12 +341,11 @@ static NSString *const HouseGoodsCell = @"HouseGoodsCell";
     if ([annotation isKindOfClass:[MAPointAnnotation class]]) {
         static NSString *pointReuseIndetifier = @"pointReuseIndetifier";
         MAAnnotationView *annotationView = (MAAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:pointReuseIndetifier];
-        if (annotationView == nil)
-        {
+        if (annotationView == nil){
             annotationView = [[MAAnnotationView alloc] initWithAnnotation:annotation
                                                           reuseIdentifier:pointReuseIndetifier];
         }
-        annotationView.image = [UIImage imageNamed:@"mappin"];
+        annotationView.image = [UIImage imageNamed:@"icon_logo"];
         annotationView.canShowCallout               = YES;
         //设置中心点偏移，使得标注底部中间点成为经纬度对应点
         //annotationView.centerOffset = CGPointMake(0, -18);
