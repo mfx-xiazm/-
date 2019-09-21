@@ -112,9 +112,6 @@ static NSString *const SearchTagHeader = @"SearchTagHeader";
 -(void)writeHistorySearch
 {
     [self.historys writeToFile:KFilePath atomically:YES];
-    
-    RCSearchHouseResultVC *rvc = [RCSearchHouseResultVC new];
-    [self.navigationController pushViewController:rvc animated:YES];
 }
 -(void)checkHistoryData:(NSString *)history
 {
@@ -130,6 +127,10 @@ static NSString *const SearchTagHeader = @"SearchTagHeader";
     [self writeHistorySearch];//写入
     
     [self.collectionView reloadData];//刷新页面
+    
+    RCSearchHouseResultVC *rvc = [RCSearchHouseResultVC new];
+    rvc.keyWord = history;
+    [self.navigationController pushViewController:rvc animated:YES];
 }
 -(void)clearClicked
 {

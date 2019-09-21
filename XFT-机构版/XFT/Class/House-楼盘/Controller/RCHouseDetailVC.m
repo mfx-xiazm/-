@@ -23,7 +23,6 @@
 #import "RCHouseNearbyVC.h"
 #import "RCReportVC.h"
 #import "RCNewsDetailVC.h"
-#import "NSString+HXNExtension.h"
 #import <JXCategoryTitleView.h>
 #import <JXCategoryIndicatorBackgroundView.h>
 #import "RCHouseNearbyCell.h"

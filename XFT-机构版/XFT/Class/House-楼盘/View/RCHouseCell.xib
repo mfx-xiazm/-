@@ -28,6 +28,11 @@
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="mYW-8D-Csd" secondAttribute="height" multiplier="4:3" id="ov0-Vr-a5d"/>
                                 </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layerBoderCorner">
+                                        <real key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="融创金城未来海" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pSv-lF-9Kc">
                                 <rect key="frame" x="144.5" y="15" width="218.5" height="24"/>
@@ -49,7 +54,7 @@
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="248" verticalHuggingPriority="251" text=" 地铁大盘 " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PvQ-Gl-1X8">
                                 <rect key="frame" x="144.5" y="88.5" width="56" height="16"/>
-                                <color key="backgroundColor" red="0.96470588239999999" green="0.96862745100000003" blue="0.98431372549999996" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="16" id="NK9-vY-EXd"/>
                                 </constraints>
@@ -64,7 +69,7 @@
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text=" 精装修 " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WCU-Og-Zsr">
                                 <rect key="frame" x="208.5" y="88.5" width="44" height="16"/>
-                                <color key="backgroundColor" red="0.96470588239999999" green="0.96862745100000003" blue="0.98431372549999996" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="16" id="cTa-V6-Wb8"/>
                                 </constraints>
@@ -79,7 +84,7 @@
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" horizontalCompressionResistancePriority="748" text=" 小户型 " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nqS-jK-T5a">
                                 <rect key="frame" x="260.5" y="88.5" width="44" height="16"/>
-                                <color key="backgroundColor" red="0.96470588239999999" green="0.96862745100000003" blue="0.98431372549999996" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="16" id="N8v-IP-faR"/>
                                 </constraints>
@@ -94,7 +99,7 @@
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="747" text=" 总价低 " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T11-iu-leL">
                                 <rect key="frame" x="312.5" y="88.5" width="44" height="16"/>
-                                <color key="backgroundColor" red="0.96470588239999999" green="0.96862745100000003" blue="0.98431372549999996" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="16" id="KrP-wi-MpN"/>
                                 </constraints>
@@ -150,6 +155,16 @@
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="aW0-zy-SZf"/>
+            <connections>
+                <outlet property="areaName" destination="2SC-nt-YG0" id="74z-86-sF9"/>
+                <outlet property="houseImg" destination="mYW-8D-Csd" id="K3p-01-95S"/>
+                <outlet property="name" destination="pSv-lF-9Kc" id="wxy-Gf-LRT"/>
+                <outlet property="price" destination="Grb-0c-XBj" id="5wS-z8-FKm"/>
+                <outletCollection property="tags" destination="PvQ-Gl-1X8" id="H2P-ZU-xFi"/>
+                <outletCollection property="tags" destination="WCU-Og-Zsr" id="Oaf-CS-ujX"/>
+                <outletCollection property="tags" destination="nqS-jK-T5a" id="ueJ-qx-jMb"/>
+                <outletCollection property="tags" destination="T11-iu-leL" id="6Lq-Qh-no3"/>
+            </connections>
             <point key="canvasLocation" x="153.62318840579712" y="138.95089285714286"/>
         </tableViewCell>
     </objects>

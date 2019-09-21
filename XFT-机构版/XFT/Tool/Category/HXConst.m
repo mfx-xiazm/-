@@ -26,4 +26,5 @@ NSString * const HXBuglyKey = @"e9c8b0e044";
 // 用户定位信息 经纬度 城市
 NSString * const HXUserLongitude = @"HXUserLongitude";
 NSString * const HXUserLatitude = @"HXUserLatitude";
+NSString * const HXUserCityName = @"HXUserCityName";//定位城市
 

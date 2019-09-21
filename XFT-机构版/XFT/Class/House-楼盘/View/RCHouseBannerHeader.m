@@ -10,6 +10,7 @@
 #import "RCBannerCell.h"
 #import <TYCyclePagerView/TYCyclePagerView.h>
 #import <TYCyclePagerView/TYPageControl.h>
+#import "RCHouseBanner.h"
 
 @interface RCHouseBannerHeader ()<TYCyclePagerViewDataSource, TYCyclePagerViewDelegate>
 @property (weak, nonatomic) IBOutlet TYCyclePagerView *cycleView;
@@ -31,7 +32,6 @@
     
     TYPageControl *pageControl = [[TYPageControl alloc] init];
     pageControl.hidesForSinglePage = YES;
-    pageControl.numberOfPages = 3;
     pageControl.currentPageIndicatorSize = CGSizeMake(12, 6);
     pageControl.pageIndicatorSize = CGSizeMake(6, 6);
     pageControl.pageIndicatorImage = [UIImage imageNamed:@"dot_h"];
@@ -45,16 +45,23 @@
     [super layoutSubviews];
     self.pageControl.frame = CGRectMake(0, CGRectGetHeight(self.cycleView.frame) - 15, CGRectGetWidth(self.cycleView.frame), 15);
 }
-
+-(void)setBanners:(NSArray *)banners
+{
+    _banners = banners;
+    self.pageControl.numberOfPages = _banners.count;
+    [self.cycleView reloadData];
+}
 #pragma mark -- TYCyclePagerView代理
 - (NSInteger)numberOfItemsInPagerView:(TYCyclePagerView *)pageView {
-    return 3;
+    return _banners.count;
 }
 
 - (UICollectionViewCell *)pagerView:(TYCyclePagerView *)pagerView cellForItemAtIndex:(NSInteger)index {
     RCBannerCell *cell = [pagerView dequeueReusableCellWithReuseIdentifier:@"BannerCell" forIndex:index];
     cell.contentImg.layer.cornerRadius = 6.f;
     cell.contentImg.layer.masksToBounds = YES;
+    RCHouseBanner *banner = _banners[index];
+    cell.banner = banner;
     return cell;
 }
 
@@ -73,7 +80,9 @@
 
 - (void)pagerView:(TYCyclePagerView *)pageView didSelectedItemCell:(__kindof UICollectionViewCell *)cell atIndex:(NSInteger)index
 {
-    
+    if (self.bannerClickCall) {
+        self.bannerClickCall(index);
+    }
 }
 
 @end

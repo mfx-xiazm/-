@@ -26,6 +26,8 @@
 #import "LYEmptyViewHeader.h"
 #import "SPButton.h"
 #import <MBProgressHUD+NHAdd.h>
+#import "RCUserAeraManager.h"
+#import "NSString+HXNExtension.h"
 
 /**
  调试阶段，用HXLog代替NSLog
@@ -70,11 +72,11 @@
 [View.layer setBorderColor:[Color CGColor]]
 /**获取图片资源*/
 #define HXGetImage(imageName) [UIImage imageNamed:[NSString stringWithFormat:@"%@",imageName]]
-//https://sapi.1qibang.cn/index
-#define HXRC_M_URL @"http://api.1qibang.cn/index/"
+//http://msalesuat.sunac.com.cn/   http://192.168.200.42:9000
+#define HXRC_M_URL @"http://msalesuat.sunac.com.cn/open/api/"
 //#define HXRC_M_URL @"http://yiqibangtestapi.mfxapp.com/index/"
 //https://sapi.1qibang.cn/
-#define HXRC_URL_HEADER @"http://api.1qibang.cn/"
+#define HXRC_URL_HEADER @"http://msalesuat.sunac.com.cn/open/api/"
 //#define HXRC_URL_HEADER @"http://yiqibangtestapi.mfxapp.com/"
 
 #endif /* RCPrefixHeader_pch */

@@ -9,9 +9,10 @@
 #import <UIKit/UIKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
-
+@class RCHouseNews;
 @interface RCNewsCell : UITableViewCell
-
+/* 新闻资讯 */
+@property(nonatomic,copy) RCHouseNews *news;
 @end
 
 NS_ASSUME_NONNULL_END

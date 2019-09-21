@@ -168,18 +168,13 @@ static NSArray *_filtrationCacheKey;
              responseCache:(HXHttpRequestCache)responseCache
                    success:(HXHttpRequestSuccess)success
                    failure:(HXHttpRequestFailed)failure {
-    
+
     NSString *appendUrl =  action?[NSString stringWithFormat:@"%@%@",URL,action]:URL;
 
-    NSMutableDictionary *tempAarameters = nil;
-    if (parameters) {
-        tempAarameters = [NSMutableDictionary dictionaryWithDictionary:(NSDictionary *)parameters];
-        tempAarameters[@"version"] = @"V3";
-    }
     //读取缓存
     responseCache!=nil ? responseCache([HXNetworkCache httpCacheForURL:appendUrl parameters:parameters filtrationCacheKey:_filtrationCacheKey]) : nil;
     
-    NSURLSessionTask *sessionTask = [_sessionManager POST:appendUrl parameters:tempAarameters?tempAarameters:parameters progress:^(NSProgress * _Nonnull uploadProgress) {
+    NSURLSessionTask *sessionTask = [_sessionManager POST:appendUrl parameters:parameters progress:^(NSProgress * _Nonnull uploadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         
@@ -379,6 +374,9 @@ static NSArray *_filtrationCacheKey;
 + (void)initialize {
     _sessionManager = [AFHTTPSessionManager manager];
     _sessionManager.requestSerializer.timeoutInterval = 30.f;
+    [_sessionManager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    _sessionManager.requestSerializer = [AFJSONRequestSerializer serializer];
+    [_sessionManager.requestSerializer setValue:@"{\"domain\":\"agent-app-android\",\"loginId\":\"3697631009564526927d454994b8f881\"}" forHTTPHeaderField:@"UserAccessInfo"];
     _sessionManager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/html", @"text/json", @"text/plain", @"text/javascript", @"text/xml", @"image/*", nil]; 
     // 打开状态栏的等待菊花
     [AFNetworkActivityIndicatorManager sharedManager].enabled = YES;

@@ -11,6 +11,8 @@
 #import "RCNewsDetailVC.h"
 #import <JXCategoryView.h>
 #import "RCHouseBannerHeader.h"
+#import "RCHouseBanner.h"
+#import "RCHouseNews.h"
 
 static NSString *const NewsCell = @"NewsCell";
 @interface RCNewsVC ()<UITableViewDelegate,UITableViewDataSource,JXCategoryViewDelegate>
@@ -19,6 +21,12 @@ static NSString *const NewsCell = @"NewsCell";
 @property (strong, nonatomic) JXCategoryTitleView *categoryView;
 /* 头部视图 */
 @property(nonatomic,strong) RCHouseBannerHeader *header;
+/* 轮播图 */
+@property(nonatomic,strong) NSArray *banners;
+/* 页码 */
+@property (nonatomic,assign) NSInteger pagenum;
+/* 资讯列表 */
+@property(nonatomic,strong) NSMutableArray *newsList;
 @end
 
 @implementation RCNewsVC
@@ -27,6 +35,8 @@ static NSString *const NewsCell = @"NewsCell";
     [super viewDidLoad];
     [self.navigationItem setTitle:@"资讯"];
     [self setUpTableView];
+    [self setUpRefresh];
+    [self getNewsDataRequest];
 }
 -(void)viewDidLayoutSubviews
 {
@@ -55,8 +65,19 @@ static NSString *const NewsCell = @"NewsCell";
 {
     if (_header == nil) {
         _header = [RCHouseBannerHeader loadXibView];
+        //hx_weakify(self);
+        _header.bannerClickCall = ^(NSInteger index) {
+            /*展现方式 0:不跳转 1:新闻咨询 2:报名活动 3房源详情 4:外链H5 5:城市公告 6:视频播放*/
+        };
     }
     return _header;
+}
+-(NSMutableArray *)newsList
+{
+    if (_newsList == nil) {
+        _newsList = [NSMutableArray array];
+    }
+    return _newsList;
 }
 -(void)setUpTableView
 {
@@ -87,9 +108,137 @@ static NSString *const NewsCell = @"NewsCell";
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([RCNewsCell class]) bundle:nil] forCellReuseIdentifier:NewsCell];
     
     self.tableView.tableHeaderView = self.header;
+    
+    self.tableView.hidden = YES;
 }
-#pragma mark -- 点击事件
+/** 添加刷新控件 */
+-(void)setUpRefresh
+{
+    hx_weakify(self);
+    self.tableView.mj_header.automaticallyChangeAlpha = YES;
+    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        hx_strongify(weakSelf);
+        [strongSelf.tableView.mj_footer resetNoMoreData];
+        [strongSelf getNewsListDataRequest:YES completeCall:^{
+            [strongSelf.tableView reloadData];
+        }];
+    }];
+    //追加尾部刷新
+    self.tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
+        hx_strongify(weakSelf);
+        [strongSelf getNewsListDataRequest:NO completeCall:^{
+            [strongSelf.tableView reloadData];
+        }];
+    }];
+}
+#pragma mark -- 接口请求
+/** 资讯数据请求 */
+-(void)getNewsDataRequest
+{
+    dispatch_group_t group = dispatch_group_create();
+    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+    // 执行循序1
+    hx_weakify(self);
+    dispatch_group_async(group, queue, ^{
+        hx_strongify(weakSelf);
+        NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+        NSMutableDictionary *data = [NSMutableDictionary dictionary];
+        data[@"cityId"] = [RCUserAeraManager sharedInstance].curUserArea.cid;
+        NSMutableDictionary *page = [NSMutableDictionary dictionary];
+        page[@"current"] = @"1";
+        page[@"size"] = @"10";
+        parameters[@"data"] = data;
+        parameters[@"page"] = page;
+        
+        [HXNetworkTool POST:HXRC_M_URL action:@"marketing/marketing/xcxBanner/bannerList" parameters:parameters success:^(id responseObject) {
+            if ([responseObject[@"code"] integerValue] == 0) {
+                strongSelf.banners = [NSArray yy_modelArrayWithClass:[RCHouseBanner class] json:responseObject[@"data"]];
+            }else{
+                [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:responseObject[@"msg"]];
+            }
+            dispatch_semaphore_signal(semaphore);
+            
+        } failure:^(NSError *error) {
+            [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:error.localizedDescription];
+            dispatch_semaphore_signal(semaphore);
+            
+        }];
+    });
+    dispatch_group_async(group, queue, ^{
+        hx_strongify(weakSelf);
+        [strongSelf getNewsListDataRequest:YES completeCall:^{
+            dispatch_semaphore_signal(semaphore);
+        }];
+    });
+    
+    dispatch_group_notify(group, queue, ^{
+        // 执行循序4
+        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+        // 执行顺序6
+        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+        
+        // 执行顺序10
+        dispatch_async(dispatch_get_main_queue(), ^{
+            // 刷新界面
+            hx_strongify(weakSelf);
+            strongSelf.tableView.hidden = NO;
+            strongSelf.header.banners = strongSelf.banners;
+            [strongSelf.tableView reloadData];
+        });
+    });
+}
 
+/** 资讯列表请求 */
+-(void)getNewsListDataRequest:(BOOL)isRefresh completeCall:(void(^)(void))completeCall
+{
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    NSMutableDictionary *data = [NSMutableDictionary dictionary];
+    data[@"uuid"] = [RCUserAeraManager sharedInstance].curUserArea.cid;
+    NSMutableDictionary *page = [NSMutableDictionary dictionary];
+    if (isRefresh) {
+        page[@"current"] = @(1);//第几页
+    }else{
+        NSInteger pagenum = self.pagenum+1;
+        page[@"current"] = @(pagenum);//第几页
+    }
+    page[@"size"] = @"10";
+    parameters[@"data"] = data;
+    parameters[@"page"] = page;
+    
+    hx_weakify(self);
+    [HXNetworkTool POST:HXRC_M_URL action:@"pro/pro/News/findListByCityId" parameters:parameters success:^(id responseObject) {
+        hx_strongify(weakSelf);
+        if ([responseObject[@"code"] integerValue] == 0) {
+            if (isRefresh) {
+                [strongSelf.tableView.mj_header endRefreshing];
+                strongSelf.pagenum = 1;
+                [strongSelf.newsList removeAllObjects];
+                NSArray *arrt = [NSArray yy_modelArrayWithClass:[RCHouseNews class] json:responseObject[@"data"]];
+                [strongSelf.newsList addObjectsFromArray:arrt];
+            }else{
+                [strongSelf.tableView.mj_footer endRefreshing];
+                strongSelf.pagenum ++;
+                if ([responseObject[@"data"] isKindOfClass:[NSArray class]] && ((NSArray *)responseObject[@"data"]).count){
+                    NSArray *arrt = [NSArray yy_modelArrayWithClass:[RCHouseNews class] json:responseObject[@"data"]];
+                    [strongSelf.newsList addObjectsFromArray:arrt];
+                }else{// 提示没有更多数据
+                    [strongSelf.tableView.mj_footer endRefreshingWithNoMoreData];
+                }
+            }
+            if (completeCall) {
+                completeCall();
+            }
+        }else{
+            [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:responseObject[@"msg"]];
+        }
+    } failure:^(NSError *error) {
+        [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:error.localizedDescription];
+        if (completeCall) {
+            completeCall();
+        }
+    }];
+}
 #pragma mark -- UITableView数据源和代理
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
@@ -110,12 +259,14 @@ static NSString *const NewsCell = @"NewsCell";
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 6;
+    return self.newsList.count;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     RCNewsCell *cell = [tableView dequeueReusableCellWithIdentifier:NewsCell forIndexPath:indexPath];
     //无色
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    RCHouseNews *news = self.newsList[indexPath.row];
+    cell.news = news;
     return cell;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -126,6 +277,8 @@ static NSString *const NewsCell = @"NewsCell";
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     RCNewsDetailVC *dvc = [RCNewsDetailVC new];
+    RCHouseNews *news = self.newsList[indexPath.row];
+    dvc.newsUuid = news.uuid;
     [self.navigationController pushViewController:dvc animated:YES];
 }
 @end

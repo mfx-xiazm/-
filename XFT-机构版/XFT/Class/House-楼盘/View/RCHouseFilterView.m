@@ -9,17 +9,14 @@
 #import "RCHouseFilterView.h"
 #import "HXDropMenuView.h"
 #import <JXCategoryView.h>
+#import "RCHouseFilterData.h"
 
 @interface RCHouseFilterView ()<HXDropMenuDelegate,HXDropMenuDataSource,JXCategoryViewDelegate>
 @property (weak, nonatomic) IBOutlet JXCategoryTitleView *categoryView;
 
-@property (weak, nonatomic) IBOutlet UILabel *areaLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *areaImg;
-@property (weak, nonatomic) IBOutlet UILabel *wuyeLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *wuyeImg;
-@property (weak, nonatomic) IBOutlet UILabel *huxingLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *huxingImg;
-@property (weak, nonatomic) IBOutlet UILabel *mianjiLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *mianjiImg;
 
 /** 过滤 */
@@ -39,7 +36,7 @@
     self.menuView.titleColor = UIColorFromRGB(0x131D2D);
     self.menuView.titleHightLightColor = UIColorFromRGB(0xFF9F08);
     
-    self.categoryView.titles = @[@"住宅", @"商办"];
+    self.categoryView.titles = @[@"项目"];
     self.categoryView.backgroundColor = [UIColor whiteColor];
     self.categoryView.averageCellSpacingEnabled = NO;
     self.categoryView.titleLabelZoomEnabled = YES;
@@ -48,16 +45,11 @@
     self.categoryView.contentEdgeInsetLeft = 20.f;
     self.categoryView.titleColor = UIColorFromRGB(0x666666);
     self.categoryView.titleSelectedColor = UIColorFromRGB(0x333333);
-    
-    JXCategoryIndicatorLineView *lineView = [[JXCategoryIndicatorLineView alloc] init];
-    lineView.verticalMargin = 14.f;
-    lineView.indicatorCornerRadius = 0.f;
-    lineView.indicatorHeight = 6.f;
-    lineView.indicatorWidthIncrement = 6.f;
-    lineView.indicatorColor = HXRGBAColor(255, 159, 8, 0.6);
-    self.categoryView.indicators = @[lineView];
 }
-
+-(void)setFilterData:(RCHouseFilterData *)filterData
+{
+    _filterData = filterData;
+}
 - (IBAction)filterClicked:(UIButton *)sender {
     if (self.menuView.show) {
         [self.menuView menuHidden];
@@ -96,24 +88,28 @@
 }
 -(NSString *)menu_titleForRow:(NSInteger)row {
     if (self.selectBtn.tag == 1) {
-        return self.areas[row];
+        RCHouseFilterDistrict *dus = self.filterData.countryList[row];
+        return dus.name;
     }else if (self.selectBtn.tag == 2) {
-        return self.wuye[row];
+        RCHouseFilterService *ser = self.filterData.buldType[row];
+        return ser.dictName;
     }else if (self.selectBtn.tag == 3) {
-        return self.huxing[row];
+        RCHouseFilterStyle *sty = self.filterData.hxType[row];
+        return sty.dictName;
     }else{
-        return self.mianji[row];
+        RCHouseFilterArea *area = self.filterData.areaType[row];
+        return area.dictName;
     }
 }
 -(NSInteger)menu_numberOfRows {
     if (self.selectBtn.tag == 1) {
-        return self.areas.count;
+        return self.filterData.countryList.count;
     }else if (self.selectBtn.tag == 2) {
-        return self.wuye.count;
+        return self.filterData.buldType.count;
     }else if (self.selectBtn.tag == 3) {
-        return self.huxing.count;
+        return self.filterData.hxType.count;
     }else{
-        return self.mianji.count;
+        return self.filterData.areaType.count;
     }
 }
 - (void)menu:(HXDropMenuView *)menu didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

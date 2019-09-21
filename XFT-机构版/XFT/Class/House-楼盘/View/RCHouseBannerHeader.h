@@ -10,8 +10,12 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef void(^bannerClickCall)(NSInteger index);
 @interface RCHouseBannerHeader : UIView
-
+/* 轮播图 */
+@property(nonatomic,strong) NSArray *banners;
+/* 轮播图点击 */
+@property(nonatomic,copy) bannerClickCall bannerClickCall;
 @end
 
 NS_ASSUME_NONNULL_END

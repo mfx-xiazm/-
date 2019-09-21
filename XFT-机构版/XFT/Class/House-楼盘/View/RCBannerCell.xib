@@ -19,7 +19,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="371" height="155"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ceshitu" translatesAutoresizingMaskIntoConstraints="NO" id="15s-RB-8sw">
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="15s-RB-8sw">
                         <rect key="frame" x="0.0" y="0.0" width="371" height="155"/>
                         <color key="backgroundColor" red="0.96470588239999999" green="0.96862745100000003" blue="0.98431372549999996" alpha="1" colorSpace="calibratedRGB"/>
                     </imageView>
@@ -47,7 +47,6 @@
         </collectionViewCell>
     </objects>
     <resources>
-        <image name="ceshitu" width="648" height="418"/>
         <image name="icon_vr" width="63" height="63"/>
     </resources>
 </document>

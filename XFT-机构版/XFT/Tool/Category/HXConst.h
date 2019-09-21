@@ -26,7 +26,7 @@ UIKIT_EXTERN NSString * const HXBuglyKey;
 
 // 用户定位信息
 UIKIT_EXTERN NSString * const HXUserLongitude;//经度
-
 UIKIT_EXTERN NSString * const HXUserLatitude;//纬度
+UIKIT_EXTERN NSString * const HXUserCityName;//定位城市
 
 

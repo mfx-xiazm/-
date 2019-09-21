@@ -12,6 +12,7 @@
 #import "RCSearchTagCell.h"
 #import "RCSearchTagHeader.h"
 #import <JXCategoryView.h>
+#import "RCOpenArea.h"
 
 #define KFilePath [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES)[0] stringByAppendingPathComponent:@"kSearchCityHistory.plist"]
 
@@ -29,15 +30,19 @@ static NSString *const SearchTagHeader = @"SearchTagHeader";
 @property (nonatomic,strong) NSMutableArray *historys;
 /** 工具条 */
 @property (nonatomic, strong) JXCategoryTitleView *pinCategoryView;
+/* 关键词 */
+@property(nonatomic,copy) NSString *keyWord;
+/* 搜索结果 */
+@property(nonatomic,strong) NSArray *searchCitys;
 @end
 @implementation RCSearchCityVC
 -(void)viewDidLoad
 {
     [super viewDidLoad];
     [self setUpUIConfig];
-    [self readHistorySearch];
     [self setUpCollectionView];
     [self setUpCategoryView];
+    [self getAllCitysRequest];
 }
 -(void)viewDidLayoutSubviews
 {
@@ -54,7 +59,7 @@ static NSString *const SearchTagHeader = @"SearchTagHeader";
 -(NSMutableArray *)citys
 {
     if (_citys == nil) {
-        _citys = [NSMutableArray arrayWithArray:@[@{@"tag":@"定位城市",@"citys":@[@"武汉"]},@{@"tag":@"历史访问",@"citys":self.historys},@{@"tag":@"热门访问",@"citys":@[@"长沙",@"太原",@"武汉",@"呼和浩特",@"郑州",@"郑州",@"北京",@"长沙",@"太原",@"武汉",@"呼和浩特",@"郑州",@"郑州",@"北京",@"长沙",@"太原",@"武汉",@"呼和浩特",@"郑州",@"郑州",@"北京"]},@{@"tag":@"武汉区域",@"citys":@[@"长沙",@"呼和浩特",@"武汉",@"上海",@"郑州",@"郑州",@"北京",@"长沙",@"呼和浩特",@"武汉",@"上海",@"郑州",@"郑州",@"北京",@"长沙",@"呼和浩特",@"武汉",@"上海",@"郑州",@"郑州",@"北京"]},@{@"tag":@"上海区域",@"citys":@[@"长沙",@"太原",@"武汉",@"上海",@"郑州",@"乌鲁木齐",@"北京",@"长沙",@"太原",@"武汉",@"上海",@"郑州",@"乌鲁木齐",@"北京",@"长沙",@"太原",@"武汉",@"上海",@"郑州",@"乌鲁木齐",@"北京"]},@{@"tag":@"郑州区域",@"citys":@[@"长沙",@"太原",@"武汉",@"上海",@"郑州",@"郑州",@"北京",@"长沙",@"太原",@"武汉",@"上海",@"郑州",@"郑州",@"北京",@"长沙",@"太原",@"武汉",@"上海",@"郑州",@"郑州",@"北京"]}]];
+        _citys = [NSMutableArray array];
     }
     return _citys;
 }
@@ -95,16 +100,11 @@ static NSString *const SearchTagHeader = @"SearchTagHeader";
     self.pinCategoryView = [[JXCategoryTitleView alloc] init];
     self.pinCategoryView.backgroundColor = [UIColor whiteColor];
     self.pinCategoryView.frame = self.categorySuperView.bounds;
-    self.pinCategoryView.titles = @[@"定位城市", @"历史访问", @"热门访问", @"武汉区域", @"上海区域", @"郑州区域"];
     self.pinCategoryView.titleColor = [UIColor lightGrayColor];
     self.pinCategoryView.titleSelectedColor = UIColorFromRGB(0xFF9F08);
     self.pinCategoryView.delegate = self;
     
     [self.categorySuperView addSubview:self.pinCategoryView];
-    
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self updateSectionHeaderAttributes];//存放每组的布局
-    });
 }
 #pragma mark -- 点击事件
 -(void)cancelClickd
@@ -114,77 +114,149 @@ static NSString *const SearchTagHeader = @"SearchTagHeader";
 #pragma mark -- UITextField代理
 -(BOOL)textFieldShouldReturn:(UITextField *)textField
 {
-    if (![textField hasText]) {
-        [MBProgressHUD showOnlyTextToView:self.view title:@"请输入关键字"];
-        return NO;
-    }
-    [textField resignFirstResponder];//放弃响应
     // 发起搜索
-    
+    if ([textField hasText]) {
+        self.keyWord = textField.text;
+        [self getCitysWithKeywordRequest];
+    }else{
+        self.keyWord = nil;
+        // 直接刷新回到全部
+        self.pinCategoryView.hidden = NO;
+        [self.collectionView reloadData];
+    }
     return YES;
 }
 #pragma mark -- UIScrollView代理
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    
-    if (!(scrollView.isTracking || scrollView.isDecelerating)) {
-        //不是用户滚动的，比如setContentOffset等方法，引起的滚动不需要处理。
-        return;
-    }
-    //用户滚动的才处理
-    //获取categoryView下面一点的所有布局信息，用于知道，当前最上方是显示的哪个section
-    for (int i=0; i<self.sectionHeaderAttributes.count; i++) {
-        if (i == self.sectionHeaderAttributes.count-1) {
-            UICollectionViewLayoutAttributes *targetAttri = self.sectionHeaderAttributes[i];
-            if (scrollView.contentOffset.y + 1 >= targetAttri.frame.origin.y) {
-                if (self.pinCategoryView.selectedIndex != i) {
-                    //不相同才切换
-                    [self.pinCategoryView selectItemAtIndex:i];
+    if (!self.keyWord) {
+        if (!(scrollView.isTracking || scrollView.isDecelerating)) {
+            //不是用户滚动的，比如setContentOffset等方法，引起的滚动不需要处理。
+            return;
+        }
+        //用户滚动的才处理
+        //获取categoryView下面一点的所有布局信息，用于知道，当前最上方是显示的哪个section
+        for (int i=0; i<self.sectionHeaderAttributes.count; i++) {
+            if (i == self.sectionHeaderAttributes.count-1) {
+                UICollectionViewLayoutAttributes *targetAttri = self.sectionHeaderAttributes[i];
+                if (scrollView.contentOffset.y + 1 >= targetAttri.frame.origin.y) {
+                    if (self.pinCategoryView.selectedIndex != i) {
+                        //不相同才切换
+                        [self.pinCategoryView selectItemAtIndex:i];
+                    }
+                    break;
                 }
-                break;
-            }
-        }else{
-            UICollectionViewLayoutAttributes *targetAttri0 = self.sectionHeaderAttributes[i];
-            UICollectionViewLayoutAttributes *targetAttri1 = self.sectionHeaderAttributes[i+1];
-            if ((scrollView.contentOffset.y + 1 > targetAttri0.frame.origin.y) && (scrollView.contentOffset.y + 1 < targetAttri1.frame.origin.y)) {
-                if (self.pinCategoryView.selectedIndex != i) {
-                    //不相同才切换
-                    [self.pinCategoryView selectItemAtIndex:i];
+            }else{
+                UICollectionViewLayoutAttributes *targetAttri0 = self.sectionHeaderAttributes[i];
+                UICollectionViewLayoutAttributes *targetAttri1 = self.sectionHeaderAttributes[i+1];
+                if ((scrollView.contentOffset.y + 1 > targetAttri0.frame.origin.y) && (scrollView.contentOffset.y + 1 < targetAttri1.frame.origin.y)) {
+                    if (self.pinCategoryView.selectedIndex != i) {
+                        //不相同才切换
+                        [self.pinCategoryView selectItemAtIndex:i];
+                    }
+                    break;
                 }
-                break;
             }
         }
     }
 }
+#pragma mark -- 接口请求
+/** 查询所有城市信息 */
+-(void)getAllCitysRequest
+{
+    hx_weakify(self);
+    [HXNetworkTool POST:HXRC_M_URL action:@"sys/sys/city/queryAllCityInfo" parameters:@{} success:^(id responseObject) {
+        if ([responseObject[@"code"] integerValue] == 0) {
+            
+            [weakSelf readHistorySearch];
+
+            NSArray *citys = [NSArray yy_modelArrayWithClass:[RCOpenArea class] json:responseObject[@"data"]];
+            [weakSelf.citys addObjectsFromArray:citys];
+            NSMutableArray *temp = [NSMutableArray array];
+            for (RCOpenArea *area in weakSelf.citys) {
+                [temp addObject:area.areaName];
+            }
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [weakSelf.collectionView reloadData];
+                weakSelf.pinCategoryView.titles = temp;
+                [weakSelf.pinCategoryView reloadData];//刷新数组布局
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.10 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    [weakSelf updateSectionHeaderAttributes];//存放每组的布局
+                });
+            });
+        }else{
+            [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:responseObject[@"msg"]];
+        }
+    } failure:^(NSError *error) {
+        [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:error.localizedDescription];
+    }];
+}
+/** 模糊查询城市信息 */
+-(void)getCitysWithKeywordRequest
+{
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    NSMutableDictionary *data = [NSMutableDictionary dictionary];
+    data[@"name"] = self.keyWord;
+    parameters[@"data"] = data;
+    
+    hx_weakify(self);
+    [HXNetworkTool POST:HXRC_M_URL action:@"sys/sys/city/cityByLike" parameters:parameters success:^(id responseObject) {
+        if ([responseObject[@"code"] integerValue] == 0) {
+            NSArray *result = [NSArray yy_modelArrayWithClass:[RCOpenCity class] json:responseObject[@"data"]];
+            RCOpenArea *searchArea = [RCOpenArea new];
+            searchArea.areaName = @"搜索结果";
+            searchArea.city = result;
+            weakSelf.searchCitys = @[searchArea];
+        }else{
+            [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:responseObject[@"msg"]];
+        }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            weakSelf.pinCategoryView.hidden = YES;
+            [weakSelf.collectionView reloadData];
+        });
+    } failure:^(NSError *error) {
+        [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:error.localizedDescription];
+    }];
+}
 #pragma mark -- 业务逻辑
 - (void)updateSectionHeaderAttributes {
-    if (self.sectionHeaderAttributes == nil) {
-        //获取到所有的sectionHeaderAtrributes，用于后续的点击，滚动到指定contentOffset.y使用
-        NSMutableArray *attributes = [NSMutableArray array];
-        UICollectionViewLayoutAttributes *lastHeaderAttri = nil;
-        for (int i = 0; i < self.citys.count; i++) {
-            UICollectionViewLayoutAttributes *attri = [self.collectionView.collectionViewLayout layoutAttributesForSupplementaryViewOfKind:UICollectionElementKindSectionHeader atIndexPath:[NSIndexPath indexPathForItem:0 inSection:i]];
-            if (attri) {
-                [attributes addObject:attri];
-            }
-            if (i == self.citys.count - 1) {
-                lastHeaderAttri = attri;
-            }
+    //获取到所有的sectionHeaderAtrributes，用于后续的点击，滚动到指定contentOffset.y使用
+    NSMutableArray *attributes = [NSMutableArray array];
+    UICollectionViewLayoutAttributes *lastHeaderAttri = nil;
+    for (int i = 0; i < self.citys.count; i++) {
+        UICollectionViewLayoutAttributes *attri = [self.collectionView.collectionViewLayout layoutAttributesForSupplementaryViewOfKind:UICollectionElementKindSectionHeader atIndexPath:[NSIndexPath indexPathForItem:0 inSection:i]];
+        if (attri) {
+            [attributes addObject:attri];
         }
-        if (attributes.count == 0) {
-            return;
+        if (i == self.citys.count - 1) {
+            lastHeaderAttri = attri;
         }
-        self.sectionHeaderAttributes = attributes;
+    }
+    if (attributes.count == 0) {
+        return;
+    }
+    self.sectionHeaderAttributes = attributes;
     //如果最后一个section条目太少了，会导致滚动最底部，但是却不能触发categoryView选中最后一个item。而且点击最后一个滚动的contentOffset.y也不要弄。所以添加contentInset，让最后一个section滚到最下面能显示完整个屏幕。
-        UICollectionViewLayoutAttributes *lastCellAttri = [self.collectionView.collectionViewLayout layoutAttributesForItemAtIndexPath:[NSIndexPath indexPathForItem:((NSArray *)((NSDictionary *)self.citys[self.citys.count - 1])[@"citys"]).count - 1 inSection:self.citys.count - 1]];
-        CGFloat lastSectionHeight = CGRectGetMaxY(lastCellAttri.frame) - CGRectGetMinY(lastHeaderAttri.frame);
-        CGFloat value = self.collectionView.bounds.size.height - lastSectionHeight;
-        if (value > 0) {
-            self.collectionView.contentInset = UIEdgeInsetsMake(0, 0, value, 0);
-        }
+    UICollectionViewLayoutAttributes *lastCellAttri = [self.collectionView.collectionViewLayout layoutAttributesForItemAtIndexPath:[NSIndexPath indexPathForItem:((RCOpenArea *)self.citys[self.citys.count - 1]).city.count - 1 inSection:self.citys.count - 1]];
+    CGFloat lastSectionHeight = CGRectGetMaxY(lastCellAttri.frame) - CGRectGetMinY(lastHeaderAttri.frame);
+    CGFloat value = self.collectionView.bounds.size.height - lastSectionHeight;
+    if (value > 0) {
+        self.collectionView.contentInset = UIEdgeInsetsMake(0, 0, value, 0);
     }
 }
 -(void)readHistorySearch
 {
+    RCOpenArea *dwArea = [RCOpenArea new];
+    dwArea.areaName = @"定位城市";
+    RCOpenCity *dwCity = [RCOpenCity new];
+    NSString *city = [[NSUserDefaults standardUserDefaults] objectForKey:HXUserCityName];
+    if (city && city.length) {
+        dwCity.cname = city;
+    }else{
+        dwCity.cname = @"未知";
+    }
+    dwArea.city = @[dwCity];
+    [self.citys addObject:dwArea];
+    
     // 判断是否存在
     NSFileManager *fileManager = [NSFileManager defaultManager];
     if ([fileManager fileExistsAtPath:KFilePath] == NO) {
@@ -197,33 +269,54 @@ static NSString *const SearchTagHeader = @"SearchTagHeader";
         NSArray *arr = [NSArray arrayWithContentsOfFile:KFilePath];
         if (arr.count != 0) {
             [self.historys addObjectsFromArray:arr];
+            RCOpenArea *area = [RCOpenArea new];
+            area.areaName = @"历史访问";
+            area.city = [NSArray yy_modelArrayWithClass:[RCOpenCity class] json:self.historys];
+            [self.citys addObject:area];
         } else {
             HXLog(@"plist文件为空");
         }
     }
-    [self.collectionView reloadData];
 }
 -(void)writeHistorySearch
 {
     [self.historys writeToFile:KFilePath atomically:YES];
     
-    NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithDictionary:self.citys[1]];
-    dict[@"citys"] = self.historys;
-    [self.citys replaceObjectAtIndex:1 withObject:dict];
-//    RCSearchHouseResultVC *rvc = [RCSearchHouseResultVC new];
-//    [self.navigationController pushViewController:rvc animated:YES];
+    RCOpenArea *area = self.citys[1];
+    if ([area.areaName isEqualToString:@"历史访问"]) {
+        area.city = [NSArray yy_modelArrayWithClass:[RCOpenCity class] json:self.historys];
+        [self.citys replaceObjectAtIndex:1 withObject:area];
+    }else{
+        RCOpenArea *area = [RCOpenArea new];
+        area.areaName = @"历史访问";
+        area.city = [NSArray yy_modelArrayWithClass:[RCOpenCity class] json:self.historys];
+        [self.citys insertObject:area atIndex:1];
+        
+        NSMutableArray *titles = [NSMutableArray arrayWithArray:self.pinCategoryView.titles];
+        [titles insertObject:@"历史访问" atIndex:1];
+        self.pinCategoryView.titles = titles;
+        [self.pinCategoryView reloadData];//刷新数组布局
+        hx_weakify(self);
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.10 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [weakSelf updateSectionHeaderAttributes];//存放每组的布局
+        });
+    }
 }
--(void)checkHistoryData:(NSString *)history
+-(void)checkHistoryData:(NSDictionary *)history
 {
-    if (![self.historys containsObject:history]) {//如果历史数据不包含就加
-        [self.historys insertObject:history atIndex:0];
-    }else{//如果历史数据包含就更新
-        [self.historys removeObject:history];
+    BOOL isHaveHistory = NO;
+    for (NSDictionary *dict in self.historys) {
+        if ([dict[@"cname"] isEqualToString:history[@"cname"]]) {//如果历史数据包含就更新
+            [self.historys removeObject:history];
+            [self.historys insertObject:history atIndex:0];
+            isHaveHistory = YES;
+            break;
+        }
+    }
+    if (!isHaveHistory) {//如果历史数据不包含就加
         [self.historys insertObject:history atIndex:0];
     }
-    //    if (self.historys.count > 6) {
-    //        [self.historys removeLastObject];
-    //    }
+    
     [self writeHistorySearch];//写入
     
     [self.collectionView reloadData];//刷新页面
@@ -244,31 +337,76 @@ static NSString *const SearchTagHeader = @"SearchTagHeader";
 #pragma mark -- UICollectionView 数据源和代理
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
-    return self.citys.count;
+    return (self.keyWord && self.keyWord.length) ?self.searchCitys.count : self.citys.count;
 }
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    NSDictionary *dict = self.citys[section];
-    return ((NSArray *)dict[@"citys"]).count;
+    if (self.keyWord && self.keyWord.length) {
+        RCOpenArea *area = self.searchCitys[section];
+        return area.city.count;
+    }else{
+        RCOpenArea *area = self.citys[section];
+        return area.city.count;
+    }
 }
 - (ZLLayoutType)collectionView:(UICollectionView *)collectionView layout:(ZLCollectionViewBaseFlowLayout *)collectionViewLayout typeOfLayout:(NSInteger)section {
     return LabelLayout;
 }
 - (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    
     RCSearchTagCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:SearchTagCell forIndexPath:indexPath];
-    NSDictionary *dict = self.citys[indexPath.section];
-    cell.contentText.text = ((NSArray *)dict[@"citys"])[indexPath.item];
+    if (self.keyWord && self.keyWord.length) {
+        RCOpenArea *area = self.searchCitys[indexPath.section];
+        RCOpenCity *city = area.city[indexPath.item];
+        cell.contentText.text = city.cname;
+        cell.contentText.backgroundColor = [UIColor whiteColor];
+        cell.contentText.textColor = [UIColor lightGrayColor];
+    }else{
+        RCOpenArea *area = self.citys[indexPath.section];
+        RCOpenCity *city = area.city[indexPath.item];
+        cell.contentText.text = indexPath.section?[NSString stringWithFormat:@"%@(%@)",city.cname,city.num]:city.cname;
+        cell.contentText.backgroundColor = indexPath.section?[UIColor whiteColor]:HXControlBg;
+        cell.contentText.textColor = indexPath.section?[UIColor lightGrayColor]:[UIColor whiteColor];
+    }
     return cell;
 }
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    NSDictionary *dict = self.citys[indexPath.section];
-    [self checkHistoryData:((NSArray *)dict[@"citys"])[indexPath.item]];
+    RCOpenArea *area = nil;
+    if (self.keyWord && self.keyWord.length) {
+        area = self.searchCitys[indexPath.section];
+    }else{
+        area = self.citys[indexPath.section];
+    }
+    RCOpenCity *city = area.city[indexPath.item];
+    NSDictionary *dict = [city yy_modelToJSONObject];
+    
+    if (self.keyWord && self.keyWord.length) {
+        
+    }else{// 如果不是搜索结果的点击才存入历史记录
+        if (indexPath.section) {// 定位城市不存入历史
+            [self checkHistoryData:dict];
+        }
+    }
+    
+    RCUserArea *userArea = [RCUserArea yy_modelWithDictionary:dict];
+    [RCUserAeraManager sharedInstance].curUserArea = userArea;
+    [[RCUserAeraManager sharedInstance] saveUserArea];
+    if (self.changeCityCall) {
+        self.changeCityCall();
+    }
+    [self.navigationController popViewControllerAnimated:YES];
 }
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
     if ([kind isEqualToString : UICollectionElementKindSectionHeader]){
         RCSearchTagHeader * headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:SearchTagHeader forIndexPath:indexPath];
-        NSDictionary *dict = self.citys[indexPath.section];
-        headerView.tabText.text = dict[@"tag"];
-        headerView.locationBtn.hidden = indexPath.section;
+        if (self.keyWord && self.keyWord.length) {
+            RCOpenArea *area = self.searchCitys[indexPath.section];
+            headerView.tabText.text = area.areaName;
+            headerView.locationBtn.hidden = YES;
+        }else{
+            RCOpenArea *area = self.citys[indexPath.section];
+            headerView.tabText.text = area.areaName;
+            headerView.locationBtn.hidden = indexPath.section;
+        }
         headerView.resetLocationCall = ^{
             HXLog(@"重新定位");
         };
@@ -281,8 +419,15 @@ static NSString *const SearchTagHeader = @"SearchTagHeader";
     return CGSizeMake(collectionView.frame.size.width, 44);
 }
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    NSDictionary *dict = self.citys[indexPath.section];
-    return CGSizeMake([((NSArray *)dict[@"citys"])[indexPath.item] boundingRectWithSize:CGSizeMake(1000000, 30) options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading attributes:@{NSFontAttributeName: [UIFont boldSystemFontOfSize:14]} context:nil].size.width + 30, 30);
+    if (self.keyWord && self.keyWord.length) {
+        RCOpenArea *area = self.searchCitys[indexPath.section];
+        RCOpenCity *city = area.city[indexPath.item];
+        return CGSizeMake([city.cname boundingRectWithSize:CGSizeMake(1000000, 30) options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading attributes:@{NSFontAttributeName: [UIFont boldSystemFontOfSize:14]} context:nil].size.width + 30, 30);
+    }else{
+        RCOpenArea *area = self.citys[indexPath.section];
+        RCOpenCity *city = area.city[indexPath.item];
+        return CGSizeMake([city.cname boundingRectWithSize:CGSizeMake(1000000, 30) options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading attributes:@{NSFontAttributeName: [UIFont boldSystemFontOfSize:14]} context:nil].size.width + 30, 30);
+    }
 }
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section {
     return 10.f;

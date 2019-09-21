@@ -9,19 +9,18 @@
 #import <UIKit/UIKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
+@class RCHouseFilterData;
 typedef void(^HouseFilterCall)(NSInteger, NSInteger);
 
 @interface RCHouseFilterView : UIView
 @property (nonatomic,weak) UIViewController *target;
 @property(nonatomic,strong) UITableView *tableView;
-/** 区域 */
-@property (nonatomic,strong) NSArray *areas;
-/** 物业 */
-@property (nonatomic,strong) NSArray *wuye;
-/** 户型 */
-@property (nonatomic,strong) NSArray *huxing;
-/** 面积 */
-@property (nonatomic,strong) NSArray *mianji;
+@property (weak, nonatomic) IBOutlet UILabel *areaLabel;
+@property (weak, nonatomic) IBOutlet UILabel *wuyeLabel;
+@property (weak, nonatomic) IBOutlet UILabel *huxingLabel;
+@property (weak, nonatomic) IBOutlet UILabel *mianjiLabel;
+/* 筛选数据 */
+@property(nonatomic,strong) RCHouseFilterData *filterData;
 /** 筛选点击回调 */
 @property (nonatomic,copy) HouseFilterCall HouseFilterCall;
 @end

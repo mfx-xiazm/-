@@ -32,7 +32,7 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Shape" translatesAutoresizingMaskIntoConstraints="NO" id="Y8g-UP-2OF">
-                                    <rect key="frame" x="85.5" y="19.5" width="8" height="5"/>
+                                    <rect key="frame" x="80.5" y="14" width="16" height="16"/>
                                 </imageView>
                                 <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MCv-5i-ycl">
                                     <rect key="frame" x="0.0" y="0.0" width="103.5" height="44"/>
@@ -47,7 +47,7 @@
                                 <constraint firstItem="Zor-Mn-Rmu" firstAttribute="centerX" secondItem="kab-TD-xcZ" secondAttribute="centerX" id="2Tj-JR-K8z"/>
                                 <constraint firstAttribute="trailing" secondItem="MCv-5i-ycl" secondAttribute="trailing" id="InE-j6-bbv"/>
                                 <constraint firstItem="MCv-5i-ycl" firstAttribute="top" secondItem="kab-TD-xcZ" secondAttribute="top" id="Svb-k5-mVv"/>
-                                <constraint firstItem="Y8g-UP-2OF" firstAttribute="leading" secondItem="Zor-Mn-Rmu" secondAttribute="trailing" constant="5" id="V8U-6q-Uxk"/>
+                                <constraint firstItem="Y8g-UP-2OF" firstAttribute="leading" secondItem="Zor-Mn-Rmu" secondAttribute="trailing" id="V8U-6q-Uxk"/>
                                 <constraint firstItem="Y8g-UP-2OF" firstAttribute="centerY" secondItem="kab-TD-xcZ" secondAttribute="centerY" id="dPn-9G-m9r"/>
                                 <constraint firstItem="Zor-Mn-Rmu" firstAttribute="width" relation="lessThanOrEqual" secondItem="kab-TD-xcZ" secondAttribute="width" multiplier="7:10" id="eL8-Sv-U8Q"/>
                                 <constraint firstAttribute="bottom" secondItem="MCv-5i-ycl" secondAttribute="bottom" id="lWx-33-UtX"/>
@@ -64,7 +64,7 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Shape" translatesAutoresizingMaskIntoConstraints="NO" id="U5b-W9-9eP">
-                                    <rect key="frame" x="85.5" y="19.5" width="8" height="5"/>
+                                    <rect key="frame" x="80.5" y="14" width="16" height="16"/>
                                 </imageView>
                                 <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RSC-ng-10e">
                                     <rect key="frame" x="0.0" y="0.0" width="103.5" height="44"/>
@@ -79,7 +79,7 @@
                                 <constraint firstItem="U5b-W9-9eP" firstAttribute="centerY" secondItem="05u-DF-JBK" secondAttribute="centerY" id="Q05-en-q29"/>
                                 <constraint firstItem="uhD-Hv-f5u" firstAttribute="width" relation="lessThanOrEqual" secondItem="05u-DF-JBK" secondAttribute="width" multiplier="7:10" id="Ull-V8-juZ"/>
                                 <constraint firstItem="RSC-ng-10e" firstAttribute="leading" secondItem="05u-DF-JBK" secondAttribute="leading" id="YUO-Fq-frV"/>
-                                <constraint firstItem="U5b-W9-9eP" firstAttribute="leading" secondItem="uhD-Hv-f5u" secondAttribute="trailing" constant="5" id="bMu-Tp-zMK"/>
+                                <constraint firstItem="U5b-W9-9eP" firstAttribute="leading" secondItem="uhD-Hv-f5u" secondAttribute="trailing" id="bMu-Tp-zMK"/>
                                 <constraint firstAttribute="bottom" secondItem="RSC-ng-10e" secondAttribute="bottom" id="kqh-Lt-UhU"/>
                                 <constraint firstItem="RSC-ng-10e" firstAttribute="top" secondItem="05u-DF-JBK" secondAttribute="top" id="ntE-ct-1gI"/>
                                 <constraint firstItem="uhD-Hv-f5u" firstAttribute="centerY" secondItem="05u-DF-JBK" secondAttribute="centerY" id="vXP-Ow-Q8I"/>
@@ -96,7 +96,7 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Shape" translatesAutoresizingMaskIntoConstraints="NO" id="M3i-2x-YcB">
-                                    <rect key="frame" x="71.5" y="19.5" width="8" height="5"/>
+                                    <rect key="frame" x="66.5" y="14" width="16" height="16"/>
                                 </imageView>
                                 <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rmq-m0-iL6">
                                     <rect key="frame" x="0.0" y="0.0" width="103.5" height="44"/>
@@ -107,7 +107,7 @@
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
-                                <constraint firstItem="M3i-2x-YcB" firstAttribute="leading" secondItem="6UQ-24-cm3" secondAttribute="trailing" constant="5" id="RHC-Gr-RyD"/>
+                                <constraint firstItem="M3i-2x-YcB" firstAttribute="leading" secondItem="6UQ-24-cm3" secondAttribute="trailing" id="RHC-Gr-RyD"/>
                                 <constraint firstItem="6UQ-24-cm3" firstAttribute="width" relation="lessThanOrEqual" secondItem="E00-AX-9ya" secondAttribute="width" multiplier="7:10" id="UC6-yw-feO"/>
                                 <constraint firstItem="6UQ-24-cm3" firstAttribute="centerX" secondItem="E00-AX-9ya" secondAttribute="centerX" id="Wu8-VO-ILF"/>
                                 <constraint firstAttribute="bottom" secondItem="Rmq-m0-iL6" secondAttribute="bottom" id="fk3-pT-fmY"/>
@@ -128,7 +128,7 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Shape" translatesAutoresizingMaskIntoConstraints="NO" id="3mm-l4-vkz">
-                                    <rect key="frame" x="71.5" y="19.5" width="8" height="5"/>
+                                    <rect key="frame" x="66.5" y="14" width="16" height="16"/>
                                 </imageView>
                                 <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ems-yq-bU4">
                                     <rect key="frame" x="0.0" y="0.0" width="103.5" height="44"/>
@@ -143,7 +143,7 @@
                                 <constraint firstItem="UJu-Gl-nrK" firstAttribute="centerX" secondItem="xPl-cm-HhC" secondAttribute="centerX" id="LUl-zm-pUF"/>
                                 <constraint firstItem="ems-yq-bU4" firstAttribute="leading" secondItem="xPl-cm-HhC" secondAttribute="leading" id="UbN-E8-rGU"/>
                                 <constraint firstItem="3mm-l4-vkz" firstAttribute="centerY" secondItem="xPl-cm-HhC" secondAttribute="centerY" id="Z7Q-BS-ebE"/>
-                                <constraint firstItem="3mm-l4-vkz" firstAttribute="leading" secondItem="UJu-Gl-nrK" secondAttribute="trailing" constant="5" id="fhr-gu-rSN"/>
+                                <constraint firstItem="3mm-l4-vkz" firstAttribute="leading" secondItem="UJu-Gl-nrK" secondAttribute="trailing" id="fhr-gu-rSN"/>
                                 <constraint firstAttribute="bottom" secondItem="ems-yq-bU4" secondAttribute="bottom" id="ipP-ft-zfp"/>
                                 <constraint firstItem="UJu-Gl-nrK" firstAttribute="width" relation="lessThanOrEqual" secondItem="xPl-cm-HhC" secondAttribute="width" multiplier="7:10" id="nKC-c6-T04"/>
                                 <constraint firstItem="UJu-Gl-nrK" firstAttribute="centerY" secondItem="xPl-cm-HhC" secondAttribute="centerY" id="p58-0Z-PA6"/>
@@ -199,6 +199,6 @@
         </view>
     </objects>
     <resources>
-        <image name="Shape" width="8" height="5"/>
+        <image name="Shape" width="16" height="16"/>
     </resources>
 </document>

@@ -11,7 +11,8 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface RCSearchHouseResultVC : HXBaseViewController
-
+/* 关键词 */
+@property(nonatomic,copy) NSString *keyWord;
 @end
 
 NS_ASSUME_NONNULL_END

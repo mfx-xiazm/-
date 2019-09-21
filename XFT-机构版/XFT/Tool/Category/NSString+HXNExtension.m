@@ -289,4 +289,26 @@
     else
         return NO;
 }
+#pragma mark ---- 将时间戳转换成时间
+- (NSString *)getTimeFromTimestamp:(NSString *)formatterStr{
+    
+    //将对象类型的时间转换为NSDate类型
+    
+    NSInteger time = [self integerValue];
+    
+    NSDate * myDate=[NSDate dateWithTimeIntervalSince1970:time];
+    
+    //设置时间格式
+    
+    NSDateFormatter *formatter =[[NSDateFormatter alloc]init];
+    
+    [formatter setDateFormat:formatterStr];
+    
+    //将时间转换为字符串
+    
+    NSString *timeStr=[formatter stringFromDate:myDate];
+    
+    return timeStr;
+    
+}
 @end

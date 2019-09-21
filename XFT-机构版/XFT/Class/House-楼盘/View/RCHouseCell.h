@@ -9,9 +9,10 @@
 #import <UIKit/UIKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
-
+@class RCHouseList;
 @interface RCHouseCell : UITableViewCell
-
+/* 房源 */
+@property(nonatomic,strong) RCHouseList *house;
 @end
 
 NS_ASSUME_NONNULL_END

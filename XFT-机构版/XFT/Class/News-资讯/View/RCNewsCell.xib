@@ -28,6 +28,11 @@
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="UAy-jY-wlZ" secondAttribute="height" multiplier="4:3" id="MIX-yV-1ld"/>
                                 </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layerBoderCorner">
+                                        <real key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cM3-Wa-6kE">
                                 <rect key="frame" x="149.5" y="15" width="201.5" height="37"/>
@@ -91,6 +96,12 @@
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="aW0-zy-SZf"/>
+            <connections>
+                <outlet property="lookNum" destination="MXq-a7-4Kv" id="Gh2-XZ-Ywl"/>
+                <outlet property="newsImg" destination="UAy-jY-wlZ" id="X6B-7n-hvx"/>
+                <outlet property="newsTitle" destination="cM3-Wa-6kE" id="pWN-mN-bRD"/>
+                <outlet property="time" destination="kPg-ZC-IYG" id="OvZ-mg-rVG"/>
+            </connections>
             <point key="canvasLocation" x="169.56521739130437" y="140.625"/>
         </tableViewCell>
     </objects>

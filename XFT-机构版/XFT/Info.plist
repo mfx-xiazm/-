@@ -124,8 +124,6 @@
 	<string>访问相机，进行二维码扫描或完善个人信息</string>
 	<key>NSContactsUsageDescription</key>
 	<string>App需要您的同意,才能访问通讯录联系人</string>
-	<key>NSLocationAlwaysUsageDescription</key>
-	<string>App需要您的同意,才能访问您的位置信息</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>App需要您的同意,才能访问您的位置信息</string>
 	<key>NSMicrophoneUsageDescription</key>

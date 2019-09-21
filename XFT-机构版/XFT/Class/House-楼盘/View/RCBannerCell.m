@@ -7,6 +7,7 @@
 //
 
 #import "RCBannerCell.h"
+#import "RCHouseBanner.h"
 
 @implementation RCBannerCell
 
@@ -15,4 +16,9 @@
     // Initialization code
 }
 
+-(void)setBanner:(RCHouseBanner *)banner
+{
+    _banner = banner;
+    [self.contentImg sd_setImageWithURL:[NSURL URLWithString:_banner.headPic]];
+}
 @end
