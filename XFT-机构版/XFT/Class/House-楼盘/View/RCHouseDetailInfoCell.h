@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface RCHouseDetailInfoCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UIImageView *locationBtn;
+@property (weak, nonatomic) IBOutlet UILabel *name;
+@property (weak, nonatomic) IBOutlet UILabel *content;
 
 @end
 

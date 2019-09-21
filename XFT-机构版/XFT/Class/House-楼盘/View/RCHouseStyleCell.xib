@@ -99,6 +99,10 @@
             <viewLayoutGuide key="safeArea" id="SEy-5g-ep8"/>
             <size key="customSize" width="154" height="228"/>
             <connections>
+                <outlet property="housePic" destination="T9x-CJ-ExH" id="T5Y-rD-aE3"/>
+                <outlet property="price" destination="Eqv-Jw-nIb" id="WDA-NA-3k7"/>
+                <outlet property="roomArea" destination="0RA-gt-yh1" id="jew-GJ-2a1"/>
+                <outlet property="styleName" destination="KDF-aU-Jyy" id="X4i-tr-GeR"/>
                 <outlet property="styleTag" destination="Tol-2V-Ovp" id="nFE-EV-Drs"/>
             </connections>
             <point key="canvasLocation" x="-62.318840579710148" y="66.294642857142861"/>

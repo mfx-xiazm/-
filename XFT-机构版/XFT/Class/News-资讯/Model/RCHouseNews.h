@@ -22,6 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString * headPic;
 @property (nonatomic, assign) NSInteger newsType;
 @property (nonatomic, strong) NSString * proUuid;
+@property (nonatomic, strong) NSString * proName;
 @property (nonatomic, strong) NSString *publishTime;
 @property (nonatomic, assign) NSInteger shareNum;
 @property (nonatomic, assign) NSInteger state;

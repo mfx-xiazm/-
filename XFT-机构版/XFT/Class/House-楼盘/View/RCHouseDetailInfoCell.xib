@@ -19,14 +19,17 @@
                 <rect key="frame" x="0.0" y="0.0" width="348" height="31.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="开盘时间：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C18-NH-PgX">
-                        <rect key="frame" x="15" y="0.0" width="76.5" height="18"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="开盘时间：" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C18-NH-PgX">
+                        <rect key="frame" x="15" y="0.0" width="80" height="18"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="80" id="gac-Hf-axr"/>
+                        </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="住宅70年" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P2j-QA-Hfw">
-                        <rect key="frame" x="91.5" y="0.0" width="241.5" height="16.5"/>
+                        <rect key="frame" x="95" y="0.0" width="238" height="16.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -48,7 +51,9 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="aW0-zy-SZf"/>
             <connections>
+                <outlet property="content" destination="P2j-QA-Hfw" id="9dt-wz-f2M"/>
                 <outlet property="locationBtn" destination="gab-zi-kK9" id="Nan-pN-moe"/>
+                <outlet property="name" destination="C18-NH-PgX" id="Row-Pm-tMC"/>
             </connections>
             <point key="canvasLocation" x="85.507246376811594" y="107.14285714285714"/>
         </tableViewCell>

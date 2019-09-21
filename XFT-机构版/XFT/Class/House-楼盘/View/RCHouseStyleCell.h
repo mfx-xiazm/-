@@ -9,9 +9,10 @@
 #import <UIKit/UIKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
-
+@class RCHouseStyle;
 @interface RCHouseStyleCell : UICollectionViewCell
-
+/* 户型 */
+@property(nonatomic,assign) RCHouseStyle *style;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -11,6 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface RCHouseGoodsCell : UITableViewCell
+@property (weak, nonatomic) IBOutlet UILabel *goodName;
 
 @end
 

@@ -11,7 +11,8 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface RCPanoramaVC : HXBaseViewController
-
+/* VR地址 */
+@property(nonatomic,copy) NSString *url;
 @end
 
 NS_ASSUME_NONNULL_END

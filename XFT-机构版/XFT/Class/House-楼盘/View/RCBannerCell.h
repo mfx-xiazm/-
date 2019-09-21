@@ -9,12 +9,14 @@
 #import <UIKit/UIKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
-@class RCHouseBanner;
+@class RCHouseBanner,RCHousePicInfo;
 @interface RCBannerCell : UICollectionViewCell
 @property (weak, nonatomic) IBOutlet UIImageView *bannerTagImg;
 @property (weak, nonatomic) IBOutlet UIImageView *contentImg;
 /* banner */
 @property(nonatomic,strong) RCHouseBanner *banner;
+/* 楼盘banner */
+@property(nonatomic,strong) RCHousePicInfo *picInfo;
 @end
 
 NS_ASSUME_NONNULL_END

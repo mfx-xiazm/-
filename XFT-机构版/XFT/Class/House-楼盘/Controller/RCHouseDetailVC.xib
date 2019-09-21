@@ -13,6 +13,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="RCHouseDetailVC">
             <connections>
                 <outlet property="categoryView" destination="p4D-EM-Vdk" id="mnu-UW-ugW"/>
+                <outlet property="categoryViewWidth" destination="Z7N-q9-C6z" id="NxB-Pc-6Cl"/>
                 <outlet property="cycleNum" destination="mW7-bT-0eY" id="7p9-1L-Mov"/>
                 <outlet property="cycleView" destination="9gN-u7-fR2" id="YCV-aD-FAA"/>
                 <outlet property="houseGoodsLabel" destination="Cg4-8q-JQD" id="6tK-cO-QLB"/>
@@ -21,13 +22,21 @@
                 <outlet property="houseInfoTableView" destination="nRZ-by-1js" id="gmh-Q4-Bwn"/>
                 <outlet property="houseInfoTableViewHeight" destination="LAu-1p-Q8i" id="nq3-Do-xGZ"/>
                 <outlet property="houseInfoView" destination="sXN-cf-bi4" id="tCY-az-EOj"/>
+                <outlet property="houseName" destination="Cfk-RD-sjF" id="cou-fi-Q8w"/>
                 <outlet property="houseNearbyTableView" destination="Hu4-lc-KP8" id="KQ0-9U-sBu"/>
                 <outlet property="houseNearbyViewHeight" destination="lPT-RU-a0A" id="v0m-uU-yy7"/>
                 <outlet property="houseNewsTableView" destination="HCa-eI-b8i" id="4zu-a1-48R"/>
                 <outlet property="houseNewsTableViewHeight" destination="aND-Id-JDo" id="eWE-uN-Udg"/>
+                <outlet property="housePrice" destination="bYK-e2-zK9" id="fYy-Of-rhj"/>
                 <outlet property="houseStyleCollectionView" destination="xKH-Lb-ekM" id="BhH-tF-PAV"/>
+                <outlet property="huxingName" destination="0ZJ-DS-hTJ" id="hFx-d3-IOt"/>
                 <outlet property="mapSuperView" destination="aBJ-0P-m9C" id="Vwi-Xs-aWf"/>
+                <outlet property="scrollView" destination="Ley-0u-5zZ" id="LZn-Gj-S4e"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+                <outletCollection property="houseTags" destination="ua6-3f-XEU" id="iBD-sc-Pu5"/>
+                <outletCollection property="houseTags" destination="Qiv-2K-44C" id="QtJ-Ql-yDj"/>
+                <outletCollection property="houseTags" destination="aV9-vS-28H" id="K8k-nf-gPa"/>
+                <outletCollection property="houseTags" destination="uhN-uS-5h2" id="VNw-FK-bJG"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -93,34 +102,12 @@
                                             <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VGM-Kh-Z7U" customClass="SPButton">
-                                            <rect key="frame" x="364" y="15" width="35" height="45"/>
-                                            <constraints>
-                                                <constraint firstAttribute="width" constant="35" id="3Oe-Ax-HPU"/>
-                                                <constraint firstAttribute="height" constant="45" id="l6m-VF-dfU"/>
-                                            </constraints>
-                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                            <state key="normal" title="收藏" image="icon_schx">
-                                                <color key="titleColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            </state>
-                                            <userDefinedRuntimeAttributes>
-                                                <userDefinedRuntimeAttribute type="number" keyPath="imagePosition">
-                                                    <integer key="value" value="2"/>
-                                                </userDefinedRuntimeAttribute>
-                                                <userDefinedRuntimeAttribute type="number" keyPath="imageTitleSpace">
-                                                    <real key="value" value="5"/>
-                                                </userDefinedRuntimeAttribute>
-                                            </userDefinedRuntimeAttributes>
-                                            <connections>
-                                                <action selector="houseCollectClicked:" destination="-1" eventType="touchUpInside" id="sWe-x6-hkQ"/>
-                                            </connections>
-                                        </button>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GaD-p8-f9l">
                                             <rect key="frame" x="0.0" y="63.5" width="414" height="36"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="248" verticalHuggingPriority="251" text=" 地铁大盘 " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ua6-3f-XEU">
                                                     <rect key="frame" x="15" y="10" width="56" height="16"/>
-                                                    <color key="backgroundColor" red="0.96470588239999999" green="0.96862745100000003" blue="0.98431372549999996" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="backgroundColor" red="0.95294117649999999" green="0.95294117649999999" blue="0.95294117649999999" alpha="1" colorSpace="calibratedRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="16" id="Sc7-YR-wv0"/>
                                                     </constraints>
@@ -135,7 +122,7 @@
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text=" 精装修 " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qiv-2K-44C">
                                                     <rect key="frame" x="81" y="10" width="44" height="16"/>
-                                                    <color key="backgroundColor" red="0.96470588239999999" green="0.96862745100000003" blue="0.98431372549999996" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="backgroundColor" red="0.95294117649999999" green="0.95294117649999999" blue="0.95294117649999999" alpha="1" colorSpace="calibratedRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="16" id="mLl-ZV-kRn"/>
                                                     </constraints>
@@ -150,7 +137,7 @@
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" horizontalCompressionResistancePriority="748" text=" 小户型 " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aV9-vS-28H">
                                                     <rect key="frame" x="135" y="10" width="44" height="16"/>
-                                                    <color key="backgroundColor" red="0.96470588239999999" green="0.96862745100000003" blue="0.98431372549999996" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="backgroundColor" red="0.95294117649999999" green="0.95294117649999999" blue="0.95294117649999999" alpha="1" colorSpace="calibratedRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="16" id="uVw-YS-qCf"/>
                                                     </constraints>
@@ -165,7 +152,7 @@
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="747" text=" 总价低 " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uhN-uS-5h2">
                                                     <rect key="frame" x="189" y="10" width="44" height="16"/>
-                                                    <color key="backgroundColor" red="0.96470588239999999" green="0.96862745100000003" blue="0.98431372549999996" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="backgroundColor" red="0.95294117649999999" green="0.95294117649999999" blue="0.95294117649999999" alpha="1" colorSpace="calibratedRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="16" id="D6g-W1-vc8"/>
                                                     </constraints>
@@ -200,12 +187,10 @@
                                         <constraint firstItem="0ZJ-DS-hTJ" firstAttribute="leading" secondItem="bYK-e2-zK9" secondAttribute="trailing" constant="10" id="4ZX-7I-ucM"/>
                                         <constraint firstItem="0ZJ-DS-hTJ" firstAttribute="centerY" secondItem="bYK-e2-zK9" secondAttribute="centerY" id="6Jz-aF-2Sc"/>
                                         <constraint firstItem="bYK-e2-zK9" firstAttribute="leading" secondItem="sXN-cf-bi4" secondAttribute="leading" constant="15" id="6Vh-5Y-xwI"/>
-                                        <constraint firstItem="VGM-Kh-Z7U" firstAttribute="top" secondItem="sXN-cf-bi4" secondAttribute="top" constant="15" id="6qR-X6-zsQ"/>
                                         <constraint firstItem="GaD-p8-f9l" firstAttribute="leading" secondItem="sXN-cf-bi4" secondAttribute="leading" id="Ah6-ac-Xgb"/>
                                         <constraint firstAttribute="height" constant="110" id="CmK-Ko-63i"/>
                                         <constraint firstItem="GaD-p8-f9l" firstAttribute="top" secondItem="bYK-e2-zK9" secondAttribute="bottom" id="UwI-K2-SWM"/>
                                         <constraint firstItem="bYK-e2-zK9" firstAttribute="top" secondItem="Cfk-RD-sjF" secondAttribute="bottom" constant="10" id="VHu-M1-wui"/>
-                                        <constraint firstAttribute="trailing" secondItem="VGM-Kh-Z7U" secondAttribute="trailing" constant="15" id="X5l-cA-Qsl"/>
                                         <constraint firstItem="Cfk-RD-sjF" firstAttribute="top" secondItem="sXN-cf-bi4" secondAttribute="top" constant="15" id="bkz-Or-2wO"/>
                                         <constraint firstAttribute="trailing" secondItem="GaD-p8-f9l" secondAttribute="trailing" id="tqM-Kf-0wB"/>
                                     </constraints>
@@ -252,7 +237,7 @@
                                                 <constraint firstAttribute="height" constant="44" id="zGk-1E-1kB"/>
                                             </constraints>
                                         </view>
-                                        <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="nRZ-by-1js">
+                                        <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="nRZ-by-1js">
                                             <rect key="frame" x="0.0" y="54" width="414" height="142"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </tableView>
@@ -417,7 +402,7 @@
                                                 <constraint firstAttribute="bottom" secondItem="Cg4-8q-JQD" secondAttribute="bottom" id="ffX-r2-IHs"/>
                                             </constraints>
                                         </view>
-                                        <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="BJd-tq-GvG">
+                                        <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="BJd-tq-GvG">
                                             <rect key="frame" x="0.0" y="125" width="414" height="175"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </tableView>
@@ -673,7 +658,7 @@
                                                 <constraint firstItem="hku-RD-dHD" firstAttribute="top" secondItem="RR6-LD-FuN" secondAttribute="top" constant="10" id="xpt-mh-SDT"/>
                                             </constraints>
                                         </view>
-                                        <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Hu4-lc-KP8">
+                                        <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Hu4-lc-KP8">
                                             <rect key="frame" x="0.0" y="314" width="414" height="86"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </tableView>
@@ -735,7 +720,7 @@
                                                 <constraint firstItem="9Dd-e8-zQF" firstAttribute="centerY" secondItem="lwM-WC-aDm" secondAttribute="centerY" id="zOA-9W-V75"/>
                                             </constraints>
                                         </view>
-                                        <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="HCa-eI-b8i">
+                                        <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="HCa-eI-b8i">
                                             <rect key="frame" x="0.0" y="54" width="414" height="142"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </tableView>
@@ -925,6 +910,5 @@
     </objects>
     <resources>
         <image name="icon_next" width="12" height="12"/>
-        <image name="icon_schx" width="24" height="24"/>
     </resources>
 </document>

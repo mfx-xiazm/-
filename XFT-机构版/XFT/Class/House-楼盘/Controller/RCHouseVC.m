@@ -497,6 +497,8 @@ static NSString *const HouseCell = @"HouseCell";
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     RCHouseDetailVC *dvc = [RCHouseDetailVC new];
+    RCHouseList *house = self.houses[indexPath.row];
+    dvc.uuid = house.uuid;
     [self.navigationController pushViewController:dvc animated:YES];
 }
 @end
