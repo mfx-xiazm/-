@@ -22,13 +22,19 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iLo-49-zCp">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1.肖家沟公交站" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WPV-2t-rB7">
-                                <rect key="frame" x="15" y="13" width="103" height="18"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2g4-Xf-ill">
+                                <rect key="frame" x="15" y="13" width="8" height="18"/>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_place" translatesAutoresizingMaskIntoConstraints="NO" id="y5G-hF-yow">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="肖家沟公交站" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WPV-2t-rB7">
+                                <rect key="frame" x="28" y="13" width="181.5" height="18"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_place_hui" translatesAutoresizingMaskIntoConstraints="NO" id="y5G-hF-yow">
                                 <rect key="frame" x="209.5" y="10" width="24" height="24"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="距离123米" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="50A-F2-ruc">
@@ -50,11 +56,14 @@
                             <constraint firstAttribute="trailing" secondItem="H6O-Hy-iIm" secondAttribute="trailing" constant="15" id="4SC-pV-tEJ"/>
                             <constraint firstItem="y5G-hF-yow" firstAttribute="centerY" secondItem="iLo-49-zCp" secondAttribute="centerY" id="CuC-qr-bzE"/>
                             <constraint firstItem="50A-F2-ruc" firstAttribute="leading" secondItem="y5G-hF-yow" secondAttribute="trailing" constant="5" id="EIg-om-49P"/>
+                            <constraint firstItem="y5G-hF-yow" firstAttribute="leading" secondItem="WPV-2t-rB7" secondAttribute="trailing" id="GIt-UE-l9W"/>
                             <constraint firstAttribute="trailing" secondItem="50A-F2-ruc" secondAttribute="trailing" constant="15" id="K2E-tn-usS"/>
                             <constraint firstItem="WPV-2t-rB7" firstAttribute="centerY" secondItem="iLo-49-zCp" secondAttribute="centerY" id="O4D-Kd-bh5"/>
                             <constraint firstAttribute="bottom" secondItem="H6O-Hy-iIm" secondAttribute="bottom" id="YuP-II-f5Z"/>
+                            <constraint firstItem="2g4-Xf-ill" firstAttribute="centerY" secondItem="iLo-49-zCp" secondAttribute="centerY" id="fWe-pX-Bjm"/>
+                            <constraint firstItem="WPV-2t-rB7" firstAttribute="leading" secondItem="2g4-Xf-ill" secondAttribute="trailing" constant="5" id="hZ1-ZX-Mwp"/>
                             <constraint firstItem="H6O-Hy-iIm" firstAttribute="leading" secondItem="iLo-49-zCp" secondAttribute="leading" constant="15" id="omm-2V-opl"/>
-                            <constraint firstItem="WPV-2t-rB7" firstAttribute="leading" secondItem="iLo-49-zCp" secondAttribute="leading" constant="15" id="rhR-3o-9S8"/>
+                            <constraint firstItem="2g4-Xf-ill" firstAttribute="leading" secondItem="iLo-49-zCp" secondAttribute="leading" constant="15" id="uK8-Wy-Avy"/>
                             <constraint firstItem="50A-F2-ruc" firstAttribute="centerY" secondItem="iLo-49-zCp" secondAttribute="centerY" id="xKj-WS-BsS"/>
                         </constraints>
                     </view>
@@ -67,10 +76,15 @@
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="aW0-zy-SZf"/>
+            <connections>
+                <outlet property="distance" destination="50A-F2-ruc" id="Rcs-eI-NnR"/>
+                <outlet property="name" destination="WPV-2t-rB7" id="omh-zi-6sX"/>
+                <outlet property="numRow" destination="2g4-Xf-ill" id="zkR-dA-tPj"/>
+            </connections>
             <point key="canvasLocation" x="108.69565217391305" y="34.821428571428569"/>
         </tableViewCell>
     </objects>
     <resources>
-        <image name="icon_place" width="24" height="24"/>
+        <image name="icon_place_hui" width="24" height="24"/>
     </resources>
 </document>

@@ -7,23 +7,28 @@
 //
 
 #import "RCHouseNearbyVC.h"
-#import <MAMapKit/MAMapKit.h>
+#import <QMapKit/QMapKit.h>
 #import "RCHouseNearbyDetailVC.h"
+#import "RCNearbyPOI.h"
+#import "RCCustomAnnotation.h"
 
 #define Y1               150
 //#define Y2               self.view.frame.size.height - 250
 #define Y3               self.view.frame.size.height - 75
 
-@interface RCHouseNearbyVC ()<MAMapViewDelegate,UIGestureRecognizerDelegate>
+@interface RCHouseNearbyVC ()<QMapViewDelegate,UIGestureRecognizerDelegate,RCHouseNearbyDetailVCDelegate>
 /** 城市选择 */
 @property (nonatomic, strong) RCHouseNearbyDetailVC  *vc;
 /** 用来显示阴影的view，里面装的是 self.vc.view也就是城市选择控制器的view */
 @property (nonatomic, strong) UIView  *shadowView;
 /** 地图 */
-@property (nonatomic, strong) MAMapView *mapView;
+@property (nonatomic, strong) QMapView *mapView;
 /* 导航栏 */
 @property(nonatomic,strong) UIView *navBarView;
-
+/** 周边配套的选中打点 */
+@property(nonatomic,strong) RCCustomAnnotation *nearbyPoint;
+/** 正在展示的周边类型 1.交通 2.教育 3.医疗 4.商业 */
+@property(nonatomic,assign) NSInteger nearbyType;
 @end
 
 @implementation RCHouseNearbyVC
@@ -42,6 +47,13 @@
     [super viewDidLoad];
     // 地图
     [self.view addSubview:self.mapView];
+    
+    // 设定地图中心点
+    QPointAnnotation *a1 = [[QPointAnnotation alloc] init];
+    a1.coordinate = CLLocationCoordinate2DMake(self.lat, self.lng);
+    a1.title      = self.name;
+    [self.mapView addAnnotation:a1];
+    [self.mapView setCenterCoordinate:a1.coordinate animated:YES];
     
     [self.view addSubview:self.navBarView];
     
@@ -85,7 +97,10 @@
 {
     if (!_vc) {
         _vc = [[RCHouseNearbyDetailVC alloc] init];
-        
+        _vc.uuid = self.uuid;
+        _vc.lng = self.lng;
+        _vc.lat = self.lat;
+        _vc.delegate = self;
         // -------------- 添加手势 轻扫手势  -----------
         UISwipeGestureRecognizer *swipe1 = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipe:)];
         swipe1.direction = UISwipeGestureRecognizerDirectionDown ; // 设置手势方向
@@ -111,17 +126,62 @@
     }
     return _shadowView;
 }
--(MAMapView *)mapView
+-(QMapView *)mapView
 {
     if (_mapView == nil) {
-        _mapView = [[MAMapView alloc] initWithFrame:self.view.bounds];
+        _mapView = [[QMapView alloc] initWithFrame:self.view.bounds];
         _mapView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         _mapView.zoomLevel = 13;
         _mapView.delegate = self;
         _mapView.showsUserLocation = YES;
-        _mapView.userTrackingMode = MAUserTrackingModeFollow;
+//        _mapView.userTrackingMode = QUserTrackingModeFollow;
     }
     return _mapView;
+}
+#pragma mark - AMapSearchDelegate
+/**
+ * @brief 根据anntation生成对应的View
+ * @param mapView 地图View
+ * @param annotation 指定的标注
+ * @return 生成的标注View
+ */
+- (QAnnotationView *)mapView:(QMapView *)mapView viewForAnnotation:(id <QAnnotation>)annotation;
+{
+    if ([annotation isKindOfClass:[QUserLocation class]]) {
+        return nil;
+    }
+    if ([annotation isKindOfClass:[RCCustomAnnotation class]]) {
+        static NSString *customReuseIndetifier = @"customReuseIndetifier";
+        QAnnotationView *annotationView = (QAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:customReuseIndetifier];
+        if (annotationView == nil){
+            annotationView = [[QAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:customReuseIndetifier];
+        }
+        if (self.nearbyType == 1) {
+            annotationView.image = [UIImage imageNamed:@"icon_bus_click"];
+        }else if (self.nearbyType == 2){
+            annotationView.image = [UIImage imageNamed:@"icon_education_click"];
+        }else if (self.nearbyType == 3){
+            annotationView.image = [UIImage imageNamed:@"icon_medical_click"];
+        }else{
+            annotationView.image = [UIImage imageNamed:@"icon_business_click"];
+        }
+        annotationView.canShowCallout               = YES;
+        annotationView.annotation = annotation;
+        
+        return annotationView;
+    }else if ([annotation isKindOfClass:[QPointAnnotation class]]) {
+        static NSString *pointReuseIndetifier = @"pointReuseIndetifier";
+        QAnnotationView *annotationView = (QAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:pointReuseIndetifier];
+        if (annotationView == nil)
+        {
+            annotationView = [[QAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:pointReuseIndetifier];
+        }
+        annotationView.image = HXGetImage(@"icon_logo");
+        annotationView.canShowCallout               = YES;
+        annotationView.annotation = annotation;
+        return annotationView;
+    }
+    return nil;
 }
 #pragma mark -- 手势处理
 // 城市列表可滑动时，swipe默认不再响应 所以要打开
@@ -188,6 +248,40 @@
 {
     [self.navigationController popViewControllerAnimated:YES];
 }
+#pragma mark -- RCHouseNearbyDetailVC代理
+-(void)nearbyVC:(RCHouseNearbyDetailVC *)nearbyVC nearbyType:(NSInteger)type didClickedPOI:(RCNearbyPOI *)poi
+{
+    self.nearbyType = type;
 
+    if (!self.nearbyPoint) {
+        self.nearbyPoint = [[RCCustomAnnotation alloc] init];
+    }else{
+        [self.mapView removeAnnotation:self.nearbyPoint];
+    }
+    
+    self.nearbyPoint = [[RCCustomAnnotation alloc] init];
+    self.nearbyPoint.coordinate = CLLocationCoordinate2DMake(poi.location.lat, poi.location.lng);
+    self.nearbyPoint.title      = poi.title;
+    [self.mapView addAnnotation:self.nearbyPoint];
+    [self.mapView setCenterCoordinate:self.nearbyPoint.coordinate animated:YES];
+    
+    
+    float stopY = Y3;     // 停留的位置
+    float margin = 10;   // 动画的幅度
+    float animateY = stopY + margin;  // 做弹性动画的Y
+  
+    hx_weakify(self);
+    [UIView animateWithDuration:0.4 animations:^{
+        weakSelf.shadowView.frame = CGRectMake(0, animateY, HX_SCREEN_WIDTH, [UIScreen mainScreen].bounds.size.height);
+    } completion:^(BOOL finished) {
+        [UIView animateWithDuration:0.2 animations:^{
+            weakSelf.shadowView.frame = CGRectMake(0, stopY, HX_SCREEN_WIDTH, [UIScreen mainScreen].bounds.size.height);
+            weakSelf.vc.tableView.contentOffset = CGPointMake(0, 0);//设置回到顶部
+            weakSelf.vc.tableView.scrollEnabled = NO;
+        }];
+    }];
+    // 记录shadowView在第一个视图中的位置
+    self.vc.offsetY = stopY;
+}
 
 @end

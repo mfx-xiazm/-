@@ -17,7 +17,7 @@
 #import "RCHouseDetailInfoCell.h"
 #import "RCHouseDetailNewsCell.h"
 #import "RCHouseStyleCell.h"
-#import <MAMapKit/MAMapKit.h>
+#import <QMapKit/QMapKit.h>
 #import "RCHouseStyleVC.h"
 #import "RCHouseNewsVC.h"
 #import "RCHouseNearbyVC.h"
@@ -35,6 +35,8 @@
 #import "RCHouseNews.h"
 #import "RCHousePicInfo.h"
 #import "RCHouseDetail.h"
+#import "RCNearbyPOI.h"
+#import "RCCustomAnnotation.h"
 
 static NSString *const HouseNearbyCell = @"HouseNearbyCell";
 static NSString *const HouseDetailInfoCell = @"HouseDetailInfoCell";
@@ -42,7 +44,7 @@ static NSString *const HouseDetailNewsCell = @"HouseDetailNewsCell";
 static NSString *const HouseStyleCell = @"HouseStyleCell";
 static NSString *const HouseGoodsCell = @"HouseGoodsCell";
 
-@interface RCHouseDetailVC ()<TYCyclePagerViewDataSource, TYCyclePagerViewDelegate, UICollectionViewDelegate,UICollectionViewDataSource,ZLCollectionViewBaseFlowLayoutDelegate,UITableViewDelegate,UITableViewDataSource,MAMapViewDelegate,JXCategoryViewDelegate>
+@interface RCHouseDetailVC ()<TYCyclePagerViewDataSource, TYCyclePagerViewDelegate, UICollectionViewDelegate,UICollectionViewDataSource,ZLCollectionViewBaseFlowLayoutDelegate,UITableViewDelegate,UITableViewDataSource,QMapViewDelegate,JXCategoryViewDelegate>
 /** 内容滚动视图 */
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 
@@ -75,8 +77,10 @@ static NSString *const HouseGoodsCell = @"HouseGoodsCell";
 @property (weak, nonatomic) IBOutlet UIView *mapSuperView;
 @property (weak, nonatomic) IBOutlet UITableView *houseNearbyTableView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *houseNearbyViewHeight;
+@property (weak, nonatomic) IBOutlet UIButton *nearbyFirstBtn;
 
-@property (nonatomic, strong) MAMapView *mapView;
+/** 地图 */
+@property (nonatomic, strong) QMapView *mapView;
 
 /** 楼盘banner */
 @property(nonatomic,strong) RCHousePic *housePic;
@@ -90,6 +94,20 @@ static NSString *const HouseGoodsCell = @"HouseGoodsCell";
 @property(nonatomic,strong) NSArray *houseNews;
 /** 楼盘全部详情数据 */
 @property(nonatomic,strong) RCHouseDetail *houseDetail;
+/** 周边交通 */
+@property(nonatomic,strong) NSArray *nearbyBus;
+/** 周边教育 */
+@property(nonatomic,strong) NSArray *nearbyEducation;
+/** 周边医疗 */
+@property(nonatomic,strong) NSArray *nearbyMedical;
+/** 周边商业 */
+@property(nonatomic,strong) NSArray *nearbyBusiness;
+/** 上一次选中的周边类型 1.交通 2.教育 3.医疗 4.商业 */
+@property(nonatomic,strong) UIButton *lastNearbyBtn;
+/** 上一次选中的周边类型 1.交通 2.教育 3.医疗 4.商业 */
+@property(nonatomic,assign) NSInteger lastNearbyType;
+/** 周边配套的选中打点 */
+@property(nonatomic,strong) RCCustomAnnotation *nearbyPoint;
 @end
 
 @implementation RCHouseDetailVC
@@ -103,35 +121,24 @@ static NSString *const HouseGoodsCell = @"HouseGoodsCell";
     [self setUpTableView];
     // 地图
     [self.mapSuperView addSubview:self.mapView];
+    self.lastNearbyBtn = self.nearbyFirstBtn;
+    self.lastNearbyType = 1;
     [self getHouseDetailRequest];
-    // 设置地图中心点
-    self.mapView.centerCoordinate = CLLocationCoordinate2DMake(30.4865508426, 114.3347167969);
 }
--(MAMapView *)mapView
+-(QMapView *)mapView
 {
     if (_mapView == nil) {
-        _mapView = [[MAMapView alloc] initWithFrame:self.mapSuperView.bounds];
+        _mapView = [[QMapView alloc] initWithFrame:self.mapSuperView.bounds];
         _mapView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         _mapView.zoomLevel = 13;
         _mapView.delegate = self;
-        MAPointAnnotation *a1 = [[MAPointAnnotation alloc] init];
-        a1.coordinate = CLLocationCoordinate2DMake(30.4865508426, 114.3347167969);
-        a1.title      = @"幸福里项目基地";
-        [_mapView addAnnotation:a1];
     }
     return _mapView;
 }
+
 -(void)viewDidLayoutSubviews
 {
     [super viewDidLayoutSubviews];
-    
-    hx_weakify(self);
-
-    [self.houseNearbyTableView reloadData];
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.05 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        weakSelf.houseNearbyViewHeight.constant = 10.f+44.f+260.f+weakSelf.houseNearbyTableView.contentSize.height;
-    });
-    
     
     self.mapView.frame = self.mapSuperView.bounds;
 }
@@ -284,6 +291,10 @@ static NSString *const HouseGoodsCell = @"HouseGoodsCell";
 }
 - (IBAction)houseNearbyClicked:(UIButton *)sender {
     RCHouseNearbyVC *nvc = [RCHouseNearbyVC new];
+    nvc.lat = self.houseDetail.dimension;
+    nvc.lng = self.houseDetail.longitude;
+    nvc.uuid = self.uuid;
+    nvc.name = self.houseDetail.name;
     [self.navigationController pushViewController:nvc animated:YES];
 }
 - (IBAction)houseReportClicked:(UIButton *)sender {
@@ -311,35 +322,84 @@ static NSString *const HouseGoodsCell = @"HouseGoodsCell";
         [self.zh_popupController presentContentView:alert duration:0.25 springAnimated:NO];
     }
 }
+- (IBAction)nearbyTypeClicked:(UIButton *)sender {
+    sender.selected = YES;
+    self.lastNearbyBtn.selected = NO;
+    self.lastNearbyBtn = sender;
+    
+    self.lastNearbyType = self.lastNearbyBtn.tag;
+    
+    hx_weakify(self);
+    if (self.lastNearbyType == 1) {
+        if (self.nearbyBus && self.nearbyBus.count) {
+            [self.houseNearbyTableView reloadData];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.05 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                weakSelf.houseNearbyViewHeight.constant = 10.f+44.f+260.f+weakSelf.houseNearbyTableView.contentSize.height;
+            });
+            return;
+        }
+    }else if (self.lastNearbyType == 2) {
+        if (self.nearbyEducation && self.nearbyEducation.count) {
+            [self.houseNearbyTableView reloadData];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.05 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                weakSelf.houseNearbyViewHeight.constant = 10.f+44.f+260.f+weakSelf.houseNearbyTableView.contentSize.height;
+            });
+            return;
+        }
+    }else if (self.lastNearbyType == 3) {
+        if (self.nearbyMedical && self.nearbyMedical.count) {
+            [self.houseNearbyTableView reloadData];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.05 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                weakSelf.houseNearbyViewHeight.constant = 10.f+44.f+260.f+weakSelf.houseNearbyTableView.contentSize.height;
+            });
+            return;
+        }
+    }else{
+        if (self.nearbyBusiness && self.nearbyBusiness.count) {
+            [self.houseNearbyTableView reloadData];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.05 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                weakSelf.houseNearbyViewHeight.constant = 10.f+44.f+260.f+weakSelf.houseNearbyTableView.contentSize.height;
+            });
+            return;
+        }
+    }
+    [self getNearbyDataRequestCompleteCall:^{
+        [weakSelf.houseNearbyTableView reloadData];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.05 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            weakSelf.houseNearbyViewHeight.constant = 10.f+44.f+260.f+weakSelf.houseNearbyTableView.contentSize.height;
+        });
+    }];
+}
+
 #pragma mark -- 接口请求
 -(void)getHouseDetailRequest
 {
-    /*
-    // 楼盘banner
-    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
-    NSMutableDictionary *data = [NSMutableDictionary dictionary];
-    data[@"type"] = @"3";
-    data[@"uuid"] = self.uuid;
-    parameters[@"data"] = data;
-    
-    hx_weakify(self);
-    [HXNetworkTool POST:@"http://192.168.199.176:7003/" action:@"/pro/proBaseInfo/pic" parameters:parameters success:^(id responseObject) {
-        hx_strongify(weakSelf);
-        if ([responseObject[@"code"] integerValue] == 0) {
-            strongSelf.housePic = [RCHousePic yy_modelWithDictionary:responseObject[@"data"]];
-        }else{
-            [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:responseObject[@"msg"]];
-        }
-    } failure:^(NSError *error) {
-        [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:error.localizedDescription];
-    }];
-    */
-    
     dispatch_group_t group = dispatch_group_create();
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
-    // 执行循序1
+    // 执行循序0
     hx_weakify(self);
+//    dispatch_group_async(group, queue, ^{
+//        hx_strongify(weakSelf);
+//        // 楼盘banner
+//        NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+//        NSMutableDictionary *data = [NSMutableDictionary dictionary];
+//        data[@"uuid"] = self.uuid;
+//        parameters[@"data"] = data;
+//
+//        [HXNetworkTool POST:@"http://192.168.199.176:7003/" action:@"/pro/proBaseInfo/pic" parameters:parameters success:^(id responseObject) {
+//            if ([responseObject[@"code"] integerValue] == 0) {
+//                strongSelf.housePic = [RCHousePic yy_modelWithDictionary:responseObject[@"data"]];
+//            }else{
+//                [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:responseObject[@"msg"]];
+//            }
+//            dispatch_semaphore_signal(semaphore);
+//        } failure:^(NSError *error) {
+//            [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:error.localizedDescription];
+//            dispatch_semaphore_signal(semaphore);
+//        }];
+//    });
+    // 执行循序1
     dispatch_group_async(group, queue, ^{
         hx_strongify(weakSelf);
         // 楼盘详情
@@ -347,7 +407,7 @@ static NSString *const HouseGoodsCell = @"HouseGoodsCell";
         NSMutableDictionary *data = [NSMutableDictionary dictionary];
         data[@"uuid"] = self.uuid;
         parameters[@"data"] = data;
-        
+
         [HXNetworkTool POST:HXRC_M_URL action:@"pro/pro/proBaseInfo/proInfo" parameters:parameters success:^(id responseObject) {
             if ([responseObject[@"code"] integerValue] == 0) {
                 strongSelf.houseDetail = [RCHouseDetail yy_modelWithDictionary:responseObject[@"data"]];
@@ -368,7 +428,7 @@ static NSString *const HouseGoodsCell = @"HouseGoodsCell";
         NSMutableDictionary *data = [NSMutableDictionary dictionary];
         data[@"proUuid"] = self.uuid;
         parameters[@"data"] = data;
-        
+
         [HXNetworkTool POST:HXRC_M_URL action:@"pro/pro/information/infListByProUuid" parameters:parameters success:^(id responseObject) {
             if ([responseObject[@"code"] integerValue] == 0) {
                 NSArray *arrt = [NSArray yy_modelArrayWithClass:[RCHouseNews class] json:responseObject[@"data"]];
@@ -386,13 +446,24 @@ static NSString *const HouseGoodsCell = @"HouseGoodsCell";
             dispatch_semaphore_signal(semaphore);
         }];
     });
-    
+
+    // 执行循序3
+    dispatch_group_async(group, queue, ^{
+        hx_strongify(weakSelf);
+        [strongSelf getNearbyDataRequestCompleteCall:^{
+            dispatch_semaphore_signal(semaphore);
+        }];
+    });
     dispatch_group_notify(group, queue, ^{
         // 执行循序4
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
         // 执行顺序6
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
-        
+
+        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+
+        //dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+
         // 执行顺序10
         dispatch_async(dispatch_get_main_queue(), ^{
             // 刷新界面
@@ -401,45 +472,157 @@ static NSString *const HouseGoodsCell = @"HouseGoodsCell";
         });
     });
 }
+/** 获取项目周边配套缓存 */
+-(void)getNearbyDataRequestCompleteCall:(void(^)(void))completeCall
+{
+    // 楼盘周边
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    NSMutableDictionary *data = [NSMutableDictionary dictionary];
+    data[@"type"] = @(self.lastNearbyType);//类型 1.交通 2.教育 3.医疗 4.商业
+    data[@"uuid"] = self.uuid;
+    parameters[@"data"] = data;
+    
+    hx_weakify(self);
+    [HXNetworkTool POST:HXRC_M_URL action:@"pro/pro/map/getProductPeripheralMatchingRel" parameters:parameters success:^(id responseObject) {
+        hx_strongify(weakSelf);
+        if ([responseObject[@"code"] integerValue] == 0) {
+            if ([responseObject[@"data"] isKindOfClass:[NSDictionary class]]) {//有存储的数据返回
+                NSArray *resultArr = [NSArray yy_modelArrayWithClass:[RCNearbyPOI class] json:responseObject[@"data"][@"josnStr"]];
+                if (strongSelf.lastNearbyType == 1) {
+                    strongSelf.nearbyBus = (resultArr.count >5)?[resultArr subarrayWithRange:NSMakeRange(0, 5)]:resultArr;
+                }else if (strongSelf.lastNearbyType == 2) {
+                    strongSelf.nearbyEducation = (resultArr.count >5)?[resultArr subarrayWithRange:NSMakeRange(0, 5)]:resultArr;
+                }else if (strongSelf.lastNearbyType == 3) {
+                    strongSelf.nearbyMedical = (resultArr.count >5)?[resultArr subarrayWithRange:NSMakeRange(0, 5)]:resultArr;
+                }else{
+                    strongSelf.nearbyBusiness = (resultArr.count >5)?[resultArr subarrayWithRange:NSMakeRange(0, 5)]:resultArr;
+                }
+                if (completeCall) {
+                    completeCall();
+                }
+            }else{// 没有存储的数据返回
+                [strongSelf getNearbyDataRequestFromQServerCompleteCall:^{
+                    if (completeCall) {
+                        completeCall();
+                    }
+                }];
+            }
+        }else{
+            [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:responseObject[@"msg"]];
+            if (completeCall) {
+                completeCall();
+            }
+        }
+    } failure:^(NSError *error) {
+        [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:error.localizedDescription];
+        if (completeCall) {
+            completeCall();
+        }
+    }];
+}
+/** 未取到周边数据缓存时向腾讯服务器请求并存入服务器 */
+-(void)getNearbyDataRequestFromQServerCompleteCall:(void(^)(void))completeCall
+{
+    // 楼盘周边
+    hx_weakify(self);
+    NSString *keyword = nil;
+    if (self.lastNearbyType == 1) {
+        keyword = @"交通";
+    }else if (self.lastNearbyType == 2) {
+        keyword = @"教育";
+    }else if (self.lastNearbyType == 3) {
+        keyword = @"医疗";
+    }else{
+        keyword = @"商业";
+    }
+    [HXNetworkTool GET:@"https://apis.map.qq.com/ws/place/v1/search" action:nil parameters:@{@"boundary":[NSString stringWithFormat:@"nearby(%@,%@,1000)",@(self.lat),@(self.lng)],@"keyword":keyword,@"orderby":@"_distance",@"key":HXQMapKey} success:^(id responseObject) {
+        hx_strongify(weakSelf);
+        if ([responseObject[@"status"] integerValue] == 0) {
+            NSArray *resultArr = [NSArray yy_modelArrayWithClass:[RCNearbyPOI class] json:responseObject[@"data"]];
+            if (strongSelf.lastNearbyType == 1) {
+                strongSelf.nearbyBus = (resultArr.count >5)?[resultArr subarrayWithRange:NSMakeRange(0, 5)]:resultArr;
+            }else if (strongSelf.lastNearbyType == 2) {
+                strongSelf.nearbyEducation = (resultArr.count >5)?[resultArr subarrayWithRange:NSMakeRange(0, 5)]:resultArr;
+            }else if (strongSelf.lastNearbyType == 3) {
+                strongSelf.nearbyMedical = (resultArr.count >5)?[resultArr subarrayWithRange:NSMakeRange(0, 5)]:resultArr;
+            }else{
+                strongSelf.nearbyBusiness = (resultArr.count >5)?[resultArr subarrayWithRange:NSMakeRange(0, 5)]:resultArr;
+            }
+            [strongSelf saveNearbyDataRequest:resultArr];//将数据存入服务器，下次直接从服务器获取
+        }else{
+            [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:responseObject[@"msg"]];
+        }
+        if (completeCall) {
+            completeCall();
+        }
+    } failure:^(NSError *error) {
+        [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:error.localizedDescription];
+        if (completeCall) {
+            completeCall();
+        }
+    }];
+}
+/** 储存项目周边配套缓存 */
+-(void)saveNearbyDataRequest:(NSArray *)resultArr
+{
+    // 楼盘周边
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    NSMutableDictionary *data = [NSMutableDictionary dictionary];
+    data[@"type"] = @(self.lastNearbyType);//类型 1.交通 2.教育 3.医疗 4.商业
+    data[@"jsonStr"] = [resultArr yy_modelToJSONString];
+    data[@"uuid"] = self.uuid;
+    parameters[@"data"] = data;
+    
+    [HXNetworkTool POST:HXRC_M_URL action:@"/pro/map/saveProductPeripheralMatchingRel" parameters:parameters success:^(id responseObject) {
+        if ([responseObject[@"code"] integerValue] == 0) {
+            // 周边数据上传存入成功
+        }else{
+            [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:responseObject[@"msg"]];
+        }
+    } failure:^(NSError *error) {
+        [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:error.localizedDescription];
+    }];
+}
+/** 处理项目详情数据 */
 -(void)handleHouseDetailData
 {
     self.scrollView.hidden = NO;
-    /*
-    // 处理头部banner数据
-    NSMutableArray *categoryTitles = [NSMutableArray array];
-    NSMutableArray *handledPics = [NSMutableArray array];
-    if (self.housePic.vrUrl && self.housePic.vrUrl.length) {
-        [categoryTitles addObject:@"VR"];
-        RCHousePicInfo *info = [RCHousePicInfo new];
-        info.type = RCHousePicInfoTypeVR;
-        info.url = self.housePic.vrCover;
-        [handledPics addObject:info];
-    }
-
-    if (self.housePic.videoUrl && self.housePic.videoUrl.length) {
-        [categoryTitles addObject:@"视频"];
-        RCHousePicInfo *info = [RCHousePicInfo new];
-        info.type = RCHousePicInfoTypeVideo;
-        info.url = self.housePic.videoCover;
-        [handledPics addObject:info];
-    }
-
-    if (self.housePic.picUrl && self.housePic.picUrl.count) {
-        [categoryTitles addObject:@"图片"];
-        for (NSString *url in self.housePic.picUrl) {
-            RCHousePicInfo *info = [RCHousePicInfo new];
-            info.type = RCHousePicInfoTypePicture;
-            info.url = url;
-            [handledPics addObject:info];
-        }
-    }
-    self.handledPics = handledPics;
-    [self.cycleView reloadData];
-
-    self.categoryViewWidth.constant = 50.f*categoryTitles.count;
-    self.categoryView.titles = categoryTitles;
-    [self.categoryView reloadData];
-    */
+    
+//    // 处理头部banner数据
+//    NSMutableArray *categoryTitles = [NSMutableArray array];
+//    NSMutableArray *handledPics = [NSMutableArray array];
+//    if (self.housePic.vrCover && self.housePic.vrCover.length && self.housePic.vrUrl && self.housePic.vrUrl.length) {
+//        [categoryTitles addObject:@"VR"];
+//        RCHousePicInfo *info = [RCHousePicInfo new];
+//        info.type = RCHousePicInfoTypeVR;
+//        info.url = self.housePic.vrCover;
+//        [handledPics addObject:info];
+//    }
+//
+//    if (self.housePic.videoCover && self.housePic.videoCover.length && self.housePic.videoUrl && self.housePic.videoUrl.length) {
+//        [categoryTitles addObject:@"视频"];
+//        RCHousePicInfo *info = [RCHousePicInfo new];
+//        info.type = RCHousePicInfoTypeVideo;
+//        info.url = self.housePic.videoCover;
+//        [handledPics addObject:info];
+//    }
+//
+//    if (self.housePic.picUrls && self.housePic.picUrls.count) {
+//        [categoryTitles addObject:@"图片"];
+//        for (NSString *url in self.housePic.picUrls) {
+//            RCHousePicInfo *info = [RCHousePicInfo new];
+//            info.type = RCHousePicInfoTypePicture;
+//            info.url = url;
+//            [handledPics addObject:info];
+//        }
+//    }
+//    self.handledPics = handledPics;
+//    [self.cycleView reloadData];
+//
+//    self.categoryViewWidth.constant = 50.f*categoryTitles.count;
+//    self.categoryView.titles = categoryTitles;
+//    [self.categoryView reloadData];
+    
     
     // 处理楼盘基础信息
     self.houseName.text = self.houseDetail.name;
@@ -461,12 +644,12 @@ static NSString *const HouseGoodsCell = @"HouseGoodsCell";
             tagL.hidden = YES;
         }
     }
-    
+
     // 处理楼盘详情
     NSMutableArray *houseInfo = [NSMutableArray array];
     NSArray *titles = @[@"楼盘地址",@"楼盘状态",@"可售面积",@"可售户型",@"开盘时间"];
     NSArray *values = @[self.houseDetail.buldAddr,self.houseDetail.salesState,[NSString stringWithFormat:@"%@㎡", self.houseDetail.areaInterval],self.houseDetail.mainHuxingName,self.houseDetail.openTime];
-    
+
     for (int i=0; i<5; i++) {
         NSMutableDictionary *dict = [NSMutableDictionary dictionary];
         dict[@"name"] = titles[i];
@@ -479,10 +662,10 @@ static NSString *const HouseGoodsCell = @"HouseGoodsCell";
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.05 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         weakSelf.houseInfoTableViewHeight.constant = 10.f+44.f+weakSelf.houseInfoTableView.contentSize.height+64.f;
     });
-    
+
     // 处理产品户型图
     [self.houseStyleCollectionView reloadData];
-    
+
     // 处理楼盘亮点
     CGFloat textHeight = [self.houseDetail.meritsIntr textHeightSize:CGSizeMake(HX_SCREEN_WIDTH-15*2, CGFLOAT_MAX) font:[UIFont fontWithName:@"PingFangSC-Medium" size: 14] lineSpacing:5.f];
     [self.houseGoodsLabel setTextWithLineSpace:5.f withString:self.houseDetail.meritsIntr withFont:[UIFont fontWithName:@"PingFangSC-Medium" size: 14]];
@@ -495,27 +678,62 @@ static NSString *const HouseGoodsCell = @"HouseGoodsCell";
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.05 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         weakSelf.houseGoodsViewHeight.constant = 10.f+44.f+textHeight+weakSelf.houseGoodsTableView.contentSize.height;
     });
+
+    // 处理周边配套
+    QPointAnnotation *a1 = [[QPointAnnotation alloc] init];
+    a1.coordinate = CLLocationCoordinate2DMake(self.houseDetail.dimension, self.houseDetail.longitude);
+    a1.title      = self.houseDetail.name;
+    [self.mapView addAnnotation:a1];
+    [self.mapView setCenterCoordinate:a1.coordinate animated:YES];
     
+    [self.houseNearbyTableView reloadData];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.05 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        weakSelf.houseNearbyViewHeight.constant = 10.f+44.f+260.f+weakSelf.houseNearbyTableView.contentSize.height;
+    });
+
     // 处理楼盘动态
     [self.houseNewsTableView reloadData];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.05 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         weakSelf.houseNewsTableViewHeight.constant = 10.f+44.f+weakSelf.houseNewsTableView.contentSize.height+64.f;
     });
 }
-#pragma mark -- Map Delegate
-/*!
- @brief 根据anntation生成对应的View
- @param mapView 地图View
- @param annotation 指定的标注
- @return 生成的标注View
+#pragma mark -- QMap Delegate
+/**
+ * @brief 根据anntation生成对应的ViewQ
+ * @param mapView 地图View
+ * @param annotation 指定的标注
+ * @return 生成的标注View
  */
-- (MAAnnotationView*)mapView:(MAMapView *)mapView viewForAnnotation:(id <MAAnnotation>)annotation {
-    if ([annotation isKindOfClass:[MAPointAnnotation class]]) {
-        static NSString *pointReuseIndetifier = @"pointReuseIndetifier";
-        MAAnnotationView *annotationView = (MAAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:pointReuseIndetifier];
+- (QAnnotationView *)mapView:(QMapView *)mapView viewForAnnotation:(id <QAnnotation>)annotation;
+{
+    if ([annotation isKindOfClass:[QUserLocation class]]) {
+        return nil;
+    }
+    if ([annotation isKindOfClass:[RCCustomAnnotation class]]) {
+        static NSString *customReuseIndetifier = @"customReuseIndetifier";
+        QAnnotationView *annotationView = (QAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:customReuseIndetifier];
         if (annotationView == nil){
-            annotationView = [[MAAnnotationView alloc] initWithAnnotation:annotation
-                                                          reuseIdentifier:pointReuseIndetifier];
+            annotationView = [[QAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:customReuseIndetifier];
+        }
+        if (self.lastNearbyType == 1) {
+            annotationView.image = [UIImage imageNamed:@"icon_bus_click"];
+        }else if (self.lastNearbyType == 2){
+            annotationView.image = [UIImage imageNamed:@"icon_education_click"];
+        }else if (self.lastNearbyType == 3){
+            annotationView.image = [UIImage imageNamed:@"icon_medical_click"];
+        }else{
+            annotationView.image = [UIImage imageNamed:@"icon_business_click"];
+        }
+        annotationView.canShowCallout               = YES;
+        annotationView.annotation = annotation;
+        
+        return annotationView;
+    }else if ([annotation isKindOfClass:[QPointAnnotation class]]) {
+        static NSString *pointReuseIndetifier = @"pointReuseIndetifier";
+        QAnnotationView *annotationView = (QAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:pointReuseIndetifier];
+        if (annotationView == nil){
+            annotationView = [[QAnnotationView alloc] initWithAnnotation:annotation
+                                                         reuseIdentifier:pointReuseIndetifier];
         }
         annotationView.image = [UIImage imageNamed:@"icon_logo"];
         annotationView.canShowCallout               = YES;
@@ -523,7 +741,6 @@ static NSString *const HouseGoodsCell = @"HouseGoodsCell";
         //annotationView.centerOffset = CGPointMake(0, -18);
         return annotationView;
     }
-    
     return nil;
 }
 #pragma mark -- JXCategoryView代理
@@ -560,7 +777,7 @@ static NSString *const HouseGoodsCell = @"HouseGoodsCell";
 
     if (picInfo.type == RCHousePicInfoTypePicture) {
         self.cycleNum.hidden = NO;
-        self.cycleNum.text = [NSString stringWithFormat:@"%zd/%zd", (toIndex+1)-(self.categoryView.titles.count-1),self.housePic.picUrl.count];
+        self.cycleNum.text = [NSString stringWithFormat:@"%zd/%zd", (toIndex+1)-(self.categoryView.titles.count-1),self.housePic.picUrls.count];
         [self.categoryView selectItemAtIndex:self.categoryView.titles.count-1];
     }else{
         self.cycleNum.hidden = YES;
@@ -604,6 +821,8 @@ static NSString *const HouseGoodsCell = @"HouseGoodsCell";
 }
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     RCHouseStyleVC *svc = [RCHouseStyleVC new];
+    RCHouseStyle *style = self.houseDetail.rhxList[indexPath.item];
+    svc.uuid = style.uuid;
     [self.navigationController pushViewController:svc animated:YES];
 }
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -628,7 +847,15 @@ static NSString *const HouseGoodsCell = @"HouseGoodsCell";
     }else if (tableView == self.houseGoodsTableView) {
         return self.houseGoods.count;
     }else{
-        return 5;
+        if (self.lastNearbyType == 1) {
+            return self.nearbyBus.count;
+        }else if (self.lastNearbyType == 2){
+            return self.nearbyEducation.count;
+        }else if (self.lastNearbyType == 3){
+            return self.nearbyMedical.count;
+        }else{
+            return self.nearbyBusiness.count;
+        }
     }
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -658,6 +885,20 @@ static NSString *const HouseGoodsCell = @"HouseGoodsCell";
         RCHouseNearbyCell *cell = [tableView dequeueReusableCellWithIdentifier:HouseNearbyCell forIndexPath:indexPath];
         //无色
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.numRow.text = [NSString stringWithFormat:@"%zd",indexPath.row+1];
+        if (self.lastNearbyType == 1) {
+            RCNearbyPOI *nearby = self.nearbyBus[indexPath.row];
+            cell.nearby = nearby;
+        }else if (self.lastNearbyType == 2){
+            RCNearbyPOI *nearby = self.nearbyEducation[indexPath.row];
+            cell.nearby = nearby;
+        }else if (self.lastNearbyType == 3){
+            RCNearbyPOI *nearby = self.nearbyMedical[indexPath.row];
+            cell.nearby = nearby;
+        }else{
+            RCNearbyPOI *nearby = self.nearbyBusiness[indexPath.row];
+            cell.nearby = nearby;
+        }
         return cell;
     }
 }
@@ -680,6 +921,27 @@ static NSString *const HouseGoodsCell = @"HouseGoodsCell";
         RCHouseNews *news = self.houseNews[indexPath.row];
         dvc.newsUuid = news.uuid;
         [self.navigationController pushViewController:dvc animated:YES];
+    }else if (tableView == self.houseNearbyTableView) {
+        RCNearbyPOI *nearby = nil;
+        if (self.lastNearbyType == 1) {
+            nearby = self.nearbyBus[indexPath.row];
+        }else if (self.lastNearbyType == 2){
+            nearby = self.nearbyEducation[indexPath.row];
+        }else if (self.lastNearbyType == 3){
+            nearby = self.nearbyMedical[indexPath.row];
+        }else{
+            nearby = self.nearbyBusiness[indexPath.row];
+        }
+        if (!self.nearbyPoint) {
+            self.nearbyPoint = [[RCCustomAnnotation alloc] init];
+        }else{
+            [self.mapView removeAnnotation:self.nearbyPoint];
+        }
+        self.nearbyPoint = [[RCCustomAnnotation alloc] init];
+        self.nearbyPoint.coordinate = CLLocationCoordinate2DMake(nearby.location.lat, nearby.location.lng);
+        self.nearbyPoint.title      = nearby.title;
+        [self.mapView addAnnotation:self.nearbyPoint];
+        [self.mapView setCenterCoordinate:self.nearbyPoint.coordinate animated:YES];
     }
 }
 @end

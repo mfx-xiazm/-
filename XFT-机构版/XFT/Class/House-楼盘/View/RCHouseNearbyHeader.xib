@@ -27,7 +27,7 @@
                         <button opaque="NO" tag="1" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uTw-Kt-0ab" customClass="SPButton">
                             <rect key="frame" x="0.0" y="0.0" width="103.5" height="63"/>
                             <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                            <state key="normal" title="交通(3)" image="icon_bus">
+                            <state key="normal" title="交通" image="icon_bus">
                                 <color key="titleColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
                             <state key="selected" image="icon_bus_click">
@@ -48,7 +48,7 @@
                         <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sag-j5-X8C" customClass="SPButton">
                             <rect key="frame" x="103.5" y="0.0" width="103.5" height="63"/>
                             <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                            <state key="normal" title="教育(3)" image="icon_education">
+                            <state key="normal" title="教育" image="icon_education">
                                 <color key="titleColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
                             <state key="selected" image="icon_education_click">
@@ -90,7 +90,7 @@
                         <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VYb-ek-IQW" customClass="SPButton">
                             <rect key="frame" x="310.5" y="0.0" width="103.5" height="63"/>
                             <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                            <state key="normal" title="商业(3)" image="icon_business">
+                            <state key="normal" title="商业" image="icon_business">
                                 <color key="titleColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
                             <state key="selected" image="icon_business_click">
@@ -154,7 +154,7 @@
             <connections>
                 <outlet property="firstBtn" destination="uTw-Kt-0ab" id="rU3-0Z-j7i"/>
             </connections>
-            <point key="canvasLocation" x="-151" y="381"/>
+            <point key="canvasLocation" x="-367" y="376"/>
         </view>
     </objects>
     <resources>

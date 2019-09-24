@@ -9,5 +9,18 @@
 #import "RCHousePic.h"
 
 @implementation RCHousePic
-
++ (NSDictionary *)modelCustomPropertyMapper {
+    return @{@"videoCover"  : @"videoPic",
+             @"vrCover" : @"vrPic",
+             };
+}
+-(void)setPicUrl:(NSString *)picUrl
+{
+    _picUrl = picUrl;
+    if (_picUrl.length) {
+        _picUrls = [_picUrl componentsSeparatedByString:@","];
+    }else{
+        _picUrls = [NSArray array];
+    }
+}
 @end

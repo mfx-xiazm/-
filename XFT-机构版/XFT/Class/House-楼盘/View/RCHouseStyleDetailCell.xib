@@ -19,8 +19,9 @@
                 <rect key="frame" x="0.0" y="0.0" width="397" height="206.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ceshitu" translatesAutoresizingMaskIntoConstraints="NO" id="9pm-cr-suf">
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="9pm-cr-suf">
                         <rect key="frame" x="15" y="0.0" width="367" height="196.5"/>
+                        <color key="backgroundColor" red="0.95294117649999999" green="0.95294117649999999" blue="0.95294117649999999" alpha="1" colorSpace="calibratedRGB"/>
                     </imageView>
                 </subviews>
                 <constraints>
@@ -31,10 +32,10 @@
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="aW0-zy-SZf"/>
+            <connections>
+                <outlet property="houseImg" destination="9pm-cr-suf" id="5h3-eN-bon"/>
+            </connections>
             <point key="canvasLocation" x="169" y="114"/>
         </tableViewCell>
     </objects>
-    <resources>
-        <image name="ceshitu" width="648" height="418"/>
-    </resources>
 </document>

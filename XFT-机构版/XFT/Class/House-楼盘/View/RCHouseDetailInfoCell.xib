@@ -20,9 +20,9 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="开盘时间：" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C18-NH-PgX">
-                        <rect key="frame" x="15" y="0.0" width="80" height="18"/>
+                        <rect key="frame" x="10" y="0.0" width="85" height="18"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="80" id="gac-Hf-axr"/>
+                            <constraint firstAttribute="width" constant="85" id="gac-Hf-axr"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -39,7 +39,7 @@
                     </imageView>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="C18-NH-PgX" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="21B-JC-qNo"/>
+                    <constraint firstItem="C18-NH-PgX" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="21B-JC-qNo"/>
                     <constraint firstItem="gab-zi-kK9" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="GDC-kV-XDa"/>
                     <constraint firstAttribute="trailing" secondItem="gab-zi-kK9" secondAttribute="trailing" constant="10" id="I8r-0y-SzT"/>
                     <constraint firstAttribute="bottom" secondItem="P2j-QA-Hfw" secondAttribute="bottom" constant="15" id="JLA-C0-KAg"/>

@@ -11,11 +11,13 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface RCHousePic : NSObject
-@property (nonatomic, strong) NSArray<NSString *> * picUrl;
+@property (nonatomic, strong) NSString * picUrl;
+@property (nonatomic, strong) NSArray<NSString *> * picUrls;
 @property (nonatomic, strong) NSString * videoUrl;
 @property (nonatomic, strong) NSString * vrUrl;
 @property (nonatomic, strong) NSString * videoCover;
 @property (nonatomic, strong) NSString * vrCover;
+
 @end
 
 NS_ASSUME_NONNULL_END

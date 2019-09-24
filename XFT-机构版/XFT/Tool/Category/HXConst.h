@@ -7,8 +7,8 @@ UIKIT_EXTERN NSString * const HXDeviceTokens;
 
 UIKIT_EXTERN NSString * const HXPayPushNotification;
 
-// 高德key
-UIKIT_EXTERN NSString * const HXMapKey;
+// 腾讯地图key
+UIKIT_EXTERN NSString * const HXQMapKey;
 
 // 微信分享/微信支付的key
 UIKIT_EXTERN NSString * const HXWXKey;

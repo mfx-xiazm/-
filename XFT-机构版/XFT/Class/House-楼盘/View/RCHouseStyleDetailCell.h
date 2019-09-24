@@ -11,7 +11,8 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface RCHouseStyleDetailCell : UITableViewCell
-
+/* 图片地址 */
+@property(nonatomic,copy) NSString *picUrl;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -13,7 +13,7 @@
 #import <UMShare/UMShare.h>
 #import <UMCommon/UMCommon.h>
 #import "RCLoginVC.h"
-#import <AMapFoundationKit/AMapFoundationKit.h>
+#import <QMapKit/QMapKit.h>
 
 @implementation AppDelegate (MSAppService)
 
@@ -26,8 +26,8 @@
 //
 //    [self configUSharePlatforms];
     
-    /* ————— 高德 ————— */
-    [AMapServices sharedServices].apiKey = HXMapKey;
+    /* ————— 腾讯地图 ————— */
+    [QMapServices sharedServices].APIKey = HXQMapKey;
 }
 -(void)configUSharePlatforms
 {
@@ -68,14 +68,14 @@
 //    NSString *currentVersion = [NSBundle mainBundle].infoDictionary[key];
     
 //    if ([currentVersion isEqualToString:lastVersion]) { // 版本号相同：这次打开和上次打开的是同一个版本
-//        if ([[MSUserManager sharedInstance] loadUserInfo]) {
-//            HXTabBarController *tabBarController = [[HXTabBarController alloc] init];
-//            self.window.rootViewController = tabBarController;
-//        }else{
+        if ([[MSUserManager sharedInstance] loadUserInfo]) {
+            HXTabBarController *tabBarController = [[HXTabBarController alloc] init];
+            self.window.rootViewController = tabBarController;
+        }else{
             RCLoginVC *lvc = [RCLoginVC new];
             HXNavigationController *nav = [[HXNavigationController alloc] initWithRootViewController:lvc];
             self.window.rootViewController = nav;
-//        }
+        }
 //    } else {   // 这次打开的版本和上一次不一样，显示引导页
 //        // 真实情况改成引导页
 //        HXGuideViewController *gvc = [[HXGuideViewController alloc] init];

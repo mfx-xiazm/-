@@ -11,7 +11,13 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface RCHouseNearbyVC : HXBaseViewController
-
+/* 楼盘uuid */
+@property(nonatomic,copy) NSString *uuid;
+/* 楼盘名字 */
+@property(nonatomic,copy) NSString *name;
+/* 经纬度 */
+@property (nonatomic, assign) CGFloat lat;
+@property (nonatomic, assign) CGFloat lng;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -171,6 +171,11 @@ static NSArray *_filtrationCacheKey;
 
     NSString *appendUrl =  action?[NSString stringWithFormat:@"%@%@",URL,action]:URL;
 
+    if ([MSUserManager sharedInstance].isLogined) {
+        [_sessionManager.requestSerializer setValue:[MSUserManager sharedInstance].curUserInfo.userAccessStr forHTTPHeaderField:@"UserAccessInfo"];
+        [_sessionManager.requestSerializer setValue:[MSUserManager sharedInstance].curUserInfo.token forHTTPHeaderField:@"Authorization"];
+    }
+
     //读取缓存
     responseCache!=nil ? responseCache([HXNetworkCache httpCacheForURL:appendUrl parameters:parameters filtrationCacheKey:_filtrationCacheKey]) : nil;
     
@@ -376,8 +381,7 @@ static NSArray *_filtrationCacheKey;
     _sessionManager.requestSerializer.timeoutInterval = 30.f;
     [_sessionManager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     _sessionManager.requestSerializer = [AFJSONRequestSerializer serializer];
-    [_sessionManager.requestSerializer setValue:@"{\"domain\":\"agent-app-android\",\"loginId\":\"3697631009564526927d454994b8f881\"}" forHTTPHeaderField:@"UserAccessInfo"];
-    _sessionManager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/html", @"text/json", @"text/plain", @"text/javascript", @"text/xml", @"image/*", nil]; 
+    _sessionManager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/html", @"text/json", @"text/plain", @"text/javascript", @"text/xml", @"image/*", nil];
     // 打开状态栏的等待菊花
     [AFNetworkActivityIndicatorManager sharedManager].enabled = YES;
 }

@@ -25,8 +25,9 @@
     self.lastBtn.selected = NO;
     sender.selected = YES;
     self.lastBtn = sender;
-    if (self.nearbyTypeCall) {
-        self.nearbyTypeCall(sender.tag);
+    
+    if ([self.delegate respondsToSelector:@selector(nearbyHeader:didClicked:)]) {
+        [self.delegate nearbyHeader:self didClicked:sender.tag];
     }
 }
 

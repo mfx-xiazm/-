@@ -22,8 +22,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString * huXingName;
 @property (nonatomic, strong) NSString * roomArea;
 @property (nonatomic, strong) NSString * buldType;
-@property (nonatomic, strong) NSString * longitude;//纬度
-@property (nonatomic, strong) NSString * dimension;//经度
+@property (nonatomic, assign) CGFloat  longitude;
+@property (nonatomic, assign) CGFloat  dimension;
 @end
 
 NS_ASSUME_NONNULL_END

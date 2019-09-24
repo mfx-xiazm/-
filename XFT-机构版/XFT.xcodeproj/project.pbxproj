@@ -221,6 +221,7 @@
 		909B86CD231D397A001A9F7C /* RCMyBrokerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 909B86CB231D397A001A9F7C /* RCMyBrokerCell.xib */; };
 		909B86D1231D3F33001A9F7C /* RCAddBrokerVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 909B86CF231D3F33001A9F7C /* RCAddBrokerVC.m */; };
 		909B86D2231D3F33001A9F7C /* RCAddBrokerVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 909B86D0231D3F33001A9F7C /* RCAddBrokerVC.xib */; };
+		909D632C233A0B02000F7199 /* RCCustomAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 909D632B233A0B02000F7199 /* RCCustomAnnotation.m */; };
 		90B6F2112320F28F007A37EE /* RCReportPersonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 90B6F20F2320F28F007A37EE /* RCReportPersonCell.m */; };
 		90B6F2122320F28F007A37EE /* RCReportPersonCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 90B6F2102320F28F007A37EE /* RCReportPersonCell.xib */; };
 		90B6F2152320F2FA007A37EE /* RCReportPersonHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 90B6F2142320F2FA007A37EE /* RCReportPersonHeader.m */; };
@@ -242,6 +243,7 @@
 		90D1E3B9232127A600743839 /* RCClientDetailNoteVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 90D1E3B7232127A600743839 /* RCClientDetailNoteVC.xib */; };
 		90D1E3BD23212DE600743839 /* RCClientDetailInfoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 90D1E3BB23212DE600743839 /* RCClientDetailInfoVC.m */; };
 		90D1E3BE23212DE600743839 /* RCClientDetailInfoVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 90D1E3BC23212DE600743839 /* RCClientDetailInfoVC.xib */; };
+		90E16F5C23386B89006D36A5 /* RCNearbyPOI.m in Sources */ = {isa = PBXBuildFile; fileRef = 90E16F5B23386B89006D36A5 /* RCNearbyPOI.m */; };
 		90ECF077231E4CC800E538DB /* RCMoveClientVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 90ECF075231E4CC800E538DB /* RCMoveClientVC.m */; };
 		90ECF078231E4CC800E538DB /* RCMoveClientVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 90ECF076231E4CC800E538DB /* RCMoveClientVC.xib */; };
 		90ECF07C231E4DBA00E538DB /* RCMoveClientCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 90ECF07A231E4DBA00E538DB /* RCMoveClientCell.m */; };
@@ -643,6 +645,8 @@
 		909B86CE231D3F33001A9F7C /* RCAddBrokerVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCAddBrokerVC.h; sourceTree = "<group>"; };
 		909B86CF231D3F33001A9F7C /* RCAddBrokerVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCAddBrokerVC.m; sourceTree = "<group>"; };
 		909B86D0231D3F33001A9F7C /* RCAddBrokerVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RCAddBrokerVC.xib; sourceTree = "<group>"; };
+		909D632A233A0B02000F7199 /* RCCustomAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCCustomAnnotation.h; sourceTree = "<group>"; };
+		909D632B233A0B02000F7199 /* RCCustomAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCCustomAnnotation.m; sourceTree = "<group>"; };
 		90B6F20E2320F28F007A37EE /* RCReportPersonCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCReportPersonCell.h; sourceTree = "<group>"; };
 		90B6F20F2320F28F007A37EE /* RCReportPersonCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCReportPersonCell.m; sourceTree = "<group>"; };
 		90B6F2102320F28F007A37EE /* RCReportPersonCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RCReportPersonCell.xib; sourceTree = "<group>"; };
@@ -675,6 +679,8 @@
 		90D1E3BA23212DE600743839 /* RCClientDetailInfoVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCClientDetailInfoVC.h; sourceTree = "<group>"; };
 		90D1E3BB23212DE600743839 /* RCClientDetailInfoVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCClientDetailInfoVC.m; sourceTree = "<group>"; };
 		90D1E3BC23212DE600743839 /* RCClientDetailInfoVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RCClientDetailInfoVC.xib; sourceTree = "<group>"; };
+		90E16F5A23386B89006D36A5 /* RCNearbyPOI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCNearbyPOI.h; sourceTree = "<group>"; };
+		90E16F5B23386B89006D36A5 /* RCNearbyPOI.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCNearbyPOI.m; sourceTree = "<group>"; };
 		90ECF074231E4CC800E538DB /* RCMoveClientVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCMoveClientVC.h; sourceTree = "<group>"; };
 		90ECF075231E4CC800E538DB /* RCMoveClientVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCMoveClientVC.m; sourceTree = "<group>"; };
 		90ECF076231E4CC800E538DB /* RCMoveClientVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RCMoveClientVC.xib; sourceTree = "<group>"; };
@@ -1525,6 +1531,10 @@
 				904474D22336119500E30ED3 /* RCHousePic.m */,
 				904474D42336136100E30ED3 /* RCHousePicInfo.h */,
 				904474D52336136100E30ED3 /* RCHousePicInfo.m */,
+				90E16F5A23386B89006D36A5 /* RCNearbyPOI.h */,
+				90E16F5B23386B89006D36A5 /* RCNearbyPOI.m */,
+				909D632A233A0B02000F7199 /* RCCustomAnnotation.h */,
+				909D632B233A0B02000F7199 /* RCCustomAnnotation.m */,
 			);
 			name = "楼盘详情";
 			sourceTree = "<group>";
@@ -2042,9 +2052,9 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-XFT/Pods-XFT-resources.sh",
-				"${PODS_ROOT}/AMap3DMap-NO-IDFA/MAMapKit.framework/AMap.bundle",
 				"${PODS_ROOT}/IQKeyboardManager/IQKeyboardManager/Resources/IQKeyboardManager.bundle",
 				"${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle",
+				"${PODS_ROOT}/TencentMap-SDK/sdk/QMapKit.framework/QMapKit.bundle",
 				"${PODS_ROOT}/ZFPlayer/ZFPlayer/Classes/ControlView/ZFPlayer.bundle",
 				"${PODS_ROOT}/ZLPhotoBrowser/ZLPhotoBrowser/PhotoBrowser/resource/ZLPhotoActionSheet.xib",
 				"${PODS_ROOT}/ZLPhotoBrowser/ZLPhotoBrowser/PhotoBrowser/resource/ZLPhotoBrowserCell.xib",
@@ -2054,9 +2064,9 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AMap.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/IQKeyboardManager.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MJRefresh.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/QMapKit.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/ZFPlayer.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/ZLPhotoActionSheet.nib",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/ZLPhotoBrowserCell.nib",
@@ -2127,6 +2137,7 @@
 				9040F2B12313F715005E6B2E /* RCNewsVC.m in Sources */,
 				9040F2772313AABE005E6B2E /* AppDelegate+MSAppService.m in Sources */,
 				9040F2452313A839005E6B2E /* UINavigation+SXFixSpace.m in Sources */,
+				909D632C233A0B02000F7199 /* RCCustomAnnotation.m in Sources */,
 				90068BB0231CFC9A00B0D856 /* RCBatchReportVC.m in Sources */,
 				90068B4F231CB99300B0D856 /* RCHouseStyleCell.m in Sources */,
 				90068B7A231CC6E100B0D856 /* RCNewsCell.m in Sources */,
@@ -2222,6 +2233,7 @@
 				904474D62336136100E30ED3 /* RCHousePicInfo.m in Sources */,
 				9049E64B23222CF90010E5B1 /* RCHouseInfoVC.m in Sources */,
 				9040F2542313A839005E6B2E /* HXTopWindow.m in Sources */,
+				90E16F5C23386B89006D36A5 /* RCNearbyPOI.m in Sources */,
 				9040F2BF2313F8AF005E6B2E /* RCLoginVC.m in Sources */,
 				90B6F2112320F28F007A37EE /* RCReportPersonCell.m in Sources */,
 				90068B73231CC68000B0D856 /* RCHouseNearbyCell.m in Sources */,

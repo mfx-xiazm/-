@@ -8,13 +8,21 @@
 
 #import "RCHouseStyleDetailCell.h"
 
+@interface RCHouseStyleDetailCell ()
+@property (weak, nonatomic) IBOutlet UIImageView *houseImg;
+
+@end
 @implementation RCHouseStyleDetailCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
 }
-
+-(void)setPicUrl:(NSString *)picUrl
+{
+    _picUrl = picUrl;
+    [self.houseImg sd_setImageWithURL:[NSURL URLWithString:_picUrl]];
+}
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 

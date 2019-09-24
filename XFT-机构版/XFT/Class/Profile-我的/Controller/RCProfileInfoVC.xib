@@ -12,6 +12,12 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="RCProfileInfoVC">
             <connections>
+                <outlet property="bankNo" destination="42t-0k-Ld9" id="wMU-kZ-dY0"/>
+                <outlet property="bankOpen" destination="ycS-85-AWd" id="jp5-WJ-LzU"/>
+                <outlet property="infoView0" destination="Z0k-M3-hoC" id="vvR-aG-lEe"/>
+                <outlet property="infoView1" destination="M6R-Di-U75" id="b5g-lS-OHW"/>
+                <outlet property="jgName" destination="QQ2-gT-JiC" id="9gg-FQ-ytR"/>
+                <outlet property="userName" destination="3gl-Jx-yOK" id="JfC-6l-UMT"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>

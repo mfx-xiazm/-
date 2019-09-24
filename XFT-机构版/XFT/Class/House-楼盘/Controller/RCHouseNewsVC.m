@@ -99,7 +99,7 @@ static NSString *const NewsCell = @"NewsCell";
     parameters[@"page"] = page;
     
     hx_weakify(self);
-    [HXNetworkTool POST:HXRC_M_URL action:@"pro/pro/information/infListByProUuid" parameters:parameters success:^(id responseObject) {
+    [HXNetworkTool POST:HXRC_M_URL action:@"pro/pro/information/infPageByProUuid" parameters:parameters success:^(id responseObject) {
         hx_strongify(weakSelf);
         if ([responseObject[@"code"] integerValue] == 0) {
             if (isRefresh) {

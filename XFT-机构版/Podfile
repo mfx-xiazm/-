@@ -18,7 +18,7 @@ target 'XFT' do
     pod "JPush"
     pod "TYCyclePagerView"
     pod "ZLCollectionViewFlowLayout"
-    pod "AMap3DMap-NO-IDFA"
+    pod "TencentMap-SDK"
     pod "ZFPlayer/AVPlayer"
     pod "ZFPlayer/ControlView"
 end

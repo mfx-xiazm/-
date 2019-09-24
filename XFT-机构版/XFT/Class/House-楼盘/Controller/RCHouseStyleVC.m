@@ -14,6 +14,7 @@
 #import "RCReportVC.h"
 #import "zhAlertView.h"
 #import "RCHouseLoanVC.h"
+#import "RCHouseInfo.h"
 
 static NSString *const HouseStyleDetailCell = @"HouseStyleDetailCell";
 
@@ -21,7 +22,8 @@ static NSString *const HouseStyleDetailCell = @"HouseStyleDetailCell";
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 /* 头视图 */
 @property(nonatomic,strong) RCHouseStyleHeader *header;
-
+/* 户型详情 */
+@property(nonatomic,strong) RCHouseInfo *houseInfo;
 @end
 
 @implementation RCHouseStyleVC
@@ -29,19 +31,19 @@ static NSString *const HouseStyleDetailCell = @"HouseStyleDetailCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.navigationItem setTitle:@"户型详情"];
-    [self setUpNavBar];
     [self setUpTableView];
+    [self getHouseStyleDetailRequest];
 }
 -(void)viewDidLayoutSubviews
 {
     [super viewDidLayoutSubviews];
-    self.header.frame = CGRectMake(0, 0, HX_SCREEN_WIDTH, 280);
+    self.header.frame = CGRectMake(0, 0, HX_SCREEN_WIDTH, 220);
 }
 -(RCHouseStyleHeader *)header
 {
     if (_header == nil) {
         _header = [RCHouseStyleHeader loadXibView];
-        _header.frame = CGRectMake(0, 0, HX_SCREEN_WIDTH, 280);
+        _header.frame = CGRectMake(0, 0, HX_SCREEN_WIDTH, 220);
         hx_weakify(self);
         _header.loanDetailCall = ^{
             RCHouseLoanVC *lvc = [RCHouseLoanVC new];
@@ -49,12 +51,6 @@ static NSString *const HouseStyleDetailCell = @"HouseStyleDetailCell";
         };
     }
     return _header;
-}
--(void)setUpNavBar
-{
-    UIBarButtonItem *shareItem = [UIBarButtonItem itemWithTarget:self action:@selector(shareClicked) nomalImage:HXGetImage(@"icon_share_top") higeLightedImage:HXGetImage(@"icon_share_top") imageEdgeInsets:UIEdgeInsetsZero];
-    
-    self.navigationItem.rightBarButtonItem = shareItem;
 }
 -(void)setUpTableView
 {
@@ -82,6 +78,8 @@ static NSString *const HouseStyleDetailCell = @"HouseStyleDetailCell";
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([RCHouseStyleDetailCell class]) bundle:nil] forCellReuseIdentifier:HouseStyleDetailCell];
     
     self.tableView.tableHeaderView = self.header;
+    
+    self.tableView.hidden = YES;
 }
 #pragma mark -- 点击事件
 -(void)shareClicked
@@ -131,16 +129,41 @@ static NSString *const HouseStyleDetailCell = @"HouseStyleDetailCell";
     self.zh_popupController = [[zhPopupController alloc] init];
     [self.zh_popupController presentContentView:alert duration:0.25 springAnimated:NO];
 }
-
+#pragma mark -- 接口请求
+-(void)getHouseStyleDetailRequest
+{
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    NSMutableDictionary *data = [NSMutableDictionary dictionary];
+    data[@"uuid"] = self.uuid;
+    parameters[@"data"] = data;
+    
+    hx_weakify(self);
+    [HXNetworkTool POST:HXRC_M_URL action:@"pro/pro/apartment/ByUuid" parameters:parameters success:^(id responseObject) {
+        hx_strongify(weakSelf);
+        if ([responseObject[@"code"] integerValue] == 0) {
+            strongSelf.houseInfo = [RCHouseInfo yy_modelWithDictionary:responseObject[@"data"]];
+        }else{
+            [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:responseObject[@"msg"]];
+        }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            strongSelf.tableView.hidden = NO;
+            strongSelf.header.houseInfo = strongSelf.houseInfo;
+            [strongSelf.tableView reloadData];
+        });
+    } failure:^(NSError *error) {
+        [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:error.localizedDescription];
+    }];
+}
 #pragma mark -- UITableView数据源和代理
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 3;
+    return self.houseInfo.picList.count;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     RCHouseStyleDetailCell *cell = [tableView dequeueReusableCellWithIdentifier:HouseStyleDetailCell forIndexPath:indexPath];
     //无色
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    cell.picUrl = self.houseInfo.picList[indexPath.row];
     return cell;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath

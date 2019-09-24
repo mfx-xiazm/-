@@ -87,7 +87,17 @@ static NSString *const ProfileCell = @"ProfileCell";
 -(NSArray *)titles
 {
     if (_titles == nil) {
-        _titles = @[@[@{@"title":@"我的门店",@"imagename":@"icon_store"},@{@"title":@"我的经纪人",@"imagename":@"icon_jingjiren"},@{@"title":@"我的客户",@"imagename":@"icon_wdkehu"},@{@"title":@"转移客户",@"imagename":@"icon_zykehu"}],@[@{@"title":@"我的收藏",@"imagename":@"icon_mine_sc"},@{@"title":@"常见问题",@"imagename":@"icon_question"},@{@"title":@"更改密码",@"imagename":@"icon_change_key"},@{@"title":@"关于我们",@"imagename":@"icon_about"}]];
+        /** 账号角色 1:中介管理员 2:中介报备人 3:门店主管 4:中介经纪人 */
+        if ([MSUserManager sharedInstance].curUserInfo.agentLoginInside.accRole == 1) {
+            _titles = @[@[@{@"title":@"我的门店",@"imagename":@"icon_store"},@{@"title":@"我的客户",@"imagename":@"icon_wdkehu"},@{@"title":@"转移客户",@"imagename":@"icon_zykehu"}],@[@{@"title":@"我的收藏",@"imagename":@"icon_mine_sc"},@{@"title":@"常见问题",@"imagename":@"icon_question"},@{@"title":@"更改密码",@"imagename":@"icon_change_key"},@{@"title":@"关于我们",@"imagename":@"icon_about"}]];
+        }else if ([MSUserManager sharedInstance].curUserInfo.agentLoginInside.accRole == 2) {
+            _titles = @[@[@{@"title":@"我的客户",@"imagename":@"icon_wdkehu"}],@[@{@"title":@"我的收藏",@"imagename":@"icon_mine_sc"},@{@"title":@"常见问题",@"imagename":@"icon_question"},@{@"title":@"更改密码",@"imagename":@"icon_change_key"},@{@"title":@"关于我们",@"imagename":@"icon_about"}]];
+        }else if ([MSUserManager sharedInstance].curUserInfo.agentLoginInside.accRole == 3) {
+            _titles = @[@[@{@"title":@"我的经纪人",@"imagename":@"icon_jingjiren"},@{@"title":@"我的客户",@"imagename":@"icon_wdkehu"},@{@"title":@"转移客户",@"imagename":@"icon_zykehu"}],@[@{@"title":@"我的收藏",@"imagename":@"icon_mine_sc"},@{@"title":@"常见问题",@"imagename":@"icon_question"},@{@"title":@"更改密码",@"imagename":@"icon_change_key"},@{@"title":@"关于我们",@"imagename":@"icon_about"}]];
+        }else{
+            _titles = @[@[@{@"title":@"我的客户",@"imagename":@"icon_wdkehu"}],@[@{@"title":@"我的收藏",@"imagename":@"icon_mine_sc"},@{@"title":@"常见问题",@"imagename":@"icon_question"},@{@"title":@"更改密码",@"imagename":@"icon_change_key"},@{@"title":@"关于我们",@"imagename":@"icon_about"}]];
+        }
+        
     }
     return _titles;
 }
@@ -166,21 +176,42 @@ static NSString *const ProfileCell = @"ProfileCell";
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 0) {
-        // @"我的门店",@"我的经纪人",@"我的客户",@"转移客户"
-        if (indexPath.row == 0) {
-            // 我的门店
-            RCMyStoreVC *svc = [RCMyStoreVC new];
-            [self.navigationController pushViewController:svc animated:YES];
-        }else if (indexPath.row == 1) {
-            // 我的经纪人
-            RCMyBrokerVC *bvc = [RCMyBrokerVC new];
-            [self.navigationController pushViewController:bvc animated:YES];
-        }else if (indexPath.row == 2) {
-            // 我的客户
+        /** 账号角色 1:中介管理员 2:中介报备人 3:门店主管 4:中介经纪人 */
+        if ([MSUserManager sharedInstance].curUserInfo.agentLoginInside.accRole == 1) {
+            // @"我的门店",@"我的客户",@"转移客户"
+            if (indexPath.row == 0) {
+                // 我的门店
+                RCMyStoreVC *svc = [RCMyStoreVC new];
+                [self.navigationController pushViewController:svc animated:YES];
+            }else if (indexPath.row == 1) {
+                // 我的客户
+                RCMyClientVC *cvc = [RCMyClientVC new];
+                [self.navigationController pushViewController:cvc animated:YES];
+            }else{
+                RCMoveClientVC *cvc = [RCMoveClientVC new];
+                [self.navigationController pushViewController:cvc animated:YES];
+            }
+        }else if ([MSUserManager sharedInstance].curUserInfo.agentLoginInside.accRole == 2) {
+            // @"我的经纪人",@"我的客户",@"转移客户"
+            if (indexPath.row == 0) {
+                // 我的经纪人
+                RCMyBrokerVC *bvc = [RCMyBrokerVC new];
+                [self.navigationController pushViewController:bvc animated:YES];
+            }else if (indexPath.row == 1) {
+                // 我的客户
+                RCMyClientVC *cvc = [RCMyClientVC new];
+                [self.navigationController pushViewController:cvc animated:YES];
+            }else{
+                RCMoveClientVC *cvc = [RCMoveClientVC new];
+                [self.navigationController pushViewController:cvc animated:YES];
+            }
+        }else if ([MSUserManager sharedInstance].curUserInfo.agentLoginInside.accRole == 3) {
+            // @"我的客户"
             RCMyClientVC *cvc = [RCMyClientVC new];
             [self.navigationController pushViewController:cvc animated:YES];
         }else{
-            RCMoveClientVC *cvc = [RCMoveClientVC new];
+            // @"我的客户"
+            RCMyClientVC *cvc = [RCMyClientVC new];
             [self.navigationController pushViewController:cvc animated:YES];
         }
     }else {

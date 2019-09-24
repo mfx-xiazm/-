@@ -32,6 +32,17 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString * totalUsers;
 @property (nonatomic, strong) NSString * uuid;
 @property (nonatomic, strong) NSString * volumeRate;
+
+@property (nonatomic, strong) NSString * hxType;
+@property (nonatomic, strong) NSString * buldArea;
+@property (nonatomic, strong) NSString * roomArea;
+@property (nonatomic, strong) NSString * totalPrice;
+@property (nonatomic, strong) NSString * houseFace;
+@property (nonatomic, strong) NSString * messege;
+@property (nonatomic, strong) NSString * housePic;
+@property (nonatomic, strong) NSString * areaType;
+@property (nonatomic, strong) NSArray * picList;
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -107,6 +107,10 @@
                 <constraint firstAttribute="trailing" secondItem="nlr-vZ-Knj" secondAttribute="trailing" id="wQZ-Jz-osA"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="headPic" destination="2dg-Jp-Pd5" id="HKd-3t-Vb8"/>
+                <outlet property="name" destination="p21-wz-AkL" id="B3Z-8W-Ymr"/>
+            </connections>
             <point key="canvasLocation" x="137.68115942028987" y="306.69642857142856"/>
         </view>
     </objects>

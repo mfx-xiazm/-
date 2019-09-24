@@ -18,14 +18,14 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) NSInteger collectionCount;
 @property (nonatomic, strong) NSString * commissionIntr;
 @property (nonatomic, strong) NSString * commissionRules;
-@property (nonatomic, strong) NSString * dimension;
+@property (nonatomic, assign) CGFloat  dimension;
 @property (nonatomic, assign) NSInteger fanCount;
 @property (nonatomic, strong) NSString * geoAreaName;
 @property (nonatomic, strong) NSString * geoCityName;
 @property (nonatomic, strong) NSString * headPic;
 @property (nonatomic, strong) NSString * intr;
 @property (nonatomic, strong) NSArray * listWatchPic;
-@property (nonatomic, strong) NSString * longitude;
+@property (nonatomic, assign) CGFloat  longitude;
 @property (nonatomic, strong) NSString * mainHuxingBuldArea;
 @property (nonatomic, strong) NSString * mainHuxingName;
 @property (nonatomic, strong) NSString * meritsIntr;

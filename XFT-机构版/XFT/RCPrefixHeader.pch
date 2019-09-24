@@ -75,7 +75,7 @@
 //http://msalesuat.sunac.com.cn/   http://192.168.200.42:9000
 #define HXRC_M_URL @"http://msalesuat.sunac.com.cn/open/api/"
 //#define HXRC_M_URL @"http://yiqibangtestapi.mfxapp.com/index/"
-//https://sapi.1qibang.cn/
+
 #define HXRC_URL_HEADER @"http://msalesuat.sunac.com.cn/open/api/"
 //#define HXRC_URL_HEADER @"http://yiqibangtestapi.mfxapp.com/"
 

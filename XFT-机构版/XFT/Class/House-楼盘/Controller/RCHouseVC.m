@@ -390,7 +390,7 @@ static NSString *const HouseCell = @"HouseCell";
 {
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
     NSMutableDictionary *data = [NSMutableDictionary dictionary];
-    data[@"cityUuid"] = [RCUserAeraManager sharedInstance].curUserArea.cid;
+    data[@"cityId"] = [RCUserAeraManager sharedInstance].curUserArea.cid;
     data[@"areaType"] = (self.areaType && self.areaType.length) ?self.areaType:@"";
     data[@"buldType"] = (self.buldType && self.buldType.length) ?self.buldType:@"";
     data[@"countryUuid"] = (self.countryUuid && self.countryUuid.length) ?self.countryUuid:@"";
@@ -499,6 +499,8 @@ static NSString *const HouseCell = @"HouseCell";
     RCHouseDetailVC *dvc = [RCHouseDetailVC new];
     RCHouseList *house = self.houses[indexPath.row];
     dvc.uuid = house.uuid;
+    dvc.lng = house.longitude;
+    dvc.lat = house.dimension;
     [self.navigationController pushViewController:dvc animated:YES];
 }
 @end

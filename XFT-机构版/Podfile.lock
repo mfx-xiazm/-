@@ -14,9 +14,6 @@ PODS:
   - AFNetworking/Serialization (3.2.1)
   - AFNetworking/UIKit (3.2.1):
     - AFNetworking/NSURLSession
-  - AMap3DMap-NO-IDFA (6.9.0):
-    - AMapFoundation-NO-IDFA (~> 1.5)
-  - AMapFoundation-NO-IDFA (1.5.7)
   - IQKeyboardManager (6.4.0)
   - JCore (2.1.1)
   - JJFontFit (1.0.1)
@@ -30,6 +27,7 @@ PODS:
   - SDWebImage (5.0.6):
     - SDWebImage/Core (= 5.0.6)
   - SDWebImage/Core (5.0.6)
+  - TencentMap-SDK (4.2.7)
   - TYCyclePagerView (1.2.0)
   - UMCCommon (2.1.1)
   - UMCSecurityPlugins (1.0.6)
@@ -52,13 +50,13 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworking
-  - AMap3DMap-NO-IDFA
   - IQKeyboardManager
   - JJFontFit
   - JPush
   - JXCategoryView
   - MJRefresh
   - NHHUDExtend
+  - TencentMap-SDK
   - TYCyclePagerView
   - UMCCommon
   - UMCSecurityPlugins
@@ -74,8 +72,6 @@ DEPENDENCIES:
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - AFNetworking
-    - AMap3DMap-NO-IDFA
-    - AMapFoundation-NO-IDFA
     - IQKeyboardManager
     - JCore
     - JJFontFit
@@ -85,6 +81,7 @@ SPEC REPOS:
     - MJRefresh
     - NHHUDExtend
     - SDWebImage
+    - TencentMap-SDK
     - TYCyclePagerView
     - UMCCommon
     - UMCSecurityPlugins
@@ -98,8 +95,6 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
-  AMap3DMap-NO-IDFA: ffb000a25913efcdc5d979faa54a78655965bc23
-  AMapFoundation-NO-IDFA: 9088085827c831811bb0fd3afd96b99963a7cf71
   IQKeyboardManager: fcef267266379c003181fc3592f6bdb8bf4db839
   JCore: 4072327557f0b83cc22dd4041f2f839740c0077b
   JJFontFit: 1332e4bf5b5d55d335ec1d6dd585d7f4da21c348
@@ -109,6 +104,7 @@ SPEC CHECKSUMS:
   MJRefresh: ed450d6eb9d3346a2cb033ab7eb6de090aeef437
   NHHUDExtend: 1fd914b12b93ac61c1cfdb04485c25db59f27627
   SDWebImage: 920f1a2ff1ca8296ad34f6e0510a1ef1d70ac965
+  TencentMap-SDK: ec50f6028218a2fc0379d261c3327a4b6f3e2b21
   TYCyclePagerView: 2b051dade0615c70784aa34f40c646feeddb7344
   UMCCommon: 971f324a5a99c9d662ae040a815e7e3d7ef8b2a8
   UMCSecurityPlugins: 0831a08f3988f3cea9f1d3a7626cd9bee4fef150
@@ -120,6 +116,6 @@ SPEC CHECKSUMS:
   ZLCollectionViewFlowLayout: 44293c96b7fd275f107b321ba1dc3f95869c3860
   ZLPhotoBrowser: 8975b83f53dbcec1399ef8d1badffc0e09aa9422
 
-PODFILE CHECKSUM: 3efcd50566eb17c15a43280caa493f23bcbf34d8
+PODFILE CHECKSUM: 335e72c6c40bbf340dff47b8e572e780d651ecb6
 
 COCOAPODS: 1.6.1
