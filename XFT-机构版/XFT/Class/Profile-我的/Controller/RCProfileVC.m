@@ -192,6 +192,10 @@ static NSString *const ProfileCell = @"ProfileCell";
                 [self.navigationController pushViewController:cvc animated:YES];
             }
         }else if ([MSUserManager sharedInstance].curUserInfo.agentLoginInside.accRole == 2) {
+            // @"我的客户"
+            RCMyClientVC *cvc = [RCMyClientVC new];
+            [self.navigationController pushViewController:cvc animated:YES];
+        }else if ([MSUserManager sharedInstance].curUserInfo.agentLoginInside.accRole == 3) {
             // @"我的经纪人",@"我的客户",@"转移客户"
             if (indexPath.row == 0) {
                 // 我的经纪人
@@ -205,10 +209,6 @@ static NSString *const ProfileCell = @"ProfileCell";
                 RCMoveClientVC *cvc = [RCMoveClientVC new];
                 [self.navigationController pushViewController:cvc animated:YES];
             }
-        }else if ([MSUserManager sharedInstance].curUserInfo.agentLoginInside.accRole == 3) {
-            // @"我的客户"
-            RCMyClientVC *cvc = [RCMyClientVC new];
-            [self.navigationController pushViewController:cvc animated:YES];
         }else{
             // @"我的客户"
             RCMyClientVC *cvc = [RCMyClientVC new];

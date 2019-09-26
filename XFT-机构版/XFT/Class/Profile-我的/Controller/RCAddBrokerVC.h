@@ -10,8 +10,10 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef void(^addBrokerCall)(void);
 @interface RCAddBrokerVC : HXBaseViewController
-
+/* 添加成功 */
+@property(nonatomic,copy) addBrokerCall addBrokerCall;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -21,6 +21,16 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+//    MSUserInfo *info = [[MSUserInfo alloc] init];
+//    MSUserShowInfo *show = [[MSUserShowInfo alloc] init];
+//    show.uuid = @"10011";
+//    show.accRole = 3;
+//    info.agentLoginInside = show;
+//    MSUserAccessInfo *access = [[MSUserAccessInfo alloc] init];
+//    access.loginId = @"10011";
+//    info.userAccessInfo = access;
+//    [MSUserManager sharedInstance].curUserInfo = info;
+//    [[MSUserManager sharedInstance] saveUserInfo];
     // 监听网络
 //    [self monitorNetworkStatus];
     

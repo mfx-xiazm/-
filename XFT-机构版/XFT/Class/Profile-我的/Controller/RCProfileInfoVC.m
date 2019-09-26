@@ -8,6 +8,8 @@
 
 #import "RCProfileInfoVC.h"
 #import "FSActionSheet.h"
+#import "RCLoginVC.h"
+#import "HXNavigationController.h"
 
 @interface RCProfileInfoVC ()<FSActionSheetDelegate>
 @property (weak, nonatomic) IBOutlet UIView *infoView0;
@@ -43,8 +45,18 @@
     //        hx_weakify(self);
     [as showWithSelectedCompletion:^(NSInteger selectedIndex) {
         //            hx_strongify(weakSelf);
-        if (selectedIndex == 1) {
-            HXLog(@"退出");
+        if (selectedIndex == 0) {
+            [[MSUserManager sharedInstance] logout:nil];
+            
+            RCLoginVC *lvc = [RCLoginVC new];
+            HXNavigationController *nav = [[HXNavigationController alloc] initWithRootViewController:lvc];
+            [UIApplication sharedApplication].keyWindow.rootViewController = nav;
+            
+            //推出主界面出来
+            CATransition *ca = [CATransition animation];
+            ca.type = @"movein";
+            ca.duration = 0.5;
+            [[UIApplication sharedApplication].keyWindow.layer addAnimation:ca forKey:nil];
         }
     }];
 }

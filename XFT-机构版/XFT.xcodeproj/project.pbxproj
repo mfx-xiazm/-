@@ -197,6 +197,8 @@
 		9049E728232247400010E5B1 /* RCLoanDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9049E7202322473F0010E5B1 /* RCLoanDetailCell.m */; };
 		9049E729232247400010E5B1 /* RCLoanDetailHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 9049E7222322473F0010E5B1 /* RCLoanDetailHeader.m */; };
 		904BB22E231FD7D30060E206 /* YCMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 904BB22D231FD7D20060E206 /* YCMenuView.m */; };
+		905CC70B233B3825002A53E8 /* RCMyStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 905CC70A233B3825002A53E8 /* RCMyStore.m */; };
+		905CC70F233B53E1002A53E8 /* RCMyBroker.m in Sources */ = {isa = PBXBuildFile; fileRef = 905CC70E233B53E1002A53E8 /* RCMyBroker.m */; };
 		908AC20C2334BAF500482A1B /* RCUserAeraManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 908AC20B2334BAF500482A1B /* RCUserAeraManager.m */; };
 		908AC20F2334BBD000482A1B /* RCUserArea.m in Sources */ = {isa = PBXBuildFile; fileRef = 908AC20E2334BBD000482A1B /* RCUserArea.m */; };
 		908AC2172334C1E900482A1B /* RCOpenArea.m in Sources */ = {isa = PBXBuildFile; fileRef = 908AC2162334C1E900482A1B /* RCOpenArea.m */; };
@@ -605,6 +607,10 @@
 		9049E723232247400010E5B1 /* RCLoanDetailHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCLoanDetailHeader.h; sourceTree = "<group>"; };
 		904BB22C231FD7D20060E206 /* YCMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YCMenuView.h; sourceTree = "<group>"; };
 		904BB22D231FD7D20060E206 /* YCMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YCMenuView.m; sourceTree = "<group>"; };
+		905CC709233B3825002A53E8 /* RCMyStore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCMyStore.h; sourceTree = "<group>"; };
+		905CC70A233B3825002A53E8 /* RCMyStore.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCMyStore.m; sourceTree = "<group>"; };
+		905CC70D233B53E1002A53E8 /* RCMyBroker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCMyBroker.h; sourceTree = "<group>"; };
+		905CC70E233B53E1002A53E8 /* RCMyBroker.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCMyBroker.m; sourceTree = "<group>"; };
 		908AC20A2334BAF500482A1B /* RCUserAeraManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCUserAeraManager.h; sourceTree = "<group>"; };
 		908AC20B2334BAF500482A1B /* RCUserAeraManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCUserAeraManager.m; sourceTree = "<group>"; };
 		908AC20D2334BBD000482A1B /* RCUserArea.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCUserArea.h; sourceTree = "<group>"; };
@@ -1387,6 +1393,8 @@
 		9040F2672313AA11005E6B2E /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				905CC70C233B53D6002A53E8 /* 我的经纪人 */,
+				905CC708233B3813002A53E8 /* 我的门店 */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1555,6 +1563,24 @@
 				904BB22D231FD7D20060E206 /* YCMenuView.m */,
 			);
 			path = YCMenuView;
+			sourceTree = "<group>";
+		};
+		905CC708233B3813002A53E8 /* 我的门店 */ = {
+			isa = PBXGroup;
+			children = (
+				905CC709233B3825002A53E8 /* RCMyStore.h */,
+				905CC70A233B3825002A53E8 /* RCMyStore.m */,
+			);
+			name = "我的门店";
+			sourceTree = "<group>";
+		};
+		905CC70C233B53D6002A53E8 /* 我的经纪人 */ = {
+			isa = PBXGroup;
+			children = (
+				905CC70D233B53E1002A53E8 /* RCMyBroker.h */,
+				905CC70E233B53E1002A53E8 /* RCMyBroker.m */,
+			);
+			name = "我的经纪人";
 			sourceTree = "<group>";
 		};
 		908AC2112334C17600482A1B /* 城市搜索 */ = {
@@ -2127,6 +2153,7 @@
 				90068B30231CB4A000B0D856 /* RCSearchTagCell.m in Sources */,
 				90068BBD231D06D300B0D856 /* RCProfileHeader.m in Sources */,
 				9040F2512313A839005E6B2E /* UIView+HXNExtension.m in Sources */,
+				905CC70F233B53E1002A53E8 /* RCMyBroker.m in Sources */,
 				90B6F21A2320F37D007A37EE /* RCReportPersonSectionHeader.m in Sources */,
 				903E2730231E478100CB4A65 /* RCProfileInfoVC.m in Sources */,
 				90B6F2322320FCF2007A37EE /* RCReportResultCell.m in Sources */,
@@ -2194,6 +2221,7 @@
 				90068BE7231D18BD00B0D856 /* RCMyClientVC.m in Sources */,
 				909B86CC231D397A001A9F7C /* RCMyBrokerCell.m in Sources */,
 				903E271B231E34B000CB4A65 /* RCTimeFilterView.m in Sources */,
+				905CC70B233B3825002A53E8 /* RCMyStore.m in Sources */,
 				903E272B231E435200CB4A65 /* RCAddStoreVC.m in Sources */,
 				908AC20C2334BAF500482A1B /* RCUserAeraManager.m in Sources */,
 				9040F2A02313DA19005E6B2E /* FSActionSheetConfig.m in Sources */,

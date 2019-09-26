@@ -13,11 +13,17 @@
 #import "RCAddStoreVC.h"
 #import "RCChangePwdVC.h"
 #import "WSDatePickerView.h"
+#import "RCMyStore.h"
 
 static NSString *const MyStoreCell = @"MyStoreCell";
 @interface RCMyStoreVC ()<UITableViewDelegate,UITableViewDataSource,RCTimeFilterViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-
+/* 页码 */
+@property (nonatomic,assign) NSInteger pagenum;
+/* 门店列表 */
+@property(nonatomic,strong) NSMutableArray *stores;
+/* 门店总数 */
+@property(nonatomic,copy) NSString *total;
 @end
 
 @implementation RCMyStoreVC
@@ -26,7 +32,17 @@ static NSString *const MyStoreCell = @"MyStoreCell";
     [super viewDidLoad];
     [self setUpNavBar];
     [self setUpTableView];
+    [self setUpRefresh];
+    [self getStoreListDataRequest:YES];
 }
+-(NSMutableArray *)stores
+{
+    if (_stores == nil) {
+        _stores = [NSMutableArray array];
+    }
+    return _stores;
+}
+#pragma mark - 视图UI
 -(void)setUpNavBar
 {
     [self.navigationItem setTitle:@"门店"];
@@ -58,8 +74,7 @@ static NSString *const MyStoreCell = @"MyStoreCell";
         // 不要自动调整inset
         self.automaticallyAdjustsScrollViewInsets = NO;
     }
-    self.tableView.estimatedRowHeight = 100;//预估高度
-    self.tableView.rowHeight = UITableViewAutomaticDimension;
+    self.tableView.rowHeight = 0;
     self.tableView.estimatedSectionHeaderHeight = 0;
     self.tableView.estimatedSectionFooterHeight = 0;
     
@@ -73,11 +88,83 @@ static NSString *const MyStoreCell = @"MyStoreCell";
     
     // 注册cell
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([RCMyStoreCell class]) bundle:nil] forCellReuseIdentifier:MyStoreCell];
+    
+    self.tableView.hidden = YES;
+}
+/** 添加刷新控件 */
+-(void)setUpRefresh
+{
+    hx_weakify(self);
+    self.tableView.mj_header.automaticallyChangeAlpha = YES;
+    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        hx_strongify(weakSelf);
+        [strongSelf.tableView.mj_footer resetNoMoreData];
+        [strongSelf getStoreListDataRequest:YES];
+    }];
+    //追加尾部刷新
+    self.tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
+        hx_strongify(weakSelf);
+        [strongSelf getStoreListDataRequest:NO];
+    }];
+}
+#pragma mark -- 接口请求
+/** 门店筛选列表 */
+-(void)getStoreListDataRequest:(BOOL)isRefresh
+{
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    NSMutableDictionary *data = [NSMutableDictionary dictionary];
+    data[@"keywords"] = @"";
+    NSMutableDictionary *page = [NSMutableDictionary dictionary];
+    if (isRefresh) {
+        page[@"current"] = @(1);//第几页
+    }else{
+        NSInteger pagenum = self.pagenum+1;
+        page[@"current"] = @(pagenum);//第几页
+    }
+    page[@"size"] = @"10";
+    parameters[@"data"] = data;
+    parameters[@"page"] = page;
+    
+    hx_weakify(self);
+    [HXNetworkTool POST:@"http://192.168.199.177:9000/open/api/" action:@"agent/agent/organization/queryShopList" parameters:parameters success:^(id responseObject) {
+        hx_strongify(weakSelf);
+        if ([responseObject[@"code"] integerValue] == 0) {
+            if (isRefresh) {
+                strongSelf.total = [NSString stringWithFormat:@"%@",responseObject[@"data"][@"total"]];
+                [strongSelf.tableView.mj_header endRefreshing];
+                strongSelf.pagenum = 1;
+                [strongSelf.stores removeAllObjects];
+                NSArray *arrt = [NSArray yy_modelArrayWithClass:[RCMyStore class] json:responseObject[@"data"][@"shopList"]];
+                [strongSelf.stores addObjectsFromArray:arrt];
+            }else{
+                [strongSelf.tableView.mj_footer endRefreshing];
+                strongSelf.pagenum ++;
+                if ([responseObject[@"data"][@"shopList"] isKindOfClass:[NSArray class]] && ((NSArray *)responseObject[@"data"][@"shopList"]).count){
+                    NSArray *arrt = [NSArray yy_modelArrayWithClass:[RCMyStore class] json:responseObject[@"data"][@"shopList"]];
+                    [strongSelf.stores addObjectsFromArray:arrt];
+                }else{// 提示没有更多数据
+                    [strongSelf.tableView.mj_footer endRefreshingWithNoMoreData];
+                }
+            }
+            dispatch_async(dispatch_get_main_queue(), ^{
+                strongSelf.tableView.hidden = NO;
+                [strongSelf.tableView reloadData];
+            });
+        }else{
+            [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:responseObject[@"msg"]];
+        }
+    } failure:^(NSError *error) {
+        [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:error.localizedDescription];
+    }];
 }
 #pragma mark -- 点击事件
 -(void)addStoreClicked
 {
     RCAddStoreVC *svc = [RCAddStoreVC new];
+    hx_weakify(self);
+    svc.addStoreCall = ^{
+        [weakSelf getStoreListDataRequest:YES];
+    };
     [self.navigationController pushViewController:svc animated:YES];
 }
 -(void)searchClicked
@@ -119,16 +206,17 @@ static NSString *const MyStoreCell = @"MyStoreCell";
 #pragma mark -- UITableView数据源和代理
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 6;
+    return self.stores.count;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     RCMyStoreCell *cell = [tableView dequeueReusableCellWithIdentifier:MyStoreCell forIndexPath:indexPath];
     //无色
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    RCMyStore *store = self.stores[indexPath.row];
+    cell.store = store;
     hx_weakify(self);
     cell.resetPwdCall = ^{
-        RCChangePwdVC *pvc = [RCChangePwdVC new];
-        [weakSelf.navigationController pushViewController:pvc animated:YES];
+        
     };
     return cell;
 }
@@ -150,9 +238,10 @@ static NSString *const MyStoreCell = @"MyStoreCell";
     label.frame = CGRectMake(15, 0, HX_SCREEN_WIDTH/2.0, 44);
     label.textColor = [UIColor lightGrayColor];
     label.font = [UIFont systemFontOfSize:14];
-    label.text = @"共6个门店";
+    label.text = [NSString stringWithFormat:@"共%@个门店",self.total];
     [bgView addSubview:label];
     
+    /*
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     btn.frame = CGRectMake(HX_SCREEN_WIDTH/2.0, 0, HX_SCREEN_WIDTH/2.0-15, 44);
     btn.titleLabel.font = [UIFont systemFontOfSize:14];
@@ -163,6 +252,7 @@ static NSString *const MyStoreCell = @"MyStoreCell";
     btn.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 6);
     [btn addTarget:self action:@selector(filterBtnClicked) forControlEvents:UIControlEventTouchUpInside];
     [bgView addSubview:btn];
+    */
     
     return bgView;
 }

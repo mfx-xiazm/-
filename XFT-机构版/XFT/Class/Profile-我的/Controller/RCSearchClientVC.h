@@ -11,7 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface RCSearchClientVC : HXBaseViewController
-/* 数据类型 1客户 2经纪人*/
+/* 数据类型 1客户 2经纪人 3门店*/
 @property(nonatomic,assign) NSInteger dataType;
 @end
 

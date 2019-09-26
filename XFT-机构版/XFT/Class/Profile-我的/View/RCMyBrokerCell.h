@@ -9,11 +9,13 @@
 #import <UIKit/UIKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
-
-typedef void(^resetPwdCall)(void);
+@class RCMyBroker;
+typedef void(^resetOrDeleteCall)(NSInteger index);
 @interface RCMyBrokerCell : UITableViewCell
 /* 重置密码 */
-@property(nonatomic,copy) resetPwdCall resetPwdCall;
+@property(nonatomic,copy) resetOrDeleteCall resetOrDeleteCall;
+/* 经纪人 */
+@property(nonatomic,strong) RCMyBroker *broker;
 @end
 
 NS_ASSUME_NONNULL_END

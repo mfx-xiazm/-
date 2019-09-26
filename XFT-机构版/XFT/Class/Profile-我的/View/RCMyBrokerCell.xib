@@ -76,7 +76,7 @@
                                             <constraint firstAttribute="height" constant="1" id="yZm-aq-9Hz"/>
                                         </constraints>
                                     </view>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aMI-mw-okD">
+                                    <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aMI-mw-okD">
                                         <rect key="frame" x="200" y="7" width="95" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="e7B-Jo-v8z"/>
@@ -95,7 +95,7 @@
                                             <action selector="resetClicked:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="HEm-kA-jep"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hLG-uG-jJ9">
+                                    <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hLG-uG-jJ9">
                                         <rect key="frame" x="15" y="7" width="30" height="30"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
@@ -103,14 +103,20 @@
                                             <constraint firstAttribute="width" constant="30" id="zCf-vI-MF3"/>
                                         </constraints>
                                         <state key="normal" image="icon_prohibit"/>
+                                        <connections>
+                                            <action selector="resetClicked:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="GuT-ZF-mAZ"/>
+                                        </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Xr-eg-a6R">
+                                    <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Xr-eg-a6R">
                                         <rect key="frame" x="60" y="7" width="30" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="30" id="3st-74-l0i"/>
                                             <constraint firstAttribute="height" constant="30" id="7rm-SW-d0R"/>
                                         </constraints>
                                         <state key="normal" image="iocn_del_2"/>
+                                        <connections>
+                                            <action selector="resetClicked:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="7yo-Vx-sEK"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -162,6 +168,12 @@
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="aW0-zy-SZf"/>
+            <connections>
+                <outlet property="forbiddenBtn" destination="hLG-uG-jJ9" id="SXb-HP-MFL"/>
+                <outlet property="name" destination="kgP-6O-K0C" id="937-dw-TPf"/>
+                <outlet property="reportNum" destination="kiV-TY-uEM" id="Zmc-NX-yuo"/>
+                <outlet property="signNum" destination="ZeV-dB-P1i" id="yhb-Na-OPO"/>
+            </connections>
             <point key="canvasLocation" x="152.17391304347828" y="161.04910714285714"/>
         </tableViewCell>
     </objects>

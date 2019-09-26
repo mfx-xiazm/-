@@ -12,10 +12,19 @@
 #import "FSActionSheet.h"
 
 @interface RCAddStoreVC ()<UIImagePickerControllerDelegate,UINavigationControllerDelegate,FSActionSheetDelegate>
-/* 选择的图像 */
-@property(nonatomic,strong) UIImage *selectImg;
-@property (weak, nonatomic) IBOutlet UIButton *logoBtn;
-@property (weak, nonatomic) IBOutlet UIButton *lawPhotoBtn;
+@property (weak, nonatomic) IBOutlet UITextField *shopName;
+@property (weak, nonatomic) IBOutlet UITextField *userName;
+@property (weak, nonatomic) IBOutlet UITextField *busnessCode;
+@property (weak, nonatomic) IBOutlet UITextField *bankOpen;
+@property (weak, nonatomic) IBOutlet UITextField *bankNo;
+@property (weak, nonatomic) IBOutlet UITextField *legalName;
+@property (weak, nonatomic) IBOutlet UITextField *legalPhone;
+@property (weak, nonatomic) IBOutlet UIImageView *companyLogo;
+@property (weak, nonatomic) IBOutlet UIImageView *legalPhoto;
+/* 公司logo地址 */
+@property(nonatomic,copy) NSString *companyLogoUrl;
+/* 法人照片地址 */
+@property(nonatomic,copy) NSString *legalPhotoUrl;
 /* 选择的视图 */
 @property(nonatomic,strong) UIButton *selectBtn;
 @end
@@ -42,7 +51,43 @@
 #pragma mark -- 点击事件
 -(void)sureClicked
 {
-    [self.navigationController popViewControllerAnimated:YES];
+    if (![self.shopName hasText]) {
+        [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:@"请输入机构名称"];
+        return;
+    }
+    if (![self.userName hasText]) {
+        [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:@"请输入用户名"];
+        return;
+    }
+    if (![self.busnessCode hasText]) {
+        [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:@"请输入营业执照编码"];
+        return;
+    }
+    if (![self.bankOpen hasText]) {
+        [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:@"请输入开户行"];
+        return;
+    }
+    if (![self.bankNo hasText]) {
+        [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:@"请输入银行账号"];
+        return;
+    }
+    if (![self.legalName hasText]) {
+        [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:@"请输入法人姓名"];
+        return;
+    }
+    if (![self.legalPhone hasText]) {
+        [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:@"请输入法人电话"];
+        return;
+    }
+    if (!self.companyLogoUrl && !self.companyLogoUrl.length) {
+        [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:@"请上传公司Logo"];
+        return;
+    }
+    if (!self.legalPhotoUrl && !self.legalPhotoUrl.length) {
+        [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:@"请上传法人照片"];
+        return;
+    }
+    [self addShopRequest];
 }
 - (IBAction)choosePicClicked:(UIButton *)sender {
     self.selectBtn = sender;
@@ -58,7 +103,53 @@
         }
     }];
 }
-
+#pragma mark -- 业务请求
+-(void)addShopRequest
+{
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    NSMutableDictionary *data = [NSMutableDictionary dictionary];
+    data[@"shopName"] = self.shopName.text;
+    data[@"userName"] = self.userName.text;
+    data[@"businessLicenseCode"] = self.busnessCode.text;
+    data[@"bankAccNo"] = self.bankNo.text;
+    data[@"bankOpen"] = self.bankOpen.text;
+    data[@"legalPersonName"] = self.legalName.text;
+    data[@"legalPersonPhone"] = self.legalPhone.text;
+    data[@"companyLOGO"] = self.companyLogoUrl;
+    data[@"legalPersonPhoto"] = self.legalPhotoUrl;
+    
+    parameters[@"data"] = data;
+    
+    hx_weakify(self);
+    [HXNetworkTool POST:@"http://192.168.199.177:9000/open/api/" action:@"agent/agent/organization/addShop" parameters:parameters success:^(id responseObject) {
+        hx_strongify(weakSelf);
+        if ([responseObject[@"code"] integerValue] == 0) {
+            [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:responseObject[@"msg"]];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (strongSelf.addStoreCall) {
+                    strongSelf.addStoreCall();
+                }
+                [strongSelf.navigationController popViewControllerAnimated:YES];
+            });
+        }else{
+            [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:responseObject[@"msg"]];
+        }
+    } failure:^(NSError *error) {
+        [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:error.localizedDescription];
+    }];
+}
+-(void)upImageRequestWithImage:(UIImage *)image completedCall:(void(^)(NSString * imageUrl))completedCall
+{
+    [HXNetworkTool uploadImagesWithURL:HXRC_M_URL action:@"sys/sys/dict/getUploadImgReturnUrl.do" parameters:@{} name:@"file" images:@[image] fileNames:nil imageScale:0.8 imageType:@"png" progress:nil success:^(id responseObject) {
+        if ([responseObject[@"code"] integerValue] == 0) {
+            completedCall(responseObject[@"data"][@"url"]);
+        }else{
+            [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:responseObject[@"msg"]];
+        }
+    } failure:^(NSError *error) {
+        [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:error.localizedDescription];
+    }];
+}
 #pragma mark -- 唤起相机
 - (void)awakeImagePickerController:(NSString *)pickerType {
     if ([pickerType isEqualToString:@"1"]) {
@@ -133,7 +224,19 @@
     [picker dismissViewControllerAnimated:YES completion:^{
         hx_strongify(weakSelf);
         // 显示保存图片
-        [strongSelf.selectBtn setBackgroundImage:info[UIImagePickerControllerEditedImage] forState:UIControlStateNormal];
+        if (strongSelf.selectBtn.tag == 1) {
+            strongSelf.companyLogo.contentMode = UIViewContentModeScaleAspectFill;
+            [strongSelf.companyLogo setImage:info[UIImagePickerControllerEditedImage]];
+            [strongSelf upImageRequestWithImage:info[UIImagePickerControllerEditedImage] completedCall:^(NSString *imageUrl) {
+                strongSelf.companyLogoUrl = imageUrl;
+            }];
+        }else{
+            strongSelf.legalPhoto.contentMode = UIViewContentModeScaleAspectFill;
+            [strongSelf.legalPhoto setImage:info[UIImagePickerControllerEditedImage]];
+            [strongSelf upImageRequestWithImage:info[UIImagePickerControllerEditedImage] completedCall:^(NSString *imageUrl) {
+                strongSelf.legalPhotoUrl = imageUrl;
+            }];
+        }
     }];
 }
 @end

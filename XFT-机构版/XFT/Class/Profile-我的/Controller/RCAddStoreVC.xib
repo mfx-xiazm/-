@@ -12,8 +12,15 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="RCAddStoreVC">
             <connections>
-                <outlet property="lawPhotoBtn" destination="II2-Mx-neK" id="TZt-5u-h0c"/>
-                <outlet property="logoBtn" destination="nA7-la-bXi" id="pY9-mZ-ojn"/>
+                <outlet property="bankNo" destination="aZs-C7-875" id="jht-hx-yoa"/>
+                <outlet property="bankOpen" destination="a51-9c-cL9" id="r9I-Hx-gIc"/>
+                <outlet property="busnessCode" destination="6vd-dQ-o1l" id="9Xa-dP-ZcU"/>
+                <outlet property="companyLogo" destination="ytN-wb-b9t" id="WlR-0p-b89"/>
+                <outlet property="legalName" destination="YfW-af-w8y" id="RjH-nI-Xsq"/>
+                <outlet property="legalPhone" destination="zGI-16-65Z" id="J5Q-j8-7Ki"/>
+                <outlet property="legalPhoto" destination="3A0-Sk-oR9" id="dlq-wp-YPP"/>
+                <outlet property="shopName" destination="bHH-HP-8hB" id="NM0-OR-N7G"/>
+                <outlet property="userName" destination="crP-gR-UMg" id="dKJ-E8-Yze"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -431,7 +438,7 @@
                                                 <constraint firstAttribute="width" secondItem="nA7-la-bXi" secondAttribute="height" multiplier="1:1" id="Duz-gG-qma"/>
                                             </constraints>
                                             <connections>
-                                                <action selector="choosePicClicked:" destination="-1" eventType="touchUpInside" id="Y1T-cV-9Er"/>
+                                                <action selector="choosePicClicked:" destination="-1" eventType="touchUpInside" id="ogx-Dm-lAY"/>
                                             </connections>
                                         </button>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uIX-PW-jm2" userLabel="分割线">

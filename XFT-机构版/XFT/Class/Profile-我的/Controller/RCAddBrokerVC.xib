@@ -12,6 +12,11 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="RCAddBrokerVC">
             <connections>
+                <outlet property="anme" destination="LYq-3o-0VJ" id="V3F-yo-O7Y"/>
+                <outlet property="jgName" destination="PxG-i0-Bmr" id="Zuz-Mh-2kP"/>
+                <outlet property="phone" destination="8kR-Eu-ybk" id="KZL-bx-ihp"/>
+                <outlet property="sureBtn" destination="FAY-la-CJB" id="8EX-9G-T9q"/>
+                <outlet property="userName" destination="cMl-Jl-QlQ" id="1nz-n8-2U8"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
