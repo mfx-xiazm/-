@@ -13,6 +13,8 @@ NS_ASSUME_NONNULL_BEGIN
 @interface RCSearchClientVC : HXBaseViewController
 /* 数据类型 1客户 2经纪人 3门店*/
 @property(nonatomic,assign) NSInteger dataType;
+/* 搜索客户时传递的项目的uuid */
+@property(nonatomic,copy) NSString *proUuid;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -13,6 +13,9 @@
 #import "RCPageMainTable.h"
 #import <JXCategoryView.h>
 #import "RCClientDetailNoteVC.h"
+#import "RCMyClient.h"
+#import "zhAlertView.h"
+#import <zhPopupController.h>
 
 @interface RCClientDetailVC ()<UITableViewDelegate,UITableViewDataSource,JXCategoryViewDelegate>
 @property (weak, nonatomic) IBOutlet RCPageMainTable *tableView;
@@ -26,6 +29,8 @@
 @property(nonatomic,assign)BOOL isCanScroll;
 /** 切换控制器 */
 @property (strong, nonatomic) JXCategoryTitleView *categoryView;
+/** 客户基本信息 */
+@property(nonatomic,strong) RCMyClient *clientInfo;
 @end
 
 @implementation RCClientDetailVC
@@ -34,11 +39,10 @@
     [super viewDidLoad];
     [self.navigationItem setTitle:@"客户详情"];
     
-    self.navigationItem.rightBarButtonItem = [UIBarButtonItem itemWithTarget:self action:@selector(goHouseClicked) title:@"带客看房" font:[UIFont systemFontOfSize:16] titleColor:UIColorFromRGB(0x333333) highlightedColor:UIColorFromRGB(0x333333) titleEdgeInsets:UIEdgeInsetsZero];
-    
     self.isCanScroll = YES;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(MainTableScroll:) name:@"MainTableScroll" object:nil];
     [self setUpMainTable];
+    [self getClientDetail];
 }
 
 -(void)viewDidLayoutSubviews
@@ -50,7 +54,37 @@
 {
     if (_header == nil) {
         _header = [RCClientDetailHeader loadXibView];
-        _header.frame = CGRectMake(0,0, HX_SCREEN_WIDTH, 210.f);
+        _header.frame = CGRectMake(0,0, HX_SCREEN_WIDTH, 205.f);
+        hx_weakify(self);
+        _header.clientDetailCall = ^(NSInteger index) {
+            hx_strongify(weakSelf);
+            if (index == 1) {
+                zhAlertView *alert = [[zhAlertView alloc] initWithTitle:@"提示" message:strongSelf.clientInfo.phone constantWidth:HX_SCREEN_WIDTH - 50*2];
+                zhAlertButton *cancelButton = [zhAlertButton buttonWithTitle:@"取消" handler:^(zhAlertButton * _Nonnull button) {
+                    [strongSelf.zh_popupController dismiss];
+                }];
+                zhAlertButton *okButton = [zhAlertButton buttonWithTitle:@"拨打" handler:^(zhAlertButton * _Nonnull button) {
+                    [strongSelf.zh_popupController dismiss];
+                    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"tel:%@",strongSelf.clientInfo.phone]]];
+                }];
+                cancelButton.lineColor = UIColorFromRGB(0xDDDDDD);
+                [cancelButton setTitleColor:UIColorFromRGB(0x999999) forState:UIControlStateNormal];
+                okButton.lineColor = UIColorFromRGB(0xDDDDDD);
+                [okButton setTitleColor:HXControlBg forState:UIControlStateNormal];
+                [alert adjoinWithLeftAction:cancelButton rightAction:okButton];
+                strongSelf.zh_popupController = [[zhPopupController alloc] init];
+                [strongSelf.zh_popupController presentContentView:alert duration:0.25 springAnimated:NO];
+            }else if (index == 2) {
+                NSString *phoneStr = [NSString stringWithFormat:@"%@",strongSelf.clientInfo.phone];//发短信的号码
+                NSString *urlStr = [NSString stringWithFormat:@"sms://%@", phoneStr];
+                NSURL *url = [NSURL URLWithString:urlStr];
+                [[UIApplication sharedApplication] openURL:url];
+            }else{
+                RCGoHouseVC *hvc = [RCGoHouseVC new];
+                hvc.cusUuid = strongSelf.clientInfo.cusUuid;
+                [strongSelf.navigationController pushViewController:hvc animated:YES];
+            }
+        };
     }
     return _header;
 }
@@ -133,12 +167,73 @@
     self.tableView.tableFooterView = [UIView new];
     
     [self.tableView addSubview:self.header];
+    
+    self.tableView.hidden = YES;
 }
-#pragma mark -- 点击事件
--(void)goHouseClicked
+#pragma mark -- 请求客户详情
+-(void)getClientDetail
 {
-    RCGoHouseVC *hvc = [RCGoHouseVC new];
-    [self.navigationController pushViewController:hvc animated:YES];
+    dispatch_group_t group = dispatch_group_create();
+    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+    // 执行循序1
+    hx_weakify(self);
+    dispatch_group_async(group, queue, ^{
+        hx_strongify(weakSelf);
+        NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+        NSMutableDictionary *data = [NSMutableDictionary dictionary];
+        data[@"cusUuid"] = self.cusUuid;
+        parameters[@"data"] = data;
+        
+        [HXNetworkTool POST:HXRC_M_URL action:@"cus/cus/mechanism/getCustInfo" parameters:parameters success:^(id responseObject) {
+            if ([responseObject[@"code"] integerValue] == 0) {
+                strongSelf.clientInfo = [RCMyClient yy_modelWithDictionary:responseObject[@"data"]];
+            }else{
+                [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:responseObject[@"msg"]];
+            }
+            dispatch_semaphore_signal(semaphore);
+        } failure:^(NSError *error) {
+            [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:error.localizedDescription];
+            dispatch_semaphore_signal(semaphore);
+        }];
+    });
+//    // 执行循序2
+//    dispatch_group_async(group, queue, ^{
+//        // 请求客户轨迹的接口
+//        hx_strongify(weakSelf);
+//        NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+//        NSMutableDictionary *data = [NSMutableDictionary dictionary];
+//        data[@"cusUuid"] = self.cusUuid;
+//        parameters[@"data"] = data;
+//
+//        [HXNetworkTool POST:@"http://192.168.199.249:9000/open/api/" action:@"cus/cus/mechanism/getCustInfo" parameters:parameters success:^(id responseObject) {
+//            if ([responseObject[@"code"] integerValue] == 0) {
+//                strongSelf.clientInfo = [RCMyClient yy_modelWithDictionary:responseObject[@"data"]];
+//            }else{
+//                [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:responseObject[@"msg"]];
+//            }
+//            dispatch_semaphore_signal(semaphore);
+//        } failure:^(NSError *error) {
+//            [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:error.localizedDescription];
+//            dispatch_semaphore_signal(semaphore);
+//        }];
+//    });
+    dispatch_group_notify(group, queue, ^{
+        // 执行循序4
+        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+        // 执行顺序6
+//        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+        
+        // 执行顺序10
+        hx_strongify(weakSelf);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            strongSelf.tableView.hidden = NO;
+            strongSelf.header.clientInfo = strongSelf.clientInfo;
+            RCClientDetailInfoVC *ivc = (RCClientDetailInfoVC *)strongSelf.childVCs.firstObject;
+            ivc.clientInfo = strongSelf.clientInfo;
+            [strongSelf.tableView reloadData];
+        });
+    });
 }
 #pragma mark -- 主视图滑动通知处理
 -(void)MainTableScroll:(NSNotification *)user{

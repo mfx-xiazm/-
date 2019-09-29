@@ -13,8 +13,11 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="RCMyClientVC">
             <connections>
                 <outlet property="contentView" destination="m2h-RN-rI8" id="FQ5-xk-AdM"/>
+                <outlet property="filterToolView" destination="cIH-JY-YoD" id="J6Z-L2-me0"/>
+                <outlet property="firstFilterBtn" destination="0On-Zu-eZ9" id="iGm-Nb-00K"/>
                 <outlet property="leftTableView" destination="NoD-Fo-Wtf" id="925-PT-zia"/>
                 <outlet property="rightTableView" destination="TJl-1x-6NB" id="7ZJ-u7-yIn"/>
+                <outlet property="secondFilterBtn" destination="YHB-wC-I0s" id="ToH-TK-FeX"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -40,7 +43,7 @@
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cBV-2P-MeT">
                                     <rect key="frame" x="10" y="0.0" width="328" height="36"/>
                                     <subviews>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0On-Zu-eZ9" customClass="SPButton">
+                                        <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0On-Zu-eZ9" customClass="SPButton">
                                             <rect key="frame" x="0.0" y="0.0" width="109.5" height="36"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                             <state key="normal" title="最后备注" image="icon_qiehuan_moren">
@@ -54,8 +57,11 @@
                                                     <real key="value" value="5"/>
                                                 </userDefinedRuntimeAttribute>
                                             </userDefinedRuntimeAttributes>
+                                            <connections>
+                                                <action selector="firstFilterBtn:" destination="-1" eventType="touchUpInside" id="j70-GR-ifd"/>
+                                            </connections>
                                         </button>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YHB-wC-I0s" customClass="SPButton">
+                                        <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YHB-wC-I0s" customClass="SPButton">
                                             <rect key="frame" x="109.5" y="0.0" width="109" height="36"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                             <state key="normal" title="报备时间" image="icon_qiehuan_moren">
@@ -69,6 +75,9 @@
                                                     <real key="value" value="5"/>
                                                 </userDefinedRuntimeAttribute>
                                             </userDefinedRuntimeAttributes>
+                                            <connections>
+                                                <action selector="secondFilterBtn:" destination="-1" eventType="touchUpInside" id="BUk-d9-7Bh"/>
+                                            </connections>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DGN-qZ-vcQ" customClass="SPButton">
                                             <rect key="frame" x="218.5" y="0.0" width="109.5" height="36"/>

@@ -126,7 +126,7 @@ static NSString *const MyStoreCell = @"MyStoreCell";
     parameters[@"page"] = page;
     
     hx_weakify(self);
-    [HXNetworkTool POST:@"http://192.168.199.177:9000/open/api/" action:@"agent/agent/organization/queryShopList" parameters:parameters success:^(id responseObject) {
+    [HXNetworkTool POST:HXRC_M_URL action:@"agent/agent/organization/queryShopList" parameters:parameters success:^(id responseObject) {
         hx_strongify(weakSelf);
         if ([responseObject[@"code"] integerValue] == 0) {
             if (isRefresh) {
@@ -214,7 +214,7 @@ static NSString *const MyStoreCell = @"MyStoreCell";
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     RCMyStore *store = self.stores[indexPath.row];
     cell.store = store;
-    hx_weakify(self);
+    //hx_weakify(self);
     cell.resetPwdCall = ^{
         
     };

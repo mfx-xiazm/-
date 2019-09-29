@@ -246,6 +246,8 @@
 		90D1E3BD23212DE600743839 /* RCClientDetailInfoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 90D1E3BB23212DE600743839 /* RCClientDetailInfoVC.m */; };
 		90D1E3BE23212DE600743839 /* RCClientDetailInfoVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 90D1E3BC23212DE600743839 /* RCClientDetailInfoVC.xib */; };
 		90E16F5C23386B89006D36A5 /* RCNearbyPOI.m in Sources */ = {isa = PBXBuildFile; fileRef = 90E16F5B23386B89006D36A5 /* RCNearbyPOI.m */; };
+		90E2913C233C9B33004FA542 /* RCMyClientState.m in Sources */ = {isa = PBXBuildFile; fileRef = 90E2913B233C9B33004FA542 /* RCMyClientState.m */; };
+		90E29144233DA2F2004FA542 /* RCMyClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 90E29143233DA2F2004FA542 /* RCMyClient.m */; };
 		90ECF077231E4CC800E538DB /* RCMoveClientVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 90ECF075231E4CC800E538DB /* RCMoveClientVC.m */; };
 		90ECF078231E4CC800E538DB /* RCMoveClientVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 90ECF076231E4CC800E538DB /* RCMoveClientVC.xib */; };
 		90ECF07C231E4DBA00E538DB /* RCMoveClientCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 90ECF07A231E4DBA00E538DB /* RCMoveClientCell.m */; };
@@ -687,6 +689,10 @@
 		90D1E3BC23212DE600743839 /* RCClientDetailInfoVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RCClientDetailInfoVC.xib; sourceTree = "<group>"; };
 		90E16F5A23386B89006D36A5 /* RCNearbyPOI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCNearbyPOI.h; sourceTree = "<group>"; };
 		90E16F5B23386B89006D36A5 /* RCNearbyPOI.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCNearbyPOI.m; sourceTree = "<group>"; };
+		90E2913A233C9B33004FA542 /* RCMyClientState.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCMyClientState.h; sourceTree = "<group>"; };
+		90E2913B233C9B33004FA542 /* RCMyClientState.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCMyClientState.m; sourceTree = "<group>"; };
+		90E29142233DA2F2004FA542 /* RCMyClient.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCMyClient.h; sourceTree = "<group>"; };
+		90E29143233DA2F2004FA542 /* RCMyClient.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCMyClient.m; sourceTree = "<group>"; };
 		90ECF074231E4CC800E538DB /* RCMoveClientVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCMoveClientVC.h; sourceTree = "<group>"; };
 		90ECF075231E4CC800E538DB /* RCMoveClientVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCMoveClientVC.m; sourceTree = "<group>"; };
 		90ECF076231E4CC800E538DB /* RCMoveClientVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RCMoveClientVC.xib; sourceTree = "<group>"; };
@@ -1393,6 +1399,7 @@
 		9040F2672313AA11005E6B2E /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				90E29139233C9B19004FA542 /* 我的客户 */,
 				905CC70C233B53D6002A53E8 /* 我的经纪人 */,
 				905CC708233B3813002A53E8 /* 我的门店 */,
 			);
@@ -1617,6 +1624,17 @@
 				90934119231F5B9E001A3A6E /* UIView+Extension.m */,
 			);
 			path = WSDatePickerView;
+			sourceTree = "<group>";
+		};
+		90E29139233C9B19004FA542 /* 我的客户 */ = {
+			isa = PBXGroup;
+			children = (
+				90E2913A233C9B33004FA542 /* RCMyClientState.h */,
+				90E2913B233C9B33004FA542 /* RCMyClientState.m */,
+				90E29142233DA2F2004FA542 /* RCMyClient.h */,
+				90E29143233DA2F2004FA542 /* RCMyClient.m */,
+			);
+			name = "我的客户";
 			sourceTree = "<group>";
 		};
 		90ECF08D231E56C300E538DB /* 我的门店 */ = {
@@ -2119,6 +2137,7 @@
 				9040F2432313A839005E6B2E /* WSLNativeScanTool.m in Sources */,
 				909B86AE231D2350001A9F7C /* RCClientDetailVC.m in Sources */,
 				9040F23B2313A839005E6B2E /* UIView+WZLBadge.m in Sources */,
+				90E29144233DA2F2004FA542 /* RCMyClient.m in Sources */,
 				90068B60231CC09000B0D856 /* RCHouseStyleHeader.m in Sources */,
 				9040F2502313A839005E6B2E /* UIBarButtonItem+HXNExtension.m in Sources */,
 				90068B15231CB0B700B0D856 /* RCHouseCell.m in Sources */,
@@ -2271,6 +2290,7 @@
 				9040F2422313A839005E6B2E /* WSLScanView.m in Sources */,
 				90B6F2362320FD07007A37EE /* RCReportResultSectionHeader.m in Sources */,
 				9040F22F2313A839005E6B2E /* SPButton.m in Sources */,
+				90E2913C233C9B33004FA542 /* RCMyClientState.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -52,19 +52,33 @@ static NSString *const ClientFilterTimeView = @"ClientFilterTimeView";
 }
 - (IBAction)resetClicked:(UIButton *)sender {
     HXLog(@"重置-选项归为全部、时间清空");
+    self.reportBeginTime.text = nil;
+    self.reportEndTime.text = nil;
+    self.visitBeginTime.text = nil;
+    self.visitEndTime.text = nil;
 }
 - (IBAction)confirmClicked:(UIButton *)sender {
-    if ([self.delegate respondsToSelector:@selector(filterDidConfirm:beginTime:endTime:)]) {
-//        [self.delegate filterDidConfirm:self beginTime:self.beginTime.text endTime:self.endTime.text];
+    if ([self.delegate respondsToSelector:@selector(filterDidConfirm:reportBeginTime:reportEndTime:visitBeginTime:visitEndTime:)]) {
+        [self.delegate filterDidConfirm:self reportBeginTime:self.reportBeginTime.text reportEndTime:self.reportEndTime.text visitBeginTime:self.visitBeginTime.text visitEndTime:self.visitEndTime.text];
     }
 }
 #pragma mark -- UICollectionView 数据源和代理
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
-    return 3;
+    /** 账号角色 1:中介管理员 2:中介报备人 3:门店主管 4:中介经纪人 */
+    if ([MSUserManager sharedInstance].curUserInfo.agentLoginInside.accRole == 1 || [MSUserManager sharedInstance].curUserInfo.agentLoginInside.accRole == 3) {
+        return 3;
+    }else{
+        return 1;
+    }
 }
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    return self.testArrs.count;
+    /** 账号角色 1:中介管理员 2:中介报备人 3:门店主管 4:中介经纪人 */
+    if ([MSUserManager sharedInstance].curUserInfo.agentLoginInside.accRole == 1 || [MSUserManager sharedInstance].curUserInfo.agentLoginInside.accRole == 3) {
+        return self.testArrs.count;
+    }else{
+        return 0;
+    }
 }
 - (ZLLayoutType)collectionView:(UICollectionView *)collectionView layout:(ZLCollectionViewBaseFlowLayout *)collectionViewLayout typeOfLayout:(NSInteger)section {
     return LabelLayout;
@@ -112,10 +126,15 @@ static NSString *const ClientFilterTimeView = @"ClientFilterTimeView";
 }
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section
 {
-    if (section == 2) {
-        return CGSizeMake(collectionView.frame.size.width, 200);
+    /** 账号角色 1:中介管理员 2:中介报备人 3:门店主管 4:中介经纪人 */
+    if ([MSUserManager sharedInstance].curUserInfo.agentLoginInside.accRole == 1 || [MSUserManager sharedInstance].curUserInfo.agentLoginInside.accRole == 3) {
+        if (section == 2) {
+            return CGSizeMake(collectionView.frame.size.width, 200);
+        }else{
+            return CGSizeZero;
+        }
     }else{
-        return CGSizeZero;
+        return CGSizeMake(collectionView.frame.size.width, 200);
     }
 }
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section {

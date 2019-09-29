@@ -89,13 +89,13 @@ static NSString *const ProfileCell = @"ProfileCell";
     if (_titles == nil) {
         /** 账号角色 1:中介管理员 2:中介报备人 3:门店主管 4:中介经纪人 */
         if ([MSUserManager sharedInstance].curUserInfo.agentLoginInside.accRole == 1) {
-            _titles = @[@[@{@"title":@"我的门店",@"imagename":@"icon_store"},@{@"title":@"我的客户",@"imagename":@"icon_wdkehu"},@{@"title":@"转移客户",@"imagename":@"icon_zykehu"}],@[@{@"title":@"我的收藏",@"imagename":@"icon_mine_sc"},@{@"title":@"常见问题",@"imagename":@"icon_question"},@{@"title":@"更改密码",@"imagename":@"icon_change_key"},@{@"title":@"关于我们",@"imagename":@"icon_about"}]];
+            _titles = @[@[@{@"title":@"我的门店",@"imagename":@"icon_store"},@{@"title":@"我的客户",@"imagename":@"icon_wdkehu"},@{@"title":@"转移客户",@"imagename":@"icon_zykehu"}],@[@{@"title":@"常见问题",@"imagename":@"icon_question"},@{@"title":@"更改密码",@"imagename":@"icon_change_key"},@{@"title":@"关于我们",@"imagename":@"icon_about"}]];
         }else if ([MSUserManager sharedInstance].curUserInfo.agentLoginInside.accRole == 2) {
-            _titles = @[@[@{@"title":@"我的客户",@"imagename":@"icon_wdkehu"}],@[@{@"title":@"我的收藏",@"imagename":@"icon_mine_sc"},@{@"title":@"常见问题",@"imagename":@"icon_question"},@{@"title":@"更改密码",@"imagename":@"icon_change_key"},@{@"title":@"关于我们",@"imagename":@"icon_about"}]];
+            _titles = @[@[@{@"title":@"我的客户",@"imagename":@"icon_wdkehu"}],@[@{@"title":@"常见问题",@"imagename":@"icon_question"},@{@"title":@"更改密码",@"imagename":@"icon_change_key"},@{@"title":@"关于我们",@"imagename":@"icon_about"}]];
         }else if ([MSUserManager sharedInstance].curUserInfo.agentLoginInside.accRole == 3) {
-            _titles = @[@[@{@"title":@"我的经纪人",@"imagename":@"icon_jingjiren"},@{@"title":@"我的客户",@"imagename":@"icon_wdkehu"},@{@"title":@"转移客户",@"imagename":@"icon_zykehu"}],@[@{@"title":@"我的收藏",@"imagename":@"icon_mine_sc"},@{@"title":@"常见问题",@"imagename":@"icon_question"},@{@"title":@"更改密码",@"imagename":@"icon_change_key"},@{@"title":@"关于我们",@"imagename":@"icon_about"}]];
+            _titles = @[@[@{@"title":@"我的经纪人",@"imagename":@"icon_jingjiren"},@{@"title":@"我的客户",@"imagename":@"icon_wdkehu"},@{@"title":@"转移客户",@"imagename":@"icon_zykehu"}],@[@{@"title":@"常见问题",@"imagename":@"icon_question"},@{@"title":@"更改密码",@"imagename":@"icon_change_key"},@{@"title":@"关于我们",@"imagename":@"icon_about"}]];
         }else{
-            _titles = @[@[@{@"title":@"我的客户",@"imagename":@"icon_wdkehu"}],@[@{@"title":@"我的收藏",@"imagename":@"icon_mine_sc"},@{@"title":@"常见问题",@"imagename":@"icon_question"},@{@"title":@"更改密码",@"imagename":@"icon_change_key"},@{@"title":@"关于我们",@"imagename":@"icon_about"}]];
+            _titles = @[@[@{@"title":@"我的客户",@"imagename":@"icon_wdkehu"}],@[@{@"title":@"常见问题",@"imagename":@"icon_question"},@{@"title":@"更改密码",@"imagename":@"icon_change_key"},@{@"title":@"关于我们",@"imagename":@"icon_about"}]];
         }
         
     }
@@ -215,16 +215,12 @@ static NSString *const ProfileCell = @"ProfileCell";
             [self.navigationController pushViewController:cvc animated:YES];
         }
     }else {
-        // @"我的收藏",@"常见问题",@"更改密码",@"关于我们"
+        // @"常见问题",@"更改密码",@"关于我们"
         if (indexPath.row == 0) {
-            //我的收藏
-            RCProfileCollectVC *cvc = [RCProfileCollectVC  new];
-            [self.navigationController pushViewController:cvc animated:YES];
-        }else if (indexPath.row == 1) {
             // 常见问题
             RCProfileQuestionVC *qvc = [RCProfileQuestionVC  new];
             [self.navigationController pushViewController:qvc animated:YES];
-        }else if (indexPath.row == 2) {
+        }else if (indexPath.row == 1) {
             // 更改密码
             RCChangePwdVC *pwd = [RCChangePwdVC new];
             [self.navigationController pushViewController:pwd animated:YES];

@@ -7,6 +7,7 @@
 //
 
 #import "RCMyClientStateCell.h"
+#import "RCMyClientState.h"
 
 @interface RCMyClientStateCell ()
 @property (weak, nonatomic) IBOutlet UILabel *clientNum;
@@ -18,6 +19,12 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
+}
+-(void)setClientState1:(RCMyClientState *)clientState1
+{
+    _clientState1 = clientState1;
+    self.clientNum.text = _clientState1.num;
+    self.clientState.text = _clientState1.name;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

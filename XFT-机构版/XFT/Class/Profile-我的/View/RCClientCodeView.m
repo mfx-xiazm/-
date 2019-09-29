@@ -28,7 +28,7 @@
     
 //    [self bezierPathByRoundingCorners:UIRectCornerTopLeft | UIRectCornerTopRight cornerRadii:CGSizeMake(12, 12)];
     
-    self.codeImg.image =  [WSLNativeScanTool createQRCodeImageWithString:@"来一个二维码" andSize:self.codeImg.hxn_size andBackColor:[UIColor whiteColor] andFrontColor:[UIColor blackColor] andCenterImage:nil];
+//    self.codeImg.image =  [WSLNativeScanTool createQRCodeImageWithString:@"来一个二维码" andSize:self.codeImg.hxn_size andBackColor:[UIColor whiteColor] andFrontColor:[UIColor blackColor] andCenterImage:nil];
 }
 - (IBAction)closeBtnClicked:(UIButton *)sender {
     if (self.closeBtnCall) {
@@ -37,8 +37,9 @@
 }
 
 - (IBAction)fillSureClicked:(UIButton *)sender {
-    self.fillView.hidden = YES;
-    self.codeView.hidden = NO;
+//    self.fillView.hidden = YES;
+//    self.codeView.hidden = NO;
+    
 }
 
 @end

@@ -121,7 +121,7 @@
     parameters[@"data"] = data;
     
     hx_weakify(self);
-    [HXNetworkTool POST:@"http://192.168.199.177:9000/open/api/" action:@"agent/agent/organization/addShop" parameters:parameters success:^(id responseObject) {
+    [HXNetworkTool POST:HXRC_M_URL action:@"agent/agent/organization/addShop" parameters:parameters success:^(id responseObject) {
         hx_strongify(weakSelf);
         if ([responseObject[@"code"] integerValue] == 0) {
             [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:responseObject[@"msg"]];

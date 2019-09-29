@@ -97,7 +97,7 @@
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rAp-mL-3Z3">
                             <rect key="frame" x="0.0" y="125" width="435" height="70"/>
                             <subviews>
-                                <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dWz-oE-ve5" customClass="SPButton">
+                                <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dWz-oE-ve5" customClass="SPButton">
                                     <rect key="frame" x="0.0" y="0.0" width="145" height="70"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                     <state key="normal" title="15327427571" image="icon_telphone">
@@ -111,8 +111,11 @@
                                             <real key="value" value="6"/>
                                         </userDefinedRuntimeAttribute>
                                     </userDefinedRuntimeAttributes>
+                                    <connections>
+                                        <action selector="clientClicked:" destination="iN0-l3-epB" eventType="touchUpInside" id="2nw-8l-NxV"/>
+                                    </connections>
                                 </button>
-                                <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w5b-Ar-GMf" customClass="SPButton">
+                                <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w5b-Ar-GMf" customClass="SPButton">
                                     <rect key="frame" x="145" y="0.0" width="145" height="70"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                     <state key="normal" title="发送短信" image="icon_news_48">
@@ -126,8 +129,11 @@
                                             <real key="value" value="6"/>
                                         </userDefinedRuntimeAttribute>
                                     </userDefinedRuntimeAttributes>
+                                    <connections>
+                                        <action selector="clientClicked:" destination="iN0-l3-epB" eventType="touchUpInside" id="kFJ-8S-4eu"/>
+                                    </connections>
                                 </button>
-                                <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rMT-9g-0wT" customClass="SPButton">
+                                <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rMT-9g-0wT" customClass="SPButton">
                                     <rect key="frame" x="290" y="0.0" width="145" height="70"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                     <state key="normal" title="带看码" image="icon_erweima_48">
@@ -141,6 +147,9 @@
                                             <real key="value" value="6"/>
                                         </userDefinedRuntimeAttribute>
                                     </userDefinedRuntimeAttributes>
+                                    <connections>
+                                        <action selector="clientClicked:" destination="iN0-l3-epB" eventType="touchUpInside" id="m9D-5y-FZy"/>
+                                    </connections>
                                 </button>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -186,6 +195,14 @@
                 <constraint firstItem="189-Qz-ZGr" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="gbn-TP-en4"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="cusState" destination="iFo-eN-AQQ" id="B6h-vW-WtN"/>
+                <outlet property="guwen" destination="D1o-YX-BqV" id="ALO-eZ-tqq"/>
+                <outlet property="headPic" destination="eeC-SN-G1k" id="s37-sg-t8Y"/>
+                <outlet property="name" destination="jOA-Nv-aAy" id="81Q-le-IE4"/>
+                <outlet property="phoneBtn" destination="dWz-oE-ve5" id="2v1-yu-vtN"/>
+                <outlet property="time" destination="r3U-pa-c9c" id="n0A-sf-fkv"/>
+            </connections>
             <point key="canvasLocation" x="149" y="599"/>
         </view>
     </objects>

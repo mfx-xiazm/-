@@ -59,7 +59,7 @@
     parameters[@"data"] = data;
     
     hx_weakify(self);
-    [HXNetworkTool POST:@"http://192.168.200.21:9000/open/api/" action:@"agent/agent/organization/addAgent" parameters:parameters success:^(id responseObject) {
+    [HXNetworkTool POST:HXRC_M_URL action:@"agent/agent/organization/addAgent" parameters:parameters success:^(id responseObject) {
         [sender stopLoading:@"确认提交" image:nil textColor:nil backgroundColor:nil];
         hx_strongify(weakSelf);
         if ([responseObject[@"code"] integerValue] == 0) {

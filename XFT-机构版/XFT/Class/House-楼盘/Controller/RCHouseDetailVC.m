@@ -379,26 +379,26 @@ static NSString *const HouseGoodsCell = @"HouseGoodsCell";
     dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
     // 执行循序0
     hx_weakify(self);
-//    dispatch_group_async(group, queue, ^{
-//        hx_strongify(weakSelf);
-//        // 楼盘banner
-//        NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
-//        NSMutableDictionary *data = [NSMutableDictionary dictionary];
-//        data[@"uuid"] = self.uuid;
-//        parameters[@"data"] = data;
-//
-//        [HXNetworkTool POST:@"http://192.168.199.176:7003/" action:@"/pro/proBaseInfo/pic" parameters:parameters success:^(id responseObject) {
-//            if ([responseObject[@"code"] integerValue] == 0) {
-//                strongSelf.housePic = [RCHousePic yy_modelWithDictionary:responseObject[@"data"]];
-//            }else{
-//                [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:responseObject[@"msg"]];
-//            }
-//            dispatch_semaphore_signal(semaphore);
-//        } failure:^(NSError *error) {
-//            [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:error.localizedDescription];
-//            dispatch_semaphore_signal(semaphore);
-//        }];
-//    });
+    dispatch_group_async(group, queue, ^{
+        hx_strongify(weakSelf);
+        // 楼盘banner
+        NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+        NSMutableDictionary *data = [NSMutableDictionary dictionary];
+        data[@"uuid"] = self.uuid;
+        parameters[@"data"] = data;
+
+        [HXNetworkTool POST:HXRC_M_URL action:@"/pro/proBaseInfo/pic" parameters:parameters success:^(id responseObject) {
+            if ([responseObject[@"code"] integerValue] == 0) {
+                strongSelf.housePic = [RCHousePic yy_modelWithDictionary:responseObject[@"data"]];
+            }else{
+                [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:responseObject[@"msg"]];
+            }
+            dispatch_semaphore_signal(semaphore);
+        } failure:^(NSError *error) {
+            [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:error.localizedDescription];
+            dispatch_semaphore_signal(semaphore);
+        }];
+    });
     // 执行循序1
     dispatch_group_async(group, queue, ^{
         hx_strongify(weakSelf);
@@ -462,7 +462,7 @@ static NSString *const HouseGoodsCell = @"HouseGoodsCell";
 
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
 
-        //dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
 
         // 执行顺序10
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -588,40 +588,40 @@ static NSString *const HouseGoodsCell = @"HouseGoodsCell";
 {
     self.scrollView.hidden = NO;
     
-//    // 处理头部banner数据
-//    NSMutableArray *categoryTitles = [NSMutableArray array];
-//    NSMutableArray *handledPics = [NSMutableArray array];
-//    if (self.housePic.vrCover && self.housePic.vrCover.length && self.housePic.vrUrl && self.housePic.vrUrl.length) {
-//        [categoryTitles addObject:@"VR"];
-//        RCHousePicInfo *info = [RCHousePicInfo new];
-//        info.type = RCHousePicInfoTypeVR;
-//        info.url = self.housePic.vrCover;
-//        [handledPics addObject:info];
-//    }
-//
-//    if (self.housePic.videoCover && self.housePic.videoCover.length && self.housePic.videoUrl && self.housePic.videoUrl.length) {
-//        [categoryTitles addObject:@"视频"];
-//        RCHousePicInfo *info = [RCHousePicInfo new];
-//        info.type = RCHousePicInfoTypeVideo;
-//        info.url = self.housePic.videoCover;
-//        [handledPics addObject:info];
-//    }
-//
-//    if (self.housePic.picUrls && self.housePic.picUrls.count) {
-//        [categoryTitles addObject:@"图片"];
-//        for (NSString *url in self.housePic.picUrls) {
-//            RCHousePicInfo *info = [RCHousePicInfo new];
-//            info.type = RCHousePicInfoTypePicture;
-//            info.url = url;
-//            [handledPics addObject:info];
-//        }
-//    }
-//    self.handledPics = handledPics;
-//    [self.cycleView reloadData];
-//
-//    self.categoryViewWidth.constant = 50.f*categoryTitles.count;
-//    self.categoryView.titles = categoryTitles;
-//    [self.categoryView reloadData];
+    // 处理头部banner数据
+    NSMutableArray *categoryTitles = [NSMutableArray array];
+    NSMutableArray *handledPics = [NSMutableArray array];
+    if (self.housePic.vrCover && self.housePic.vrCover.length && self.housePic.vrUrl && self.housePic.vrUrl.length) {
+        [categoryTitles addObject:@"VR"];
+        RCHousePicInfo *info = [RCHousePicInfo new];
+        info.type = RCHousePicInfoTypeVR;
+        info.url = self.housePic.vrCover;
+        [handledPics addObject:info];
+    }
+
+    if (self.housePic.videoCover && self.housePic.videoCover.length && self.housePic.videoUrl && self.housePic.videoUrl.length) {
+        [categoryTitles addObject:@"视频"];
+        RCHousePicInfo *info = [RCHousePicInfo new];
+        info.type = RCHousePicInfoTypeVideo;
+        info.url = self.housePic.videoCover;
+        [handledPics addObject:info];
+    }
+
+    if (self.housePic.picUrls && self.housePic.picUrls.count) {
+        [categoryTitles addObject:@"图片"];
+        for (NSString *url in self.housePic.picUrls) {
+            RCHousePicInfo *info = [RCHousePicInfo new];
+            info.type = RCHousePicInfoTypePicture;
+            info.url = url;
+            [handledPics addObject:info];
+        }
+    }
+    self.handledPics = handledPics;
+    [self.cycleView reloadData];
+
+    self.categoryViewWidth.constant = 50.f*categoryTitles.count;
+    self.categoryView.titles = categoryTitles;
+    [self.categoryView reloadData];
     
     
     // 处理楼盘基础信息

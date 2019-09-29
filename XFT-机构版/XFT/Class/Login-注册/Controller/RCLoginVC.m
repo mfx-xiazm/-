@@ -76,7 +76,7 @@
 
     parameters[@"data"] = data;
     
-    [HXNetworkTool POST:@"http://192.168.199.249:9000/open/api/" action:@"agent/agent/myAgent/institutionsLogin" parameters:parameters success:^(id responseObject) {
+    [HXNetworkTool POST:HXRC_M_URL action:@"agent/agent/myAgent/institutionsLogin" parameters:parameters success:^(id responseObject) {
         [sender stopLoading:@"登录" image:nil textColor:nil backgroundColor:nil];
         if ([responseObject[@"code"] integerValue] == 0) {
             

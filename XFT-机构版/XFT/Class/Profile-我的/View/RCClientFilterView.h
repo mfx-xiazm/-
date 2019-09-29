@@ -17,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @optional
 //点击事件
-- (void)filterDidConfirm:(RCClientFilterView *)filter beginTime:(NSString *)begin endTime:(NSString *)end;
+- (void)filterDidConfirm:(RCClientFilterView *)filter reportBeginTime:(NSString *)reportBegin reportEndTime:(NSString *)reportEnd visitBeginTime:(NSString *)visitBegin visitEndTime:(NSString *)visitEnd;
 
 @end
 
