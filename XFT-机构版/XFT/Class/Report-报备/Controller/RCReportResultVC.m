@@ -10,6 +10,7 @@
 #import "RCReportResultHeader.h"
 #import "RCReportResultCell.h"
 #import "RCReportResultSectionHeader.h"
+#import "RCReportTarget.h"
 
 static NSString *const ReportResultSectionHeader = @"ReportResultSectionHeader";
 static NSString *const ReportResultCell = @"ReportResultCell";
@@ -17,7 +18,10 @@ static NSString *const ReportResultCell = @"ReportResultCell";
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 /* 头视图 */
 @property(nonatomic,strong) RCReportResultHeader *header;
-
+/* 成功数组 */
+@property(nonatomic,strong) NSArray *successList;
+/* 失败数组 */
+@property(nonatomic,strong) NSArray *errorList;
 @end
 
 @implementation RCReportResultVC
@@ -26,17 +30,28 @@ static NSString *const ReportResultCell = @"ReportResultCell";
     [super viewDidLoad];
     [self.navigationItem setTitle:@"推荐结果"];
     [self setUpTableView];
-    [self setUpTableHeaderView];
+    hx_weakify(self);
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.05 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [weakSelf.tableView reloadData];
+    });
 }
 -(void)viewDidLayoutSubviews
 {
     [super viewDidLayoutSubviews];
     self.header.frame = CGRectMake(0, 0, HX_SCREEN_WIDTH, 145);
 }
+-(void)setResults:(NSDictionary *)results
+{
+    _results = results;
+    self.successList = [NSArray yy_modelArrayWithClass:[RCReportTarget class] json:_results[@"successList"]];
+    self.errorList = [NSArray yy_modelArrayWithClass:[RCReportTarget class] json:_results[@"errorList"]];
+    
+}
 -(RCReportResultHeader *)header
 {
     if (_header == nil) {
         _header = [RCReportResultHeader loadXibView];
+        _header.frame = CGRectMake(0, 0, HX_SCREEN_WIDTH, 145);
     }
     return _header;
 }
@@ -51,6 +66,7 @@ static NSString *const ReportResultCell = @"ReportResultCell";
         // 不要自动调整inset
         self.automaticallyAdjustsScrollViewInsets = NO;
     }
+    self.tableView.estimatedRowHeight = 80.f;
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     self.tableView.estimatedSectionHeaderHeight = 0;
     self.tableView.estimatedSectionFooterHeight = 0;
@@ -66,34 +82,47 @@ static NSString *const ReportResultCell = @"ReportResultCell";
     // 注册cell
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([RCReportResultCell class]) bundle:nil] forCellReuseIdentifier:ReportResultCell];
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([RCReportResultSectionHeader class]) bundle:nil] forHeaderFooterViewReuseIdentifier:ReportResultSectionHeader];
-}
--(void)setUpTableHeaderView
-{
+    
     self.tableView.tableHeaderView = self.header;
 }
 #pragma mark -- 点击事件
--(void)sureClickd
-{
+- (IBAction)reportAganClicked:(UIButton *)sender {
     [self.navigationController popViewControllerAnimated:YES];
 }
 #pragma mark -- UITableView数据源和代理
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 3;
+    return 2;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 2;
+    if (section == 0) {
+        return self.successList.count;
+    }else{
+        return self.errorList.count;
+    }
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     RCReportResultCell *cell = [tableView dequeueReusableCellWithIdentifier:ReportResultCell forIndexPath:indexPath];
     //无色
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    cell.nnum.text = [NSString stringWithFormat:@"%zd.",indexPath.row+1];
+    if (indexPath.section == 0) {
+        RCReportTarget *person = self.successList[indexPath.row];
+        cell.person = person;
+    }else{
+        RCReportTarget *person = self.errorList[indexPath.row];
+        cell.person = person;
+    }
     return cell;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return 44.f;
+    if (section == 0) {
+        return self.successList.count?44.f:0.f;
+    }else{
+        return self.errorList.count?44.f:0.f;
+    }
 }
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
@@ -101,7 +130,15 @@ static NSString *const ReportResultCell = @"ReportResultCell";
     if (!header) {
         header = [[RCReportResultSectionHeader alloc] initWithReuseIdentifier:ReportResultSectionHeader];
     }
-    return header;
+    if (section == 0) {
+        header.resultTitle.text = @"报备成功";
+        header.resultNum.text = [NSString stringWithFormat:@"%zd人",self.successList.count];
+        return self.successList.count?header:nil;
+    }else{
+        header.resultTitle.text = @"报备失败";
+        header.resultNum.text = [NSString stringWithFormat:@"%zd人",self.errorList.count];
+        return self.errorList.count?header:nil;
+    }
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {

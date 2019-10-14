@@ -71,6 +71,8 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="bgView" destination="mlc-Sa-Yhg" id="Uwa-Qy-w65"/>
+                <outlet property="resultNum" destination="iRB-mb-2pi" id="4wE-u1-QvV"/>
+                <outlet property="resultTitle" destination="QTc-mV-B6c" id="QtB-w5-M75"/>
             </connections>
             <point key="canvasLocation" x="137.68115942028987" y="393.08035714285711"/>
         </view>

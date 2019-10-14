@@ -186,6 +186,11 @@
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="aW0-zy-SZf"/>
+            <connections>
+                <outlet property="addOrDelBtn" destination="I1f-Xs-Ddq" id="WVG-lC-o0z"/>
+                <outlet property="name" destination="tKz-am-1vW" id="fCY-hM-88o"/>
+                <outlet property="phone" destination="RCe-hJ-s1p" id="JEC-gU-tdw"/>
+            </connections>
             <point key="canvasLocation" x="-17" y="146"/>
         </tableViewCell>
     </objects>

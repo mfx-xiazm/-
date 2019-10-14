@@ -11,37 +11,30 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface RCMyClient : NSObject
-@property (nonatomic, strong) NSString * buyTime;
-@property (nonatomic, strong) NSString * checkOutTime;
-@property (nonatomic, strong) NSString * cusPic;
-@property (nonatomic, strong) NSString * cusUuid;
-@property (nonatomic, strong) NSString * invalidTime;
-@property (nonatomic, strong) NSString * lastRemarkTime;
-@property (nonatomic, strong) NSString * lastVistTime;
-@property (nonatomic, strong) NSString * name;
-@property (nonatomic, strong) NSString * proName;
-@property (nonatomic, strong) NSString * recognitionTime;
-@property (nonatomic, strong) NSString * reportName;
-@property (nonatomic, strong) NSString * reportRole;
-@property (nonatomic, strong) NSString * seeTime;
-@property (nonatomic, strong) NSString * signTime;
-@property (nonatomic, strong) NSString * tradeTime;
-@property (nonatomic, strong) NSString * vistYuqiTime;
-
-@property (nonatomic, strong) NSString * cusState;
-@property (nonatomic, strong) NSString * groupName;
-@property (nonatomic, strong) NSString * groupUuid;
-@property (nonatomic, strong) NSString * phone;
-@property (nonatomic, strong) NSString * remark;
-@property (nonatomic, strong) NSString * salesName;
-@property (nonatomic, strong) NSString * salesUuid;
-@property (nonatomic, strong) NSString * teamName;
-@property (nonatomic, strong) NSString * teamUuid;
-@property (nonatomic, strong) NSString * time;
-
-@property (nonatomic, strong) NSString * salesPhone;
-@property (nonatomic, strong) NSString * sex;
-@property (nonatomic, strong) NSString * lastFollowTime;
+// 以下是最新接口对应的字段
+@property (nonatomic, strong) NSString * uuid;//报备uuid
+@property (nonatomic, strong) NSString * name;//客户姓名
+@property (nonatomic, strong) NSString * phone;//客户电话
+@property (nonatomic, strong) NSString * editTime;//状态时间
+@property (nonatomic, strong) NSString * createTime;//报备时间
+@property (nonatomic, strong) NSString * countdownTime;//失效倒计时
+@property (nonatomic, strong) NSString * projectId;//项目id
+@property (nonatomic, strong) NSString * reporter;//报备人
+@property (nonatomic, strong) NSString * reporterId;//报备人Id
+@property (nonatomic, strong) NSString * remarks;//备注内容
+@property (nonatomic, strong) NSString * remarkTime;//备注时间
+/* 是否隐号 0 否  1 是 */
+@property(nonatomic,assign) BOOL isHidden;
+@property (nonatomic, strong) NSString * salesUuid;//顾问uuid
+@property (nonatomic, strong) NSString * salesName;//顾问名称
+@property (nonatomic, strong) NSString * groupName;//顾问归属小组名称
+@property (nonatomic, strong) NSString * groupUuid;//顾问归属小组uuid
+@property (nonatomic, strong) NSString * teamName;//归属团队名称
+@property (nonatomic, strong) NSString * teamUuid;//归属团队uuid
+@property (nonatomic, strong) NSString * accTeamName;//团队/机构名称
+@property (nonatomic, strong) NSString * accGroupName;//小组/门店名称
+@property (nonatomic, strong) NSString * accName;//报备人名称
+@property (nonatomic, strong) NSString * accType;//报备人类型 1 顾问 2 经纪人 3 自渠专员 4 展厅专员  5 统一报备人 6 门店管理员
 
 @end
 

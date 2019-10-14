@@ -172,6 +172,7 @@ static NSArray *_filtrationCacheKey;
     NSString *appendUrl =  action?[NSString stringWithFormat:@"%@%@",URL,action]:URL;
 
     [_sessionManager.requestSerializer setValue:[MSUserManager sharedInstance].curUserInfo.userAccessStr forHTTPHeaderField:@"UserAccessInfo"];
+//    [_sessionManager.requestSerializer setValue:@"{\"domain\":\"org-app-ios\",\"loginId\":\"agentacc003\"}" forHTTPHeaderField:@"UserAccessInfo"];
     [_sessionManager.requestSerializer setValue:[MSUserManager sharedInstance].curUserInfo.token forHTTPHeaderField:@"Authorization"];
 
     //读取缓存

@@ -18,6 +18,7 @@ typedef void(^filterTimeCall)(UITextField *textField);
 @property (weak, nonatomic) IBOutlet UITextField *reportEndTime;
 @property (weak, nonatomic) IBOutlet UITextField *visitBeginTime;
 @property (weak, nonatomic) IBOutlet UITextField *visitEndTime;
+@property (weak, nonatomic) IBOutlet UIView *visitTimeView;
 
 @end
 

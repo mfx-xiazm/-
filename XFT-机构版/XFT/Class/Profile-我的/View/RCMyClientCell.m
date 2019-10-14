@@ -10,6 +10,7 @@
 #import "RCClientCodeView.h"
 #import <zhPopupController.h>
 #import "RCMyClient.h"
+#import "RCSearchClient.h"
 
 @interface RCMyClientCell ()
 @property (weak, nonatomic) IBOutlet UIImageView *headerPic;
@@ -37,71 +38,162 @@
 -(void)setClient:(RCMyClient *)client
 {
     _client = client;
-    [self.headerPic sd_setImageWithURL:[NSURL URLWithString:_client.cusPic]];
-    self.name.text = _client.name;
-     //@[@"已到访",@"已认筹",@"已认购",@"已签约",@"已退房",@"已失效",@"已报备"];
-    if (self.cusType == 1) {
-        self.time.text = [NSString stringWithFormat:@"到访时间：%@",_client.lastVistTime];
-        self.priName.text = [NSString stringWithFormat:@"到访项目：%@",_client.proName];
-    }else if (self.cusType == 2) {
-        self.time.text = [NSString stringWithFormat:@"认筹时间：%@",_client.recognitionTime];
-        self.priName.text = [NSString stringWithFormat:@"认筹项目：%@",_client.proName];
-    }else if (self.cusType == 3) {
-        self.time.text = [NSString stringWithFormat:@"认购时间：%@",_client.buyTime];
-        self.priName.text = [NSString stringWithFormat:@"认购项目：%@",_client.proName];
-    }else if (self.cusType == 4) {
-        self.time.text = [NSString stringWithFormat:@"签约时间：%@",_client.signTime];
-        self.priName.text = [NSString stringWithFormat:@"签约项目：%@",_client.proName];
-    }else if (self.cusType == 5) {
-        self.time.text = [NSString stringWithFormat:@"退房时间：%@",_client.checkOutTime];
-        self.priName.text = [NSString stringWithFormat:@"退房项目：%@",_client.proName];
-    }else if (self.cusType == 6) {
-        self.time.text = [NSString stringWithFormat:@"失效时间：%@",_client.invalidTime];
-        self.priName.text = [NSString stringWithFormat:@"失效项目：%@",_client.proName];
+    /** 账号角色 1:中介管理员 2:中介报备人 3:门店主管 4:中介经纪人 */
+    if ([MSUserManager sharedInstance].curUserInfo.agentLoginInside.accRole == 1 || [MSUserManager sharedInstance].curUserInfo.agentLoginInside.accRole == 3) {
+        //[self.headerPic sd_setImageWithURL:[NSURL URLWithString:_client.cusPic]];
+        self.name.text = _client.name;
+        self.codeBtn.hidden = YES;
+        // @[@"已报备",@"已到访",@"已认筹",@"已认购",@"已签约",@"已退房",@"已失效"];
+        // 0:已报备 2:已到访 4:已认筹 5:已认购 6:已签约 7:已退房 100:已失效 (默认状态为:0)
+        if (self.cusType == 0) {
+            self.state.text = [NSString stringWithFormat:@"%@天失效",_client.countdownTime];
+            self.time.text = [NSString stringWithFormat:@"报备时间：%@",_client.createTime];
+            self.priName.text = [NSString stringWithFormat:@"报备项目：%@",self.proName];
+        }else if (self.cusType == 2) {
+            self.state.text = @"已到访";
+            self.time.text = [NSString stringWithFormat:@"最近到访：%@",_client.editTime];
+            self.priName.text = [NSString stringWithFormat:@"到访项目：%@",self.proName];
+        }else if (self.cusType == 4) {
+            self.state.text = @"已认筹";
+            self.time.text = [NSString stringWithFormat:@"认筹时间：%@",_client.editTime];
+            self.priName.text = [NSString stringWithFormat:@"认筹项目：%@",self.proName];
+        }else if (self.cusType == 5) {
+            self.state.text = @"已认购";
+            self.time.text = [NSString stringWithFormat:@"认购时间：%@",_client.editTime];
+            self.priName.text = [NSString stringWithFormat:@"认购项目：%@",self.proName];
+        }else if (self.cusType == 6) {
+            self.state.text = @"已签约";
+            self.time.text = [NSString stringWithFormat:@"签约时间：%@",_client.editTime];
+            self.priName.text = [NSString stringWithFormat:@"签约项目：%@",self.proName];
+        }else if (self.cusType == 7) {
+            self.state.text = @"已退房";
+            self.time.text = [NSString stringWithFormat:@"退房时间：%@",_client.editTime];
+            self.priName.text = [NSString stringWithFormat:@"退房项目：%@",self.proName];
+        }else{
+            self.state.text = @"已失效";
+            self.time.text = [NSString stringWithFormat:@"失效时间：%@",_client.editTime];
+            self.priName.text = [NSString stringWithFormat:@"失效项目：%@",self.proName];
+        }
+        
+        /*报备人类型 1 顾问 2 经纪人 3 自渠专员 4 展厅专员  5 统一报备人 6 门店管理员*/
+        if ([_client.accType isEqualToString:@"1"]) {
+            self.reportName.text = [NSString stringWithFormat:@"报备人：%@(顾问)",_client.accName];
+        }else if ([_client.accType isEqualToString:@"2"]) {
+            self.reportName.text = [NSString stringWithFormat:@"报备人：%@(经纪人)",_client.accName];
+        }else if ([_client.accType isEqualToString:@"3"]) {
+            self.reportName.text = [NSString stringWithFormat:@"报备人：%@(自渠专员)",_client.accName];
+        }else if ([_client.accType isEqualToString:@"4"]) {
+            self.reportName.text = [NSString stringWithFormat:@"报备人：%@(展厅专员)",_client.accName];
+        }else if ([_client.accType isEqualToString:@"5"]) {
+            self.reportName.text = [NSString stringWithFormat:@"报备人：%@(统一报备人)",_client.accName];
+        }else {
+            self.reportName.text = [NSString stringWithFormat:@"报备人：%@(门店管理员)",_client.accName];
+        }
     }else{
-        self.time.text = [NSString stringWithFormat:@"报备时间：%@",_client.seeTime];
-        self.priName.text = [NSString stringWithFormat:@"报备项目：%@",_client.proName];
+        
+        //[self.headerPic sd_setImageWithURL:[NSURL URLWithString:_client.cusPic]];
+        self.name.text = _client.name;
+        
+        self.time.text = [NSString stringWithFormat:@"报备时间：%@",_client.createTime];
+        if (_client.salesName && _client.salesName.length) {
+            self.priName.text = [NSString stringWithFormat:@"案场顾问：%@(%@-%@)",_client.salesName,_client.teamName,_client.groupName];
+        }else{
+            self.priName.text = @"案场顾问：暂无";
+        }
+
+        // @[@"已报备",@"已到访",@"已认筹",@"已认购",@"已签约",@"已退房",@"已失效"];
+        // 0:已报备 2:已到访 4:已认筹 5:已认购 6:已签约 7:已退房 100:已失效 (默认状态为:0)
+        if (self.cusType == 0) {
+            self.codeBtn.hidden = NO;
+            self.state.text = [NSString stringWithFormat:@"%@天失效",_client.countdownTime];
+            self.time2.text = [NSString stringWithFormat:@"最后备注：%@",_client.remarkTime];
+        }else if (self.cusType == 2) {
+            self.codeBtn.hidden = YES;
+            self.state.text = @"已到访";
+            self.time2.text = [NSString stringWithFormat:@"最近到访：%@",_client.editTime];
+        }else if (self.cusType == 4) {
+            self.codeBtn.hidden = YES;
+            self.state.text = @"已认筹";
+            self.time2.text = [NSString stringWithFormat:@"认筹时间：%@",_client.editTime];
+        }else if (self.cusType == 5) {
+            self.codeBtn.hidden = YES;
+            self.state.text = @"已认购";
+            self.time2.text = [NSString stringWithFormat:@"认购时间：%@",_client.editTime];
+        }else if (self.cusType == 6) {
+            self.codeBtn.hidden = YES;
+            self.state.text = @"已签约";
+            self.time2.text = [NSString stringWithFormat:@"签约时间：%@",_client.editTime];
+        }else if (self.cusType == 7) {
+            self.codeBtn.hidden = YES;
+            self.state.text = @"已退房";
+            self.time2.text = [NSString stringWithFormat:@"退房时间：%@",_client.editTime];
+        }else{
+            self.codeBtn.hidden = YES;
+            self.state.text = @"已失效";
+            self.time2.text = [NSString stringWithFormat:@"失效时间：%@",_client.editTime];
+        }
+        self.remark.text = [NSString stringWithFormat:@"备注内容：%@",(_client.remarks && _client.remarks.length)?_client.remarks:@"暂无"];
     }
-   
-    self.reportName.text = [NSString stringWithFormat:@"报备人：%@(%@)",_client.reportName,_client.reportRole];    
 }
--(void)setClient1:(RCMyClient *)client1
+-(void)setSearchClient:(RCSearchClient *)searchClient
 {
-    _client1 = client1;
+    _searchClient = searchClient;
     
-    [self.headerPic sd_setImageWithURL:[NSURL URLWithString:_client1.cusPic]];
-    self.name.text = _client1.name;
-    self.time.text = [NSString stringWithFormat:@"报备时间：%@",_client1.seeTime];
-    self.priName.text = [NSString stringWithFormat:@"案场顾问：%@",_client1.salesName];
-    //@[@"已到访",@"已认筹",@"已认购",@"已签约",@"已退房",@"已失效",@"已报备"];
-    if (self.cusType == 1) {
-        self.codeBtn.hidden = YES;
-
-        self.time2.text = [NSString stringWithFormat:@"最近到访：%@",_client1.lastVistTime];
-    }else if (self.cusType == 2) {
-        self.codeBtn.hidden = YES;
-
-        self.time2.text = [NSString stringWithFormat:@"认筹时间：%@",_client1.recognitionTime];
-    }else if (self.cusType == 3) {
-        self.codeBtn.hidden = YES;
-
-        self.time2.text = [NSString stringWithFormat:@"认购时间：%@",_client1.buyTime];
-    }else if (self.cusType == 4) {
-        self.codeBtn.hidden = YES;
-
-        self.time2.text = [NSString stringWithFormat:@"签约时间：%@",_client1.signTime];
-    }else if (self.cusType == 5) {
-        self.codeBtn.hidden = YES;
-
-        self.time2.text = [NSString stringWithFormat:@"退房时间：%@",_client1.checkOutTime];
-    }else if (self.cusType == 6) {
-        self.codeBtn.hidden = YES;
-
-        self.time2.text = [NSString stringWithFormat:@"失效时间：%@",_client1.invalidTime];
+    if ([MSUserManager sharedInstance].curUserInfo.agentLoginInside.accRole == 1 || [MSUserManager sharedInstance].curUserInfo.agentLoginInside.accRole == 3) {
+        self.name.text = _searchClient.name;
+        /* 状态 0:报备成功 2:到访 4:认筹 5:认购 6:签约 7:退房 8:失效 */
+        if (_searchClient.cusState == 0) {
+            self.state.text = [NSString stringWithFormat:@" %@天失效 ",_searchClient.day];
+            self.time.text = [NSString stringWithFormat:@"报备时间：%@",_searchClient.seeTime];
+        }else if (_searchClient.cusState == 2) {
+            self.state.text = @" 已到访 ";
+            self.time.text = [NSString stringWithFormat:@"最近到访：%@",_searchClient.lastVistTime];
+        }else if (_searchClient.cusState == 4) {
+            self.state.text = @" 已认筹 ";
+            self.time.text = [NSString stringWithFormat:@"最近到访：%@",_searchClient.lastVistTime];
+        }else if (_searchClient.cusState == 5) {
+            self.state.text = @" 已认购 ";
+            self.time.text = [NSString stringWithFormat:@"最近到访：%@",_searchClient.lastVistTime];
+        }else if (_searchClient.cusState == 6) {
+            self.state.text = @" 已签约 ";
+            self.time.text = [NSString stringWithFormat:@"最近到访：%@",_searchClient.lastVistTime];
+        }else if (_searchClient.cusState == 7) {
+            self.state.text = @" 已退房 ";
+            self.time.text = [NSString stringWithFormat:@"最近到访：%@",_searchClient.lastVistTime];
+        }else{
+            self.state.text = @" 已失效 ";
+            self.time.text = [NSString stringWithFormat:@"报备时间：%@",_searchClient.seeTime];
+        }
+        self.priName.text = [NSString stringWithFormat:@"报备项目：%@",(_searchClient.proName && _searchClient.proName.length)?_searchClient.proName:@"暂无"];
+        self.reportName.text = [NSString stringWithFormat:@"报备人：%@",(_searchClient.reportName && _searchClient.reportName.length)?_searchClient.reportName:@"暂无"];
     }else{
-        self.codeBtn.hidden = NO;
-
-        self.time2.text = [NSString stringWithFormat:@"最后备注：%@",_client1.time];
+        self.name.text = _searchClient.name;
+        self.time.text = [NSString stringWithFormat:@"报备时间：%@",_searchClient.createTime];
+        self.priName.text = [NSString stringWithFormat:@"案场顾问：%@",(_searchClient.salesNameAndTeam && _searchClient.salesNameAndTeam.length)?_searchClient.salesNameAndTeam:@"暂无"];
+        /* 状态 0:报备成功 2:到访 4:认筹 5:认购 6:签约 7:退房 8:失效 */
+        if (_searchClient.cusState == 0) {
+            self.state.text = [NSString stringWithFormat:@" %@天失效 ",_searchClient.day];
+            self.time2.text = [NSString stringWithFormat:@"备注时间：%@",_searchClient.time];
+        }else if (_searchClient.cusState == 2) {
+            self.state.text = @" 已到访 ";
+            self.time2.text = [NSString stringWithFormat:@"到访时间：%@",_searchClient.lastVistTime];
+        }else if (_searchClient.cusState == 4) {
+            self.state.text = @" 已认筹 ";
+            self.time2.text = [NSString stringWithFormat:@"到访时间：%@",_searchClient.lastVistTime];
+        }else if (_searchClient.cusState == 5) {
+            self.state.text = @" 已认购 ";
+            self.time2.text = [NSString stringWithFormat:@"到访时间：%@",_searchClient.lastVistTime];
+        }else if (_searchClient.cusState == 6) {
+            self.state.text = @" 已签约 ";
+            self.time2.text = [NSString stringWithFormat:@"到访时间：%@",_searchClient.lastVistTime];
+        }else if (_searchClient.cusState == 7) {
+            self.state.text = @" 已退房 ";
+            self.time2.text = [NSString stringWithFormat:@"到访时间：%@",_searchClient.lastVistTime];
+        }else{
+            self.state.text = @" 已失效 ";
+            self.time2.text = [NSString stringWithFormat:@"备注时间：%@",_searchClient.time];
+        }
+        self.remark.text = [NSString stringWithFormat:@"备注内容：%@",(_searchClient.remark && _searchClient.remark.length)?_searchClient.remark:@"暂无"];
     }
 }
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

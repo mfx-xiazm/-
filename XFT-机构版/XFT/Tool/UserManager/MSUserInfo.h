@@ -12,7 +12,7 @@
 @interface MSUserInfo : NSObject
 @property (nonatomic,strong) MSUserShowInfo *agentLoginInside;
 @property (nonatomic,strong) MSUserAccessInfo *userAccessInfo;
-@property (nonatomic,strong) MSOrgInfoInfo *orgInfo;
+@property (nonatomic,strong) MSOrgInfoInfo *orgUserInfo;
 @property (nonatomic,strong) NSArray<MSDropValues *> *dropValueDTOS;
 @property (nonatomic,copy) NSString *token;
 @property(nonatomic,copy) NSString *userAccessStr;
@@ -63,19 +63,15 @@
 @end
 
 @interface MSOrgInfoInfo : NSObject
-@property (nonatomic, strong) NSString * cityUuid;
-@property (nonatomic, assign) NSInteger createTime;
-@property (nonatomic, assign) NSInteger editTime;
-@property (nonatomic, assign) NSInteger isDel;
-@property (nonatomic, strong) NSString * name;
-@property (nonatomic, strong) NSString * remarks;
-@property (nonatomic, assign) NSInteger state;
-@property (nonatomic, assign) NSInteger type;
-@property (nonatomic, strong) NSString * uuid;
+@property (nonatomic, strong) NSString * orgName;
+@property (nonatomic, strong) NSString * shopName;
+@property (nonatomic, strong) NSString * shopUuid;
+@property (nonatomic, strong) NSString * orgUuid;
 @end
 
 @interface MSDropValues : NSObject
 @property (nonatomic, strong) NSString * label;
 @property (nonatomic, strong) NSString * value;
+@property (nonatomic, strong) NSString * type;
 
 @end

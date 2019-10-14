@@ -23,7 +23,7 @@
     [super viewDidLoad];
     [self.navigationItem setTitle:@"添加经纪人"];
     
-    self.jgName.text = [MSUserManager sharedInstance].curUserInfo.orgInfo.name;
+    self.jgName.text = [MSUserManager sharedInstance].curUserInfo.orgUserInfo.orgName;
     
     hx_weakify(self);
     [self.sureBtn BindingBtnJudgeBlock:^BOOL{

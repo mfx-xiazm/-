@@ -10,14 +10,14 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class RCClientFilterView;
+@class RCClientFilterView,RCMyClientFilter;
 
 #pragma mark - 协议
 @protocol RCClientFilterViewDelegate <NSObject>
 
 @optional
 //点击事件
-- (void)filterDidConfirm:(RCClientFilterView *)filter reportBeginTime:(NSString *)reportBegin reportEndTime:(NSString *)reportEnd visitBeginTime:(NSString *)visitBegin visitEndTime:(NSString *)visitEnd;
+- (void)filterDidConfirm:(RCClientFilterView *)filter;
 
 @end
 
@@ -28,6 +28,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, weak) id<RCClientFilterViewDelegate> delegate;
 
+/* 用户状态 0:已报备 2:已到访 4:已认筹 5:已认购 6:已签约 7:已退房 100:已失效 (默认状态为:0) */
+@property(nonatomic,assign) NSInteger cusType;
+
+/* 筛选条件 */
+@property(nonatomic,strong) RCMyClientFilter *filterModel;
 @end
 
 NS_ASSUME_NONNULL_END

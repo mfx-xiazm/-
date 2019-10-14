@@ -18,7 +18,7 @@
 {
     [super awakeFromNib];
     [self.headPic sd_setImageWithURL:[NSURL URLWithString:[MSUserManager sharedInstance].curUserInfo.agentLoginInside.headpic] placeholderImage:HXGetImage(@"pic_header")];
-    self.name.text = [MSUserManager sharedInstance].curUserInfo.orgInfo.name;
+    self.name.text = [MSUserManager sharedInstance].curUserInfo.orgUserInfo.orgName;
 }
 - (IBAction)infoClicked:(UIButton *)sender {
     if (self.profileHeaderClicked) {

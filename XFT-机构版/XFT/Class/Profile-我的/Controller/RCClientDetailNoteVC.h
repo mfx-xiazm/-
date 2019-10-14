@@ -11,7 +11,8 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface RCClientDetailNoteVC : HXBaseViewController
-
+/** 客户轨迹 */
+@property(nonatomic,strong) NSArray *clientNotes;
 @end
 
 NS_ASSUME_NONNULL_END

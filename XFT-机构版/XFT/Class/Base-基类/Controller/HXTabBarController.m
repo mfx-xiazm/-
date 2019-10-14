@@ -42,10 +42,17 @@
     [item setTitleTextAttributes:selectedAttrs forState:UIControlStateSelected];
     
     // 添加子控制器
-    [self setupChildVc:[[RCHouseVC alloc] init] title:@"楼盘" image:@"icon_home" selectedImage:@"icon_home_click"];
-    [self setupChildVc:[[RCReportVC alloc] init] title:@"报备" image:@"icon_report" selectedImage:@"icon_report_click"];
-    [self setupChildVc:[[RCNewsVC alloc] init] title:@"资讯" image:@"icon_information" selectedImage:@"icon_information_click"];
-    [self setupChildVc:[[RCProfileVC alloc] init] title:@"我的" image:@"icon_mine" selectedImage:@"icon_mine_click"];
+    /** 账号角色 1:中介管理员 2:中介报备人 3:门店主管 4:中介经纪人 */
+    if ([MSUserManager sharedInstance].curUserInfo.agentLoginInside.accRole == 1 || [MSUserManager sharedInstance].curUserInfo.agentLoginInside.accRole == 3) {
+        [self setupChildVc:[[RCHouseVC alloc] init] title:@"楼盘" image:@"icon_home" selectedImage:@"icon_home_click"];
+        [self setupChildVc:[[RCNewsVC alloc] init] title:@"资讯" image:@"icon_information" selectedImage:@"icon_information_click"];
+        [self setupChildVc:[[RCProfileVC alloc] init] title:@"我的" image:@"icon_mine" selectedImage:@"icon_mine_click"];
+    }else{
+        [self setupChildVc:[[RCHouseVC alloc] init] title:@"楼盘" image:@"icon_home" selectedImage:@"icon_home_click"];
+        [self setupChildVc:[[RCReportVC alloc] init] title:@"报备" image:@"icon_report" selectedImage:@"icon_report_click"];
+        [self setupChildVc:[[RCNewsVC alloc] init] title:@"资讯" image:@"icon_information" selectedImage:@"icon_information_click"];
+        [self setupChildVc:[[RCProfileVC alloc] init] title:@"我的" image:@"icon_mine" selectedImage:@"icon_mine_click"];
+    }
     
     self.delegate = self;
     

@@ -14,6 +14,8 @@
 #import "RCChangePwdVC.h"
 #import "WSDatePickerView.h"
 #import "RCMyStore.h"
+#import "zhAlertView.h"
+#import <zhPopupController.h>
 
 static NSString *const MyStoreCell = @"MyStoreCell";
 @interface RCMyStoreVC ()<UITableViewDelegate,UITableViewDataSource,RCTimeFilterViewDelegate>
@@ -130,17 +132,17 @@ static NSString *const MyStoreCell = @"MyStoreCell";
         hx_strongify(weakSelf);
         if ([responseObject[@"code"] integerValue] == 0) {
             if (isRefresh) {
-                strongSelf.total = [NSString stringWithFormat:@"%@",responseObject[@"data"][@"total"]];
+                strongSelf.total = [NSString stringWithFormat:@"%@",responseObject[@"data"][@"shopNum"]];
                 [strongSelf.tableView.mj_header endRefreshing];
                 strongSelf.pagenum = 1;
                 [strongSelf.stores removeAllObjects];
-                NSArray *arrt = [NSArray yy_modelArrayWithClass:[RCMyStore class] json:responseObject[@"data"][@"shopList"]];
+                NSArray *arrt = [NSArray yy_modelArrayWithClass:[RCMyStore class] json:responseObject[@"data"][@"shopList"][@"records"]];
                 [strongSelf.stores addObjectsFromArray:arrt];
             }else{
                 [strongSelf.tableView.mj_footer endRefreshing];
                 strongSelf.pagenum ++;
-                if ([responseObject[@"data"][@"shopList"] isKindOfClass:[NSArray class]] && ((NSArray *)responseObject[@"data"][@"shopList"]).count){
-                    NSArray *arrt = [NSArray yy_modelArrayWithClass:[RCMyStore class] json:responseObject[@"data"][@"shopList"]];
+                if ([responseObject[@"data"][@"shopList"][@"records"] isKindOfClass:[NSArray class]] && ((NSArray *)responseObject[@"data"][@"shopList"][@"records"]).count){
+                    NSArray *arrt = [NSArray yy_modelArrayWithClass:[RCMyStore class] json:responseObject[@"data"][@"shopList"][@"records"]];
                     [strongSelf.stores addObjectsFromArray:arrt];
                 }else{// 提示没有更多数据
                     [strongSelf.tableView.mj_footer endRefreshingWithNoMoreData];
@@ -150,6 +152,25 @@ static NSString *const MyStoreCell = @"MyStoreCell";
                 strongSelf.tableView.hidden = NO;
                 [strongSelf.tableView reloadData];
             });
+        }else{
+            [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:responseObject[@"msg"]];
+        }
+    } failure:^(NSError *error) {
+        [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:error.localizedDescription];
+    }];
+}
+/** 重置门店管理人密码 */
+-(void)resetStorePwdRequest:(NSString *)uuid completedCall:(void(^)(BOOL))completedCall
+{
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    NSMutableDictionary *data = [NSMutableDictionary dictionary];
+    data[@"uuid"] = uuid;
+    parameters[@"data"] = data;
+    
+    [HXNetworkTool POST:HXRC_M_URL action:@"agent/agent/organization/resetmdPwd" parameters:parameters success:^(id responseObject) {
+        if ([responseObject[@"code"] integerValue] == 0) {
+            [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:responseObject[@"msg"]];
+            completedCall(YES);
         }else{
             [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:responseObject[@"msg"]];
         }
@@ -214,9 +235,26 @@ static NSString *const MyStoreCell = @"MyStoreCell";
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     RCMyStore *store = self.stores[indexPath.row];
     cell.store = store;
-    //hx_weakify(self);
+    hx_weakify(self);
     cell.resetPwdCall = ^{
-        
+        hx_strongify(weakSelf);
+        zhAlertView *alert = [[zhAlertView alloc] initWithTitle:@"提示" message:@"确定重置为初始默认密码吗？" constantWidth:HX_SCREEN_WIDTH - 50*2];
+        zhAlertButton *cancelButton = [zhAlertButton buttonWithTitle:@"取消" handler:^(zhAlertButton * _Nonnull button) {
+            [strongSelf.zh_popupController dismiss];
+        }];
+        zhAlertButton *okButton = [zhAlertButton buttonWithTitle:@"确定" handler:^(zhAlertButton * _Nonnull button) {
+            [strongSelf.zh_popupController dismiss];
+            [strongSelf resetStorePwdRequest:store.accuuid completedCall:^(BOOL isSuccess) {
+                
+            }];
+        }];
+        cancelButton.lineColor = UIColorFromRGB(0xDDDDDD);
+        [cancelButton setTitleColor:UIColorFromRGB(0x999999) forState:UIControlStateNormal];
+        okButton.lineColor = UIColorFromRGB(0xDDDDDD);
+        [okButton setTitleColor:UIColorFromRGB(0x131313) forState:UIControlStateNormal];
+        [alert adjoinWithLeftAction:cancelButton rightAction:okButton];
+        strongSelf.zh_popupController = [[zhPopupController alloc] init];
+        [strongSelf.zh_popupController presentContentView:alert duration:0.25 springAnimated:NO];
     };
     return cell;
 }

@@ -13,9 +13,11 @@
 #import "RCPageMainTable.h"
 #import <JXCategoryView.h>
 #import "RCClientDetailNoteVC.h"
-#import "RCMyClient.h"
+#import "RCMyClientDetail.h"
 #import "zhAlertView.h"
 #import <zhPopupController.h>
+#import "RCMyClientNote.h"
+#import "RCClientCodeView.h"
 
 @interface RCClientDetailVC ()<UITableViewDelegate,UITableViewDataSource,JXCategoryViewDelegate>
 @property (weak, nonatomic) IBOutlet RCPageMainTable *tableView;
@@ -30,7 +32,9 @@
 /** 切换控制器 */
 @property (strong, nonatomic) JXCategoryTitleView *categoryView;
 /** 客户基本信息 */
-@property(nonatomic,strong) RCMyClient *clientInfo;
+@property(nonatomic,strong) RCMyClientDetail *clientInfo;
+/** 客户轨迹 */
+@property(nonatomic,strong) NSArray *clientNotes;
 @end
 
 @implementation RCClientDetailVC
@@ -42,7 +46,7 @@
     self.isCanScroll = YES;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(MainTableScroll:) name:@"MainTableScroll" object:nil];
     [self setUpMainTable];
-    [self getClientDetail];
+    [self getClientDetailRequest];
 }
 
 -(void)viewDidLayoutSubviews
@@ -59,30 +63,50 @@
         _header.clientDetailCall = ^(NSInteger index) {
             hx_strongify(weakSelf);
             if (index == 1) {
-                zhAlertView *alert = [[zhAlertView alloc] initWithTitle:@"提示" message:strongSelf.clientInfo.phone constantWidth:HX_SCREEN_WIDTH - 50*2];
-                zhAlertButton *cancelButton = [zhAlertButton buttonWithTitle:@"取消" handler:^(zhAlertButton * _Nonnull button) {
-                    [strongSelf.zh_popupController dismiss];
-                }];
-                zhAlertButton *okButton = [zhAlertButton buttonWithTitle:@"拨打" handler:^(zhAlertButton * _Nonnull button) {
-                    [strongSelf.zh_popupController dismiss];
-                    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"tel:%@",strongSelf.clientInfo.phone]]];
-                }];
-                cancelButton.lineColor = UIColorFromRGB(0xDDDDDD);
-                [cancelButton setTitleColor:UIColorFromRGB(0x999999) forState:UIControlStateNormal];
-                okButton.lineColor = UIColorFromRGB(0xDDDDDD);
-                [okButton setTitleColor:HXControlBg forState:UIControlStateNormal];
-                [alert adjoinWithLeftAction:cancelButton rightAction:okButton];
-                strongSelf.zh_popupController = [[zhPopupController alloc] init];
-                [strongSelf.zh_popupController presentContentView:alert duration:0.25 springAnimated:NO];
+                if (strongSelf.clientInfo.isHidden) {
+                    [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:@"隐号"];
+                }else{
+                    zhAlertView *alert = [[zhAlertView alloc] initWithTitle:@"提示" message:strongSelf.clientInfo.phone constantWidth:HX_SCREEN_WIDTH - 50*2];
+                    zhAlertButton *cancelButton = [zhAlertButton buttonWithTitle:@"取消" handler:^(zhAlertButton * _Nonnull button) {
+                        [strongSelf.zh_popupController dismiss];
+                    }];
+                    zhAlertButton *okButton = [zhAlertButton buttonWithTitle:@"拨打" handler:^(zhAlertButton * _Nonnull button) {
+                        [strongSelf.zh_popupController dismiss];
+                        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"tel:%@",strongSelf.clientInfo.phone]]];
+                    }];
+                    cancelButton.lineColor = UIColorFromRGB(0xDDDDDD);
+                    [cancelButton setTitleColor:UIColorFromRGB(0x999999) forState:UIControlStateNormal];
+                    okButton.lineColor = UIColorFromRGB(0xDDDDDD);
+                    [okButton setTitleColor:HXControlBg forState:UIControlStateNormal];
+                    [alert adjoinWithLeftAction:cancelButton rightAction:okButton];
+                    strongSelf.zh_popupController = [[zhPopupController alloc] init];
+                    [strongSelf.zh_popupController presentContentView:alert duration:0.25 springAnimated:NO];
+                }
+                
             }else if (index == 2) {
-                NSString *phoneStr = [NSString stringWithFormat:@"%@",strongSelf.clientInfo.phone];//发短信的号码
-                NSString *urlStr = [NSString stringWithFormat:@"sms://%@", phoneStr];
-                NSURL *url = [NSURL URLWithString:urlStr];
-                [[UIApplication sharedApplication] openURL:url];
+                if (strongSelf.clientInfo.isHidden) {
+                    [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:@"隐号"];
+                }else{
+                    NSString *phoneStr = [NSString stringWithFormat:@"%@",strongSelf.clientInfo.phone];//发短信的号码
+                    NSString *urlStr = [NSString stringWithFormat:@"sms://%@", phoneStr];
+                    NSURL *url = [NSURL URLWithString:urlStr];
+                    [[UIApplication sharedApplication] openURL:url];
+                }
             }else{
-                RCGoHouseVC *hvc = [RCGoHouseVC new];
-                hvc.cusUuid = strongSelf.clientInfo.cusUuid;
-                [strongSelf.navigationController pushViewController:hvc animated:YES];
+                if (strongSelf.clientInfo.isHidden) {
+                    RCClientCodeView *codeView = [RCClientCodeView loadXibView];
+                    codeView.hxn_size = CGSizeMake(HX_SCREEN_WIDTH, 265.f);
+                    codeView.closeBtnCall = ^{
+                        [strongSelf.zh_popupController dismissWithDuration:0.25 springAnimated:NO];
+                    };
+                    strongSelf.zh_popupController = [[zhPopupController alloc] init];
+                    strongSelf.zh_popupController.layoutType = zhPopupLayoutTypeBottom;
+                    [strongSelf.zh_popupController presentContentView:codeView duration:0.25 springAnimated:NO];
+                }else{
+                    RCGoHouseVC *hvc = [RCGoHouseVC new];
+                    hvc.cusUuid = strongSelf.cusUuid;
+                    [strongSelf.navigationController pushViewController:hvc animated:YES];
+                }
             }
         };
     }
@@ -171,69 +195,61 @@
     self.tableView.hidden = YES;
 }
 #pragma mark -- 请求客户详情
--(void)getClientDetail
+-(void)getClientDetailRequest
 {
-    dispatch_group_t group = dispatch_group_create();
-    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-    dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
-    // 执行循序1
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    NSMutableDictionary *data = [NSMutableDictionary dictionary];
+    data[@"cusUuid"] = self.cusUuid;
+    parameters[@"data"] = data;
+    
     hx_weakify(self);
-    dispatch_group_async(group, queue, ^{
+    [HXNetworkTool POST:HXRC_M_URL action:@"cus/cus/mechanism/getCustInfo" parameters:parameters success:^(id responseObject) {
         hx_strongify(weakSelf);
-        NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
-        NSMutableDictionary *data = [NSMutableDictionary dictionary];
-        data[@"cusUuid"] = self.cusUuid;
-        parameters[@"data"] = data;
-        
-        [HXNetworkTool POST:HXRC_M_URL action:@"cus/cus/mechanism/getCustInfo" parameters:parameters success:^(id responseObject) {
-            if ([responseObject[@"code"] integerValue] == 0) {
-                strongSelf.clientInfo = [RCMyClient yy_modelWithDictionary:responseObject[@"data"]];
-            }else{
-                [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:responseObject[@"msg"]];
-            }
-            dispatch_semaphore_signal(semaphore);
-        } failure:^(NSError *error) {
-            [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:error.localizedDescription];
-            dispatch_semaphore_signal(semaphore);
-        }];
-    });
-//    // 执行循序2
-//    dispatch_group_async(group, queue, ^{
-//        // 请求客户轨迹的接口
-//        hx_strongify(weakSelf);
-//        NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
-//        NSMutableDictionary *data = [NSMutableDictionary dictionary];
-//        data[@"cusUuid"] = self.cusUuid;
-//        parameters[@"data"] = data;
-//
-//        [HXNetworkTool POST:@"http://192.168.199.249:9000/open/api/" action:@"cus/cus/mechanism/getCustInfo" parameters:parameters success:^(id responseObject) {
-//            if ([responseObject[@"code"] integerValue] == 0) {
-//                strongSelf.clientInfo = [RCMyClient yy_modelWithDictionary:responseObject[@"data"]];
-//            }else{
-//                [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:responseObject[@"msg"]];
-//            }
-//            dispatch_semaphore_signal(semaphore);
-//        } failure:^(NSError *error) {
-//            [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:error.localizedDescription];
-//            dispatch_semaphore_signal(semaphore);
-//        }];
-//    });
-    dispatch_group_notify(group, queue, ^{
-        // 执行循序4
-        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
-        // 执行顺序6
-//        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
-        
-        // 执行顺序10
+        if ([responseObject[@"code"] integerValue] == 0) {
+            strongSelf.clientInfo = [RCMyClientDetail yy_modelWithDictionary:responseObject[@"data"]];
+            [strongSelf getClientNoteRequest];
+        }else{
+            [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:responseObject[@"msg"]];
+        }
+    } failure:^(NSError *error) {
+        [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:error.localizedDescription];
+    }];
+}
+-(void)getClientNoteRequest
+{
+    // 请求客户轨迹的接口
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    NSMutableDictionary *data = [NSMutableDictionary dictionary];
+    data[@"cusUuid"] = self.clientInfo.cusUuid;
+    parameters[@"data"] = data;
+    
+    hx_weakify(self);
+    [HXNetworkTool POST:HXRC_M_URL action:@"cus/cus/cusInfo/getCusTrackInfo" parameters:parameters success:^(id responseObject) {
         hx_strongify(weakSelf);
-        dispatch_async(dispatch_get_main_queue(), ^{
-            strongSelf.tableView.hidden = NO;
-            strongSelf.header.clientInfo = strongSelf.clientInfo;
-            RCClientDetailInfoVC *ivc = (RCClientDetailInfoVC *)strongSelf.childVCs.firstObject;
-            ivc.clientInfo = strongSelf.clientInfo;
-            [strongSelf.tableView reloadData];
-        });
-    });
+        if ([responseObject[@"code"] integerValue] == 0) {
+            strongSelf.clientNotes = [NSArray yy_modelArrayWithClass:[RCMyClientNote class] json:responseObject[@"data"]];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [strongSelf handleClientInfo];
+            });
+        }else{
+            [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:responseObject[@"msg"]];
+        }
+    } failure:^(NSError *error) {
+        [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:error.localizedDescription];
+    }];
+}
+-(void)handleClientInfo
+{
+    self.tableView.hidden = NO;
+    self.header.clientInfo = self.clientInfo;
+    
+    [self.tableView reloadData];
+
+    RCClientDetailInfoVC *ivc = (RCClientDetailInfoVC *)self.childVCs.firstObject;
+    ivc.clientInfo = self.clientInfo;
+    
+    RCClientDetailNoteVC *nvc = (RCClientDetailNoteVC *)self.childVCs.lastObject;
+    nvc.clientNotes = self.clientNotes;
 }
 #pragma mark -- 主视图滑动通知处理
 -(void)MainTableScroll:(NSNotification *)user{

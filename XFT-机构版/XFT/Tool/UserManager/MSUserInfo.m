@@ -12,7 +12,7 @@
 + (NSDictionary *)modelContainerPropertyGenericClass {
     return @{@"agentLoginInside":[MSUserShowInfo class],
              @"userAccessInfo":[MSUserAccessInfo class],
-             @"orgInfo":[MSOrgInfoInfo class],
+             @"orgUserInfo":[MSOrgInfoInfo class],
              @"dropValueDTOS":[MSDropValues class]
              };
 }

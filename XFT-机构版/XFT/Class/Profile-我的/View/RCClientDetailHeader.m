@@ -7,7 +7,7 @@
 //
 
 #import "RCClientDetailHeader.h"
-#import "RCMyClient.h"
+#import "RCMyClientDetail.h"
 
 @interface RCClientDetailHeader ()
 @property (weak, nonatomic) IBOutlet UIImageView *headPic;
@@ -25,14 +25,36 @@
     [super awakeFromNib];
     self.autoresizingMask = UIViewAutoresizingNone;
 }
--(void)setClientInfo:(RCMyClient *)clientInfo
+-(void)setClientInfo:(RCMyClientDetail *)clientInfo
 {
     _clientInfo = clientInfo;
-    [self.headPic sd_setImageWithURL:[NSURL URLWithString:_clientInfo.cusPic]];
+//    [self.headPic sd_setImageWithURL:[NSURL URLWithString:_clientInfo.cusPic]];
     self.name.text = _clientInfo.name;
-    self.cusState.text = @" 客户状态 ";
-    self.time.text = [NSString stringWithFormat:@"根据客户状态显示对应时间"];
-    self.guwen.text = [NSString stringWithFormat:@"缺少案场顾问"];
+    
+    // 0:已报备 2:已到访 4:已认筹 5:已认购 6:已签约 7:已退房 100:已失效 (默认状态为:0)
+    if (_clientInfo.cusState == 0) {
+        self.cusState.text = [NSString stringWithFormat:@"%zd天失效",_clientInfo.yuqiTime];
+        self.time.text = [NSString stringWithFormat:@"备注时间：%@",_clientInfo.lastRemarkTime];
+    }else if (_clientInfo.cusState == 2) {
+        self.cusState.text = @" 已到访 ";
+        self.time.text = [NSString stringWithFormat:@"到访时间：%@",_clientInfo.lastVistTime];
+    }else if (_clientInfo.cusState == 4) {
+        self.cusState.text = @" 已认筹 ";
+        self.time.text = [NSString stringWithFormat:@"认筹时间：%@",_clientInfo.transTime];
+    }else if (_clientInfo.cusState == 5) {
+        self.cusState.text = @" 已认购 ";
+        self.time.text = [NSString stringWithFormat:@"认购时间：%@",_clientInfo.transTime];
+    }else if (_clientInfo.cusState == 6) {
+        self.cusState.text = @" 已签约 ";
+        self.time.text = [NSString stringWithFormat:@"签约时间：%@",_clientInfo.transTime];
+    }else if (_clientInfo.cusState == 7) {
+        self.cusState.text = @" 已退房 ";
+        self.time.text = [NSString stringWithFormat:@"退房时间：%@",_clientInfo.transTime];
+    }else{
+        self.cusState.text = @" 已失效 ";
+        self.time.text = [NSString stringWithFormat:@"失效时间：%@",_clientInfo.invalidTime];
+    }
+    self.guwen.text = [NSString stringWithFormat:@"案场顾问:%@",(_clientInfo.salesName && _clientInfo.salesName.length)?_clientInfo.salesName:@"暂无"];
     [self.phoneBtn setTitle:_clientInfo.phone forState:UIControlStateNormal];
 }
 - (IBAction)clientClicked:(SPButton *)sender {

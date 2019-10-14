@@ -14,11 +14,12 @@
 #import "RCChangePwdVC.h"
 #import "RCMyStore.h"
 #import "RCMyBroker.h"
-#import "RCMyClient.h"
+#import "RCSearchClient.h"
 #import "RCClientDetailVC.h"
 #import "zhAlertView.h"
 #import <zhPopupController.h>
 #import "RCClientCodeView.h"
+#import "RCGoHouseVC.h"
 
 static NSString *const MyClientCell = @"MyClientCell";
 static NSString *const MyBrokerCell = @"MyBrokerCell";
@@ -122,11 +123,9 @@ static NSString *const MyStoreCell = @"MyStoreCell";
         NSString *actionPath = nil;
         if ([MSUserManager sharedInstance].curUserInfo.agentLoginInside.accRole == 1 || [MSUserManager sharedInstance].curUserInfo.agentLoginInside.accRole == 3) {
             data[@"name"] = (self.keyword && self.keyword.length)?self.keyword:@"";
-            data[@"proUuid"] = self.proUuid;
             actionPath = @"cus/cus/mechanism/findCustomerLike";
         }else{
             data[@"name"] = (self.keyword && self.keyword.length)?self.keyword:@"";
-            data[@"proUuid"] = self.proUuid;
             actionPath = @"cus/cus/mechanism/myCustomerByLike";
         }
         NSMutableDictionary *page = [NSMutableDictionary dictionary];
@@ -145,17 +144,16 @@ static NSString *const MyStoreCell = @"MyStoreCell";
             hx_strongify(weakSelf);
             if ([responseObject[@"code"] integerValue] == 0) {
                 if (isRefresh) {
-                    strongSelf.total = [NSString stringWithFormat:@"%@",responseObject[@"data"][@"total"]];
                     [strongSelf.tableView.mj_header endRefreshing];
                     strongSelf.pagenum = 1;
                     [strongSelf.results removeAllObjects];
-                    NSArray *arrt = [NSArray yy_modelArrayWithClass:[RCMyClient class] json:responseObject[@"data"][@"records"]];
+                    NSArray *arrt = [NSArray yy_modelArrayWithClass:[RCSearchClient class] json:responseObject[@"data"]];
                     [strongSelf.results addObjectsFromArray:arrt];
                 }else{
                     [strongSelf.tableView.mj_footer endRefreshing];
                     strongSelf.pagenum ++;
-                    if ([responseObject[@"data"][@"records"] isKindOfClass:[NSArray class]] && ((NSArray *)responseObject[@"data"][@"records"]).count){
-                        NSArray *arrt = [NSArray yy_modelArrayWithClass:[RCMyClient class] json:responseObject[@"data"][@"records"]];
+                    if ([responseObject[@"data"] isKindOfClass:[NSArray class]] && ((NSArray *)responseObject[@"data"]).count){
+                        NSArray *arrt = [NSArray yy_modelArrayWithClass:[RCSearchClient class] json:responseObject[@"data"]];
                         [strongSelf.results addObjectsFromArray:arrt];
                     }else{// 提示没有更多数据
                         [strongSelf.tableView.mj_footer endRefreshingWithNoMoreData];
@@ -242,13 +240,13 @@ static NSString *const MyStoreCell = @"MyStoreCell";
                     [strongSelf.tableView.mj_header endRefreshing];
                     strongSelf.pagenum = 1;
                     [strongSelf.results removeAllObjects];
-                    NSArray *arrt = [NSArray yy_modelArrayWithClass:[RCMyStore class] json:responseObject[@"data"][@"shopList"]];
+                    NSArray *arrt = [NSArray yy_modelArrayWithClass:[RCMyStore class] json:responseObject[@"data"][@"shopList"][@"records"]];
                     [strongSelf.results addObjectsFromArray:arrt];
                 }else{
                     [strongSelf.tableView.mj_footer endRefreshing];
                     strongSelf.pagenum ++;
-                    if ([responseObject[@"data"][@"shopList"] isKindOfClass:[NSArray class]] && ((NSArray *)responseObject[@"data"][@"shopList"]).count){
-                        NSArray *arrt = [NSArray yy_modelArrayWithClass:[RCMyStore class] json:responseObject[@"data"][@"shopList"]];
+                    if ([responseObject[@"data"][@"shopList"][@"records"] isKindOfClass:[NSArray class]] && ((NSArray *)responseObject[@"data"][@"shopList"][@"records"]).count){
+                        NSArray *arrt = [NSArray yy_modelArrayWithClass:[RCMyStore class] json:responseObject[@"data"][@"shopList"][@"records"]];
                         [strongSelf.results addObjectsFromArray:arrt];
                     }else{// 提示没有更多数据
                         [strongSelf.tableView.mj_footer endRefreshingWithNoMoreData];
@@ -323,6 +321,25 @@ static NSString *const MyStoreCell = @"MyStoreCell";
         [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:error.localizedDescription];
     }];
 }
+/** 重置门店管理人密码 */
+-(void)resetStorePwdRequest:(NSString *)uuid completedCall:(void(^)(BOOL))completedCall
+{
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    NSMutableDictionary *data = [NSMutableDictionary dictionary];
+    data[@"uuid"] = uuid;
+    parameters[@"data"] = data;
+    
+    [HXNetworkTool POST:HXRC_M_URL action:@"agent/agent/organization/resetmdPwd" parameters:parameters success:^(id responseObject) {
+        if ([responseObject[@"code"] integerValue] == 0) {
+            [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:responseObject[@"msg"]];
+            completedCall(YES);
+        }else{
+            [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:responseObject[@"msg"]];
+        }
+    } failure:^(NSError *error) {
+        [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:error.localizedDescription];
+    }];
+}
 #pragma mark -- 点击事件
 -(void)cancelClickd
 {
@@ -349,61 +366,69 @@ static NSString *const MyStoreCell = @"MyStoreCell";
         RCMyClientCell *cell = [tableView dequeueReusableCellWithIdentifier:MyClientCell forIndexPath:indexPath];
         //无色
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        RCMyClient *client = self.results[indexPath.row];
+        RCSearchClient *searchClient = self.results[indexPath.row];
         /** 账号角色 1:中介管理员 2:中介报备人 3:门店主管 4:中介经纪人 */
         if ([MSUserManager sharedInstance].curUserInfo.agentLoginInside.accRole == 1 || [MSUserManager sharedInstance].curUserInfo.agentLoginInside.accRole == 3) {
             cell.remarkView.hidden = YES;
             cell.brokerView.hidden = YES;
             cell.mangeView.hidden = NO;
-            cell.client = client;
         }else{
             cell.remarkView.hidden = NO;
             cell.brokerView.hidden = NO;
             cell.mangeView.hidden = YES;
-            cell.client1 = client;
         }
+        cell.searchClient = searchClient;
+        
         hx_weakify(self);
         cell.clientHandleCall = ^(NSInteger index) {
             hx_strongify(weakSelf);
             if (index == 1) {
-                //    if (隐号报备) {
-                RCClientCodeView *codeView = [RCClientCodeView loadXibView];
-                codeView.hxn_size = CGSizeMake(HX_SCREEN_WIDTH, 265.f);
-                codeView.closeBtnCall = ^{
-                    [strongSelf.zh_popupController dismissWithDuration:0.25 springAnimated:NO];
-                };
-                strongSelf.zh_popupController = [[zhPopupController alloc] init];
-                strongSelf.zh_popupController.layoutType = zhPopupLayoutTypeBottom;
-                [strongSelf.zh_popupController presentContentView:codeView duration:0.25 springAnimated:NO];
-                //    }else{
-                //        RCGoHouseVC *hvc = [RCGoHouseVC new];
-                //        hvc.cusUuid = _client1.cusUuid;
-                //        [self.target.navigationController pushViewController:hvc animated:YES];
-                //    }
+                if (searchClient.isHidden) {
+                    RCClientCodeView *codeView = [RCClientCodeView loadXibView];
+                    codeView.hxn_size = CGSizeMake(HX_SCREEN_WIDTH, 265.f);
+                    codeView.closeBtnCall = ^{
+                        [strongSelf.zh_popupController dismissWithDuration:0.25 springAnimated:NO];
+                    };
+                    strongSelf.zh_popupController = [[zhPopupController alloc] init];
+                    strongSelf.zh_popupController.layoutType = zhPopupLayoutTypeBottom;
+                    [strongSelf.zh_popupController presentContentView:codeView duration:0.25 springAnimated:NO];
+                }else{
+                    RCGoHouseVC *hvc = [RCGoHouseVC new];
+                    hvc.cusUuid = searchClient.cusUuid;
+                    [strongSelf.navigationController pushViewController:hvc animated:YES];
+                }
             }else if (index == 2) {
-                zhAlertView *alert = [[zhAlertView alloc] initWithTitle:@"提示" message:client.phone constantWidth:HX_SCREEN_WIDTH - 50*2];
-                zhAlertButton *cancelButton = [zhAlertButton buttonWithTitle:@"取消" handler:^(zhAlertButton * _Nonnull button) {
-                    [strongSelf.zh_popupController dismiss];
-                }];
-                zhAlertButton *okButton = [zhAlertButton buttonWithTitle:@"拨打" handler:^(zhAlertButton * _Nonnull button) {
-                    [strongSelf.zh_popupController dismiss];
-                    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"tel:%@",client.phone]]];
-                }];
-                cancelButton.lineColor = UIColorFromRGB(0xDDDDDD);
-                [cancelButton setTitleColor:UIColorFromRGB(0x999999) forState:UIControlStateNormal];
-                okButton.lineColor = UIColorFromRGB(0xDDDDDD);
-                [okButton setTitleColor:HXControlBg forState:UIControlStateNormal];
-                [alert adjoinWithLeftAction:cancelButton rightAction:okButton];
-                strongSelf.zh_popupController = [[zhPopupController alloc] init];
-                [strongSelf.zh_popupController presentContentView:alert duration:0.25 springAnimated:NO];
+                if (searchClient.isHidden) {
+                    [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:@"隐号报备"];
+                }else{
+                    zhAlertView *alert = [[zhAlertView alloc] initWithTitle:@"提示" message:searchClient.phone constantWidth:HX_SCREEN_WIDTH - 50*2];
+                    zhAlertButton *cancelButton = [zhAlertButton buttonWithTitle:@"取消" handler:^(zhAlertButton * _Nonnull button) {
+                        [strongSelf.zh_popupController dismiss];
+                    }];
+                    zhAlertButton *okButton = [zhAlertButton buttonWithTitle:@"拨打" handler:^(zhAlertButton * _Nonnull button) {
+                        [strongSelf.zh_popupController dismiss];
+                        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"tel:%@",searchClient.phone]]];
+                    }];
+                    cancelButton.lineColor = UIColorFromRGB(0xDDDDDD);
+                    [cancelButton setTitleColor:UIColorFromRGB(0x999999) forState:UIControlStateNormal];
+                    okButton.lineColor = UIColorFromRGB(0xDDDDDD);
+                    [okButton setTitleColor:HXControlBg forState:UIControlStateNormal];
+                    [alert adjoinWithLeftAction:cancelButton rightAction:okButton];
+                    strongSelf.zh_popupController = [[zhPopupController alloc] init];
+                    [strongSelf.zh_popupController presentContentView:alert duration:0.25 springAnimated:NO];
+                }
             }else if (index == 3) {
-                NSString *phoneStr = [NSString stringWithFormat:@"%@",client.phone];//发短信的号码
-                NSString *urlStr = [NSString stringWithFormat:@"sms://%@", phoneStr];
-                NSURL *url = [NSURL URLWithString:urlStr];
-                [[UIApplication sharedApplication] openURL:url];
+                if (searchClient.isHidden) {
+                    [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:@"隐号报备"];
+                }else{
+                    NSString *phoneStr = [NSString stringWithFormat:@"%@",searchClient.phone];//发短信的号码
+                    NSString *urlStr = [NSString stringWithFormat:@"sms://%@", phoneStr];
+                    NSURL *url = [NSURL URLWithString:urlStr];
+                    [[UIApplication sharedApplication] openURL:url];
+                }
             }else{
                 RCClientDetailVC *dvc = [RCClientDetailVC  new];
-                dvc.cusUuid = client.cusUuid;
+                dvc.cusUuid = searchClient.cusUuid;
                 [strongSelf.navigationController pushViewController:dvc animated:YES];
             }
         };
@@ -488,8 +513,24 @@ static NSString *const MyStoreCell = @"MyStoreCell";
         cell.store = store;
         hx_weakify(self);
         cell.resetPwdCall = ^{
-            RCChangePwdVC *pvc = [RCChangePwdVC new];
-            [weakSelf.navigationController pushViewController:pvc animated:YES];
+            hx_strongify(weakSelf);
+            zhAlertView *alert = [[zhAlertView alloc] initWithTitle:@"提示" message:@"确定重置为初始默认密码吗？" constantWidth:HX_SCREEN_WIDTH - 50*2];
+            zhAlertButton *cancelButton = [zhAlertButton buttonWithTitle:@"取消" handler:^(zhAlertButton * _Nonnull button) {
+                [strongSelf.zh_popupController dismiss];
+            }];
+            zhAlertButton *okButton = [zhAlertButton buttonWithTitle:@"确定" handler:^(zhAlertButton * _Nonnull button) {
+                [strongSelf.zh_popupController dismiss];
+                [strongSelf resetStorePwdRequest:store.accuuid completedCall:^(BOOL isSuccess) {
+                    
+                }];
+            }];
+            cancelButton.lineColor = UIColorFromRGB(0xDDDDDD);
+            [cancelButton setTitleColor:UIColorFromRGB(0x999999) forState:UIControlStateNormal];
+            okButton.lineColor = UIColorFromRGB(0xDDDDDD);
+            [okButton setTitleColor:UIColorFromRGB(0x131313) forState:UIControlStateNormal];
+            [alert adjoinWithLeftAction:cancelButton rightAction:okButton];
+            strongSelf.zh_popupController = [[zhPopupController alloc] init];
+            [strongSelf.zh_popupController presentContentView:alert duration:0.25 springAnimated:NO];
         };
         return cell;
     }
@@ -509,32 +550,32 @@ static NSString *const MyStoreCell = @"MyStoreCell";
         return 160.f;
     }
 }
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
-{
-    return 44.f;
-}
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
-{
-    UILabel *label = [[UILabel alloc] init];
-    label.hxn_size = CGSizeMake(HX_SCREEN_WIDTH, 44);
-    label.backgroundColor = HXGlobalBg;
-    label.textColor = [UIColor lightGrayColor];
-    label.font = [UIFont systemFontOfSize:13];
-    if (self.dataType == 1) {
-        label.text = [NSString stringWithFormat:@"   您搜索到%@个客户",self.total];
-    }else if (self.dataType == 2) {
-        label.text = [NSString stringWithFormat:@"   您搜索到%@个经纪人",self.total];
-    }else{
-        label.text = [NSString stringWithFormat:@"   您搜索到%@个门店",self.total];
-    }
-    return label;
-}
+//- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+//{
+//    return 44.f;
+//}
+//- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+//{
+//    UILabel *label = [[UILabel alloc] init];
+//    label.hxn_size = CGSizeMake(HX_SCREEN_WIDTH, 44);
+//    label.backgroundColor = HXGlobalBg;
+//    label.textColor = [UIColor lightGrayColor];
+//    label.font = [UIFont systemFontOfSize:13];
+//    if (self.dataType == 1) {
+//        label.text = [NSString stringWithFormat:@"   您搜索到%@个客户",self.total];
+//    }else if (self.dataType == 2) {
+//        label.text = [NSString stringWithFormat:@"   您搜索到%@个经纪人",self.total];
+//    }else{
+//        label.text = [NSString stringWithFormat:@"   您搜索到%@个门店",self.total];
+//    }
+//    return label;
+//}
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (self.dataType == 1) {
-        RCMyClient *client = self.results[indexPath.row];
+        RCSearchClient *client = self.results[indexPath.row];
         RCClientDetailVC *dvc = [RCClientDetailVC  new];
-        dvc.cusUuid = client.cusUuid;
+        dvc.cusUuid = client.baoBeiUuid;
         [self.navigationController pushViewController:dvc animated:YES];
     }
 }

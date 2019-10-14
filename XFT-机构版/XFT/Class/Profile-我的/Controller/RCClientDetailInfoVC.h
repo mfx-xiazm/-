@@ -9,10 +9,10 @@
 #import "HXBaseViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN
-@class RCMyClient;
+@class RCMyClientDetail;
 @interface RCClientDetailInfoVC : HXBaseViewController
 /** 客户基本信息 */
-@property(nonatomic,strong) RCMyClient *clientInfo;
+@property(nonatomic,strong) RCMyClientDetail *clientInfo;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -7,14 +7,25 @@
 //
 
 #import "RCReportResultCell.h"
+#import "RCReportTarget.h"
 
+@interface RCReportResultCell ()
+@property (weak, nonatomic) IBOutlet UILabel *anme;
+@property (weak, nonatomic) IBOutlet UILabel *mag;
+
+@end
 @implementation RCReportResultCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
 }
-
+-(void)setPerson:(RCReportTarget *)person
+{
+    _person = person;
+    self.anme.text = _person.cusName;
+    self.mag.text = _person.msg;
+}
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 

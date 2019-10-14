@@ -9,6 +9,7 @@
 #import "RCWishHouseHeader.h"
 #import <ZLCollectionViewHorzontalLayout.h>
 #import "RCHouseTagsCell.h"
+#import "RCReportHouse.h"
 
 static NSString *const HouseTagsCell = @"HouseTagsCell";
 @interface RCWishHouseHeader ()<UICollectionViewDelegate,UICollectionViewDataSource,ZLCollectionViewBaseFlowLayoutDelegate>
@@ -31,9 +32,14 @@ static NSString *const HouseTagsCell = @"HouseTagsCell";
     
     [self.collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([RCHouseTagsCell class]) bundle:nil] forCellWithReuseIdentifier:HouseTagsCell];
 }
+-(void)setHouses:(NSMutableArray *)houses
+{
+    _houses = houses;
+    [self.collectionView reloadData];
+}
 #pragma mark -- UICollectionView 数据源和代理
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    return 5;
+    return self.houses.count;
 }
 - (ZLLayoutType)collectionView:(UICollectionView *)collectionView layout:(ZLCollectionViewBaseFlowLayout *)collectionViewLayout typeOfLayout:(NSInteger)section {
     return ColumnLayout;
@@ -44,14 +50,21 @@ static NSString *const HouseTagsCell = @"HouseTagsCell";
 }
 - (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     RCHouseTagsCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:HouseTagsCell forIndexPath:indexPath];
-    cell.name.text = @"选择的楼盘名称";
+    RCReportHouse *house = self.houses[indexPath.row];
+    cell.name.text = house.proName;
     return cell;
 }
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     
+    [self.houses removeObjectAtIndex:indexPath.item];
+    if (self.delectHouseCall) {
+        self.delectHouseCall();
+    }
+    [collectionView reloadData];
 }
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    return CGSizeMake([@"选择的楼盘名称" boundingRectWithSize:CGSizeMake(1000000, 30) options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading attributes:@{NSFontAttributeName: [UIFont boldSystemFontOfSize:14]} context:nil].size.width + 50, 30);
+    RCReportHouse *house = self.houses[indexPath.row];
+    return CGSizeMake([house.proName boundingRectWithSize:CGSizeMake(1000000, 30) options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading attributes:@{NSFontAttributeName: [UIFont boldSystemFontOfSize:14]} context:nil].size.width + 50, 30);
 }
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section {
     return 10.f;

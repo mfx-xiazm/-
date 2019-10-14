@@ -19,6 +19,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) NSInteger signNum;
 @property (nonatomic, assign) NSInteger subscriptionNum;
 @property (nonatomic, assign) NSInteger visitNum;
+@property (nonatomic, strong) NSString * accuuid;
+@property (nonatomic, strong) NSString * uuid;
+
 @end
 
 NS_ASSUME_NONNULL_END

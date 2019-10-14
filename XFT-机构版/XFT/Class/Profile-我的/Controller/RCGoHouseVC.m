@@ -87,7 +87,8 @@
 {
     self.contentView.hidden = NO;
     
-    self.codeImg.image = [WSLNativeScanTool createQRCodeImageWithString:[NSString stringWithFormat:@"%@",dict[@"code"]] andSize:self.codeImg.hxn_size andBackColor:[UIColor whiteColor] andFrontColor:[UIColor blackColor] andCenterImage:nil];
+    //self.codeImg.image = [WSLNativeScanTool createQRCodeImageWithString:[NSString stringWithFormat:@"%@",dict[@"code"]] andSize:self.codeImg.hxn_size andBackColor:[UIColor whiteColor] andFrontColor:[UIColor blackColor] andCenterImage:nil];
+    [self.codeImg sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",dict[@"code"]]]];
 
     self.name.text = [NSString stringWithFormat:@"客户姓名：%@",dict[@"name"]];
     [self.phone setTitle:dict[@"phone"] forState:UIControlStateNormal];

@@ -20,7 +20,7 @@
     
     self.categoryView.backgroundColor = [UIColor whiteColor];
     self.categoryView.averageCellSpacingEnabled = NO;
-    self.categoryView.titles = @[@"新房", @"公寓"];
+    self.categoryView.titles = @[@"新房"];
     self.categoryView.titleColor = [UIColor lightGrayColor];
     self.categoryView.titleSelectedColor = UIColorFromRGB(0xFF9F08);
     self.categoryView.delegate = self;

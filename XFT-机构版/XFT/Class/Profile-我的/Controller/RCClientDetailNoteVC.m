@@ -8,6 +8,7 @@
 
 #import "RCClientDetailNoteVC.h"
 #import "RCClientNoteCell.h"
+#import "RCMyClientNote.h"
 
 static NSString *const ClientNoteCell = @"ClientNoteCell";
 @interface RCClientDetailNoteVC ()<UITableViewDelegate,UITableViewDataSource>
@@ -23,6 +24,11 @@ static NSString *const ClientNoteCell = @"ClientNoteCell";
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(childScrollHandle:) name:@"childScrollCan" object:nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(childScrollHandle:) name:@"MainTableScroll" object:nil];
     [self setUpTableView];
+}
+-(void)setClientNotes:(NSArray *)clientNotes
+{
+    _clientNotes = clientNotes;
+    [self.tableView reloadData];
 }
 -(void)setUpTableView
 {
@@ -78,14 +84,16 @@ static NSString *const ClientNoteCell = @"ClientNoteCell";
 #pragma mark -- UITableView数据源和代理
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 4;
+    return self.clientNotes.count;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     RCClientNoteCell *cell = [tableView dequeueReusableCellWithIdentifier:ClientNoteCell forIndexPath:indexPath];
     //无色
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.tagImg.image = indexPath.row ?HXGetImage(@"circle_jindu_gray"):HXGetImage(@"circle_jindu_yellow");
-    cell.buttomLine.hidden = (indexPath.row == 3)?YES:NO;
+    cell.buttomLine.hidden = (indexPath.row == self.clientNotes.count-1)?YES:NO;
+    RCMyClientNote *note = self.clientNotes[indexPath.row];
+    cell.note = note;
     return cell;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

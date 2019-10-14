@@ -96,6 +96,7 @@
                         <constraint firstItem="PAj-5v-KFA" firstAttribute="leading" secondItem="D7Q-f4-Bd1" secondAttribute="leading" constant="20" id="nNK-4m-PWb"/>
                         <constraint firstItem="9dE-dH-dmi" firstAttribute="centerY" secondItem="PAj-5v-KFA" secondAttribute="centerY" id="trR-gM-vad"/>
                         <constraint firstItem="6ZO-TI-6gb" firstAttribute="leading" secondItem="D7Q-f4-Bd1" secondAttribute="leading" constant="15" id="v1e-4p-F9O"/>
+                        <constraint firstAttribute="height" constant="100" id="xUg-bP-Djy"/>
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Kfh-tw-nTq">
@@ -186,7 +187,6 @@
                 <constraint firstItem="D7Q-f4-Bd1" firstAttribute="top" secondItem="U6b-Vx-4bR" secondAttribute="top" id="SZ9-Ut-5eb"/>
                 <constraint firstAttribute="bottom" secondItem="Kfh-tw-nTq" secondAttribute="bottom" id="bFK-De-rde"/>
                 <constraint firstItem="Kfh-tw-nTq" firstAttribute="top" secondItem="D7Q-f4-Bd1" secondAttribute="bottom" id="ga3-je-8zi"/>
-                <constraint firstItem="Kfh-tw-nTq" firstAttribute="height" secondItem="D7Q-f4-Bd1" secondAttribute="height" id="qab-s2-ZRl"/>
                 <constraint firstItem="Kfh-tw-nTq" firstAttribute="leading" secondItem="U6b-Vx-4bR" secondAttribute="leading" id="qvV-Z2-3aq"/>
                 <constraint firstAttribute="trailing" secondItem="Kfh-tw-nTq" secondAttribute="trailing" id="us0-ac-O5l"/>
                 <constraint firstItem="D7Q-f4-Bd1" firstAttribute="leading" secondItem="U6b-Vx-4bR" secondAttribute="leading" id="wHf-Lv-6OY"/>
@@ -197,6 +197,7 @@
                 <outlet property="reportEndTime" destination="P9s-dV-Oyi" id="cJx-qb-wfk"/>
                 <outlet property="visitBeginTime" destination="kDR-Sk-yFi" id="aSg-eQ-c1g"/>
                 <outlet property="visitEndTime" destination="7aL-gf-e3t" id="Ue6-Ts-sbd"/>
+                <outlet property="visitTimeView" destination="Kfh-tw-nTq" id="LX2-fZ-wtC"/>
             </connections>
             <point key="canvasLocation" x="182.60869565217394" y="163.05803571428569"/>
         </collectionReusableView>

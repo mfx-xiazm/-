@@ -7,28 +7,38 @@
 //
 
 #import "RCAddClientCell.h"
+#import "RCReportTarget.h"
 
-@interface RCAddClientCell ()
-/* 上一次选择的性别 */
-@property(nonatomic,strong) UIButton *sexBtn;
+@interface RCAddClientCell ()<UITextFieldDelegate>
+@property (weak, nonatomic) IBOutlet UITextField *name;
+@property (weak, nonatomic) IBOutlet UITextField *phone;
+
 @end
 @implementation RCAddClientCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    // Initialization code
+    self.name.delegate = self;
+    self.phone.delegate = self;
 }
 - (IBAction)cutBtnClicked:(UIButton *)sender {
     if (self.cutBtnCall) {
         self.cutBtnCall();
     }
 }
-- (IBAction)clientSexClicked:(UIButton *)sender {
-    self.sexBtn.selected = NO;
-    self.sexBtn.boderColor = UIColorFromRGB(0xCCCCCC);
-    sender.selected = YES;
-    sender.boderColor = UIColorFromRGB(0x666666);
-    self.sexBtn = sender;
+-(void)setPerson:(RCReportTarget *)person
+{
+    _person = person;
+    self.name.text = _person.cusName;
+    self.phone.text = _person.cusPhone;
+}
+-(void)textFieldDidEndEditing:(UITextField *)textField
+{
+    if (textField == self.name) {
+        _person.cusName = [textField hasText]?textField.text:@"";
+    }else{
+        _person.cusPhone = [textField hasText]?textField.text:@"";
+    }
 }
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];

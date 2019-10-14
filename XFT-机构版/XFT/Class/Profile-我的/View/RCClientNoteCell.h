@@ -9,11 +9,13 @@
 #import <UIKit/UIKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
+@class RCMyClientNote;
 
 @interface RCClientNoteCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UIView *buttomLine;
 @property (weak, nonatomic) IBOutlet UIImageView *tagImg;
-
+/* 客户轨迹 */
+@property(nonatomic,strong) RCMyClientNote *note;
 @end
 
 NS_ASSUME_NONNULL_END

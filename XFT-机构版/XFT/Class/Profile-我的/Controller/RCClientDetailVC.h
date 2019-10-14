@@ -11,7 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface RCClientDetailVC : HXBaseViewController
-/* 客户uuid */
+/* 客户uuid 代表客户报备id */
 @property(nonatomic,copy) NSString *cusUuid;
 @end
 

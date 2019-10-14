@@ -9,9 +9,13 @@
 #import "HXBaseViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN
-
+@class RCReporter;
+typedef void(^selectReporterCall)(RCReporter *reporter);
 @interface RCReportPersonVC : HXBaseViewController
-
+/* 选中经纪人回调 */
+@property(nonatomic,copy) selectReporterCall selectReporterCall;
+/* 选中的那个报备人 */
+@property(nonatomic,strong) RCReporter *selectReporter;
 @end
 
 NS_ASSUME_NONNULL_END

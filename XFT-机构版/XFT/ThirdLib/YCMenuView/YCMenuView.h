@@ -52,6 +52,7 @@
 @property (nonatomic, readonly) UIImage       *image;
 /* 其他扩展 */
 @property(nonatomic,copy) NSString *content;
+
 @property (nonatomic,copy, readonly) void (^handler)(YCMenuAction *action);
 + (instancetype)actionWithTitle:(NSString *)title image:(UIImage *)image handler:(void (^)(YCMenuAction *action))handler;
 - (instancetype)init NS_UNAVAILABLE;

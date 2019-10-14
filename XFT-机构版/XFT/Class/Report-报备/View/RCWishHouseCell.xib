@@ -95,6 +95,12 @@
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="aW0-zy-SZf"/>
+            <connections>
+                <outlet property="areaLabel" destination="Dyf-wD-FbM" id="UYZ-EC-wfh"/>
+                <outlet property="houseName" destination="Y4B-vq-5RU" id="FRM-3W-uSJ"/>
+                <outlet property="price" destination="Ei9-cP-AyA" id="B9o-HT-NBk"/>
+                <outlet property="selctBtn" destination="oOD-xD-idQ" id="2Md-dP-Mdz"/>
+            </connections>
             <point key="canvasLocation" x="169.56521739130437" y="134.93303571428569"/>
         </tableViewCell>
     </objects>

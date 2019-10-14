@@ -35,7 +35,7 @@
     self.shopName.text = _store.shopName;
     self.reportNum.text = [NSString stringWithFormat:@"报备数：%zd  到访数：%zd",_store.reportNum,_store.visitNum];
     self.signNum.text = [NSString stringWithFormat:@"认购数：%zd  签约数：%zd",_store.subscriptionNum,_store.signNum];
-    self.manager.text = [NSString stringWithFormat:@"%@(%@)",_store.managerName,_store.managerPhone];
+    self.manager.text = [NSString stringWithFormat:@"管理员：%@(%@)",_store.managerName,_store.managerPhone];
 
 }
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

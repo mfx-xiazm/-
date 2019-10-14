@@ -103,6 +103,9 @@
 		90068BF2231D18CC00B0D856 /* RCMyClientStateCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 90068BEE231D18CC00B0D856 /* RCMyClientStateCell.xib */; };
 		90068BF6231D1FCB00B0D856 /* RCSearchClientVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 90068BF4231D1FCB00B0D856 /* RCSearchClientVC.m */; };
 		90068BF7231D1FCB00B0D856 /* RCSearchClientVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 90068BF5231D1FCB00B0D856 /* RCSearchClientVC.xib */; };
+		90314F53234EFE56003CBC8E /* RCReportHouse.m in Sources */ = {isa = PBXBuildFile; fileRef = 90314F52234EFE56003CBC8E /* RCReportHouse.m */; };
+		90314F56234F27C0003CBC8E /* RCReporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 90314F55234F27C0003CBC8E /* RCReporter.m */; };
+		90314F772351771B003CBC8E /* RCMyClientDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 90314F762351771B003CBC8E /* RCMyClientDetail.m */; };
 		903E271B231E34B000CB4A65 /* RCTimeFilterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 903E271A231E34B000CB4A65 /* RCTimeFilterView.m */; };
 		903E271D231E34B900CB4A65 /* RCTimeFilterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 903E271C231E34B900CB4A65 /* RCTimeFilterView.xib */; };
 		903E2721231E400100CB4A65 /* RCMyStoreVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 903E271F231E400100CB4A65 /* RCMyStoreVC.m */; };
@@ -240,6 +243,10 @@
 		90B6F2332320FCF2007A37EE /* RCReportResultCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 90B6F2312320FCF2007A37EE /* RCReportResultCell.xib */; };
 		90B6F2362320FD07007A37EE /* RCReportResultSectionHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 90B6F2352320FD07007A37EE /* RCReportResultSectionHeader.m */; };
 		90B6F2382320FD10007A37EE /* RCReportResultSectionHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 90B6F2372320FD0F007A37EE /* RCReportResultSectionHeader.xib */; };
+		90BB98B8234C5A0300444ACC /* RCMyClientNote.m in Sources */ = {isa = PBXBuildFile; fileRef = 90BB98B7234C5A0300444ACC /* RCMyClientNote.m */; };
+		90BB98BB234C647C00444ACC /* RCMyClientFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 90BB98BA234C647C00444ACC /* RCMyClientFilter.m */; };
+		90BB98BE234D88C400444ACC /* RCSearchClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 90BB98BD234D88C400444ACC /* RCSearchClient.m */; };
+		90C0B2C0234095DC00A8C55B /* RCReportTarget.m in Sources */ = {isa = PBXBuildFile; fileRef = 90C0B2BF234095DC00A8C55B /* RCReportTarget.m */; };
 		90D1E3B42321272E00743839 /* RCPageMainTable.m in Sources */ = {isa = PBXBuildFile; fileRef = 90D1E3B32321272E00743839 /* RCPageMainTable.m */; };
 		90D1E3B8232127A600743839 /* RCClientDetailNoteVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 90D1E3B6232127A600743839 /* RCClientDetailNoteVC.m */; };
 		90D1E3B9232127A600743839 /* RCClientDetailNoteVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 90D1E3B7232127A600743839 /* RCClientDetailNoteVC.xib */; };
@@ -435,6 +442,12 @@
 		90068BF3231D1FCB00B0D856 /* RCSearchClientVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCSearchClientVC.h; sourceTree = "<group>"; };
 		90068BF4231D1FCB00B0D856 /* RCSearchClientVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCSearchClientVC.m; sourceTree = "<group>"; };
 		90068BF5231D1FCB00B0D856 /* RCSearchClientVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RCSearchClientVC.xib; sourceTree = "<group>"; };
+		90314F51234EFE56003CBC8E /* RCReportHouse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCReportHouse.h; sourceTree = "<group>"; };
+		90314F52234EFE56003CBC8E /* RCReportHouse.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCReportHouse.m; sourceTree = "<group>"; };
+		90314F54234F27C0003CBC8E /* RCReporter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCReporter.h; sourceTree = "<group>"; };
+		90314F55234F27C0003CBC8E /* RCReporter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCReporter.m; sourceTree = "<group>"; };
+		90314F752351771B003CBC8E /* RCMyClientDetail.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCMyClientDetail.h; sourceTree = "<group>"; };
+		90314F762351771B003CBC8E /* RCMyClientDetail.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCMyClientDetail.m; sourceTree = "<group>"; };
 		903E2719231E34B000CB4A65 /* RCTimeFilterView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCTimeFilterView.h; sourceTree = "<group>"; };
 		903E271A231E34B000CB4A65 /* RCTimeFilterView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCTimeFilterView.m; sourceTree = "<group>"; };
 		903E271C231E34B900CB4A65 /* RCTimeFilterView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RCTimeFilterView.xib; sourceTree = "<group>"; };
@@ -679,6 +692,14 @@
 		90B6F2342320FD07007A37EE /* RCReportResultSectionHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCReportResultSectionHeader.h; sourceTree = "<group>"; };
 		90B6F2352320FD07007A37EE /* RCReportResultSectionHeader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCReportResultSectionHeader.m; sourceTree = "<group>"; };
 		90B6F2372320FD0F007A37EE /* RCReportResultSectionHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RCReportResultSectionHeader.xib; sourceTree = "<group>"; };
+		90BB98B6234C5A0300444ACC /* RCMyClientNote.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCMyClientNote.h; sourceTree = "<group>"; };
+		90BB98B7234C5A0300444ACC /* RCMyClientNote.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCMyClientNote.m; sourceTree = "<group>"; };
+		90BB98B9234C647C00444ACC /* RCMyClientFilter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCMyClientFilter.h; sourceTree = "<group>"; };
+		90BB98BA234C647C00444ACC /* RCMyClientFilter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCMyClientFilter.m; sourceTree = "<group>"; };
+		90BB98BC234D88C400444ACC /* RCSearchClient.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCSearchClient.h; sourceTree = "<group>"; };
+		90BB98BD234D88C400444ACC /* RCSearchClient.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCSearchClient.m; sourceTree = "<group>"; };
+		90C0B2BE234095DC00A8C55B /* RCReportTarget.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCReportTarget.h; sourceTree = "<group>"; };
+		90C0B2BF234095DC00A8C55B /* RCReportTarget.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCReportTarget.m; sourceTree = "<group>"; };
 		90D1E3B22321272E00743839 /* RCPageMainTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCPageMainTable.h; sourceTree = "<group>"; };
 		90D1E3B32321272E00743839 /* RCPageMainTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCPageMainTable.m; sourceTree = "<group>"; };
 		90D1E3B5232127A600743839 /* RCClientDetailNoteVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCClientDetailNoteVC.h; sourceTree = "<group>"; };
@@ -1320,6 +1341,12 @@
 		9040F2632313AA11005E6B2E /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				90C0B2BE234095DC00A8C55B /* RCReportTarget.h */,
+				90C0B2BF234095DC00A8C55B /* RCReportTarget.m */,
+				90314F54234F27C0003CBC8E /* RCReporter.h */,
+				90314F55234F27C0003CBC8E /* RCReporter.m */,
+				90314F51234EFE56003CBC8E /* RCReportHouse.h */,
+				90314F52234EFE56003CBC8E /* RCReportHouse.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1633,6 +1660,14 @@
 				90E2913B233C9B33004FA542 /* RCMyClientState.m */,
 				90E29142233DA2F2004FA542 /* RCMyClient.h */,
 				90E29143233DA2F2004FA542 /* RCMyClient.m */,
+				90BB98BC234D88C400444ACC /* RCSearchClient.h */,
+				90BB98BD234D88C400444ACC /* RCSearchClient.m */,
+				90BB98B9234C647C00444ACC /* RCMyClientFilter.h */,
+				90BB98BA234C647C00444ACC /* RCMyClientFilter.m */,
+				90314F752351771B003CBC8E /* RCMyClientDetail.h */,
+				90314F762351771B003CBC8E /* RCMyClientDetail.m */,
+				90BB98B6234C5A0300444ACC /* RCMyClientNote.h */,
+				90BB98B7234C5A0300444ACC /* RCMyClientNote.m */,
 			);
 			name = "我的客户";
 			sourceTree = "<group>";
@@ -2135,6 +2170,7 @@
 				90B6F22C2320FCB6007A37EE /* RCReportResultHeader.m in Sources */,
 				90ECF07C231E4DBA00E538DB /* RCMoveClientCell.m in Sources */,
 				9040F2432313A839005E6B2E /* WSLNativeScanTool.m in Sources */,
+				90C0B2C0234095DC00A8C55B /* RCReportTarget.m in Sources */,
 				909B86AE231D2350001A9F7C /* RCClientDetailVC.m in Sources */,
 				9040F23B2313A839005E6B2E /* UIView+WZLBadge.m in Sources */,
 				90E29144233DA2F2004FA542 /* RCMyClient.m in Sources */,
@@ -2179,6 +2215,7 @@
 				908AC2212334FF3100482A1B /* RCHouseList.m in Sources */,
 				90068B72231CC68000B0D856 /* RCHouseNearbyHeader.m in Sources */,
 				9040F2352313A839005E6B2E /* LYEmptyView.m in Sources */,
+				90BB98BE234D88C400444ACC /* RCSearchClient.m in Sources */,
 				9040F22E2313A839005E6B2E /* JMNotifyView.m in Sources */,
 				9040F2B12313F715005E6B2E /* RCNewsVC.m in Sources */,
 				9040F2772313AABE005E6B2E /* AppDelegate+MSAppService.m in Sources */,
@@ -2189,6 +2226,7 @@
 				90068B7A231CC6E100B0D856 /* RCNewsCell.m in Sources */,
 				9040F2762313AABE005E6B2E /* AppDelegate+MSPushService.m in Sources */,
 				9040F24A2313A839005E6B2E /* Foundation+Log.m in Sources */,
+				90314F53234EFE56003CBC8E /* RCReportHouse.m in Sources */,
 				90D1E3B8232127A600743839 /* RCClientDetailNoteVC.m in Sources */,
 				90068BAB231CF74800B0D856 /* RCWishHouseCell.m in Sources */,
 				90ECF080231E518B00E538DB /* RCMoveClientHeader.m in Sources */,
@@ -2215,6 +2253,7 @@
 				909B86C2231D2CA0001A9F7C /* RCGoHouseVC.m in Sources */,
 				9040F2442313A839005E6B2E /* NSObject+LMRuntime.m in Sources */,
 				90068BDD231D0E2000B0D856 /* RCProfileCollectChildVC.m in Sources */,
+				90314F772351771B003CBC8E /* RCMyClientDetail.m in Sources */,
 				90068BF6231D1FCB00B0D856 /* RCSearchClientVC.m in Sources */,
 				90068B6B231CC56F00B0D856 /* RCHouseNearbyVC.m in Sources */,
 				90068B4A231CB99300B0D856 /* RCHouseDetailNewsCell.m in Sources */,
@@ -2268,6 +2307,7 @@
 				90ECF0A8231E65F700E538DB /* RCClientFilterView.m in Sources */,
 				90068B97231CF3AC00B0D856 /* RCWishHouseVC.m in Sources */,
 				90068B22231CB42000B0D856 /* RCSearchCityVC.m in Sources */,
+				90BB98BB234C647C00444ACC /* RCMyClientFilter.m in Sources */,
 				9040F2322313A839005E6B2E /* LYEmptyBaseView.m in Sources */,
 				90068BA5231CF5A600B0D856 /* RCWishHouseFilterView.m in Sources */,
 				904BB22E231FD7D30060E206 /* YCMenuView.m in Sources */,
@@ -2281,6 +2321,8 @@
 				9049E64B23222CF90010E5B1 /* RCHouseInfoVC.m in Sources */,
 				9040F2542313A839005E6B2E /* HXTopWindow.m in Sources */,
 				90E16F5C23386B89006D36A5 /* RCNearbyPOI.m in Sources */,
+				90314F56234F27C0003CBC8E /* RCReporter.m in Sources */,
+				90BB98B8234C5A0300444ACC /* RCMyClientNote.m in Sources */,
 				9040F2BF2313F8AF005E6B2E /* RCLoginVC.m in Sources */,
 				90B6F2112320F28F007A37EE /* RCReportPersonCell.m in Sources */,
 				90068B73231CC68000B0D856 /* RCHouseNearbyCell.m in Sources */,
@@ -2458,7 +2500,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = H6YZ29FCJ8;
+				DEVELOPMENT_TEAM = A2V85YL4T5;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/XFT/RCPrefixHeader.pch";
 				INFOPLIST_FILE = XFT/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -2466,9 +2508,9 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = laibaobao.mfxapp.com;
+				PRODUCT_BUNDLE_IDENTIFIER = jigou.mfxapp.com;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = dev_laibaobao.mfxapp.com_0429;
+				PROVISIONING_PROFILE_SPECIFIER = jigou.mfxapp.com_1011;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -2479,7 +2521,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = H6YZ29FCJ8;
+				DEVELOPMENT_TEAM = A2V85YL4T5;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/XFT/RCPrefixHeader.pch";
 				INFOPLIST_FILE = XFT/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -2487,9 +2529,9 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = laibaobao.mfxapp.com;
+				PRODUCT_BUNDLE_IDENTIFIER = jigou.mfxapp.com;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = dev_laibaobao.mfxapp.com_0429;
+				PROVISIONING_PROFILE_SPECIFIER = jigou.mfxapp.com_1011;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
