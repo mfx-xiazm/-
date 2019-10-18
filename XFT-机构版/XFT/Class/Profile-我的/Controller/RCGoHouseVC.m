@@ -91,8 +91,8 @@
     [self.codeImg sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",dict[@"code"]]]];
 
     self.name.text = [NSString stringWithFormat:@"客户姓名：%@",dict[@"name"]];
-    [self.phone setTitle:dict[@"phone"] forState:UIControlStateNormal];
+    [self.phone setTitle:[NSString stringWithFormat:@"%@****%@",[dict[@"phone"] substringToIndex:3],[dict[@"phone"] substringFromIndex:((NSString *)dict[@"phone"]).length-4]] forState:UIControlStateNormal];
     self.proName.text = [NSString stringWithFormat:@"报备项目：%@",dict[@"proName"]];
-    self.reportTime.text = [NSString stringWithFormat:@"报备时间：%@",[[NSString stringWithFormat:@"%@",dict[@"seeTime"]] getTimeFromTimestamp:@"yyyy-MM-dd HH:mm"]];
+    self.reportTime.text = [NSString stringWithFormat:@"报备时间：%@",[[NSString stringWithFormat:@"%@",dict[@"createTime"]] getTimeFromTimestamp:@"yyyy-MM-dd HH:mm"]];
 }
 @end

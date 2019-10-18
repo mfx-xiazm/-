@@ -14,7 +14,7 @@
     if ([time integerValue]>0) {
         _time = [time getTimeFromTimestamp:@"yyyy-MM-dd HH:mm"];
     }else{
-        _time = @"无";
+        _time = @"";
     }
 }
 @end

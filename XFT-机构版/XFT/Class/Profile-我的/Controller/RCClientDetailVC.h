@@ -10,9 +10,12 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef void(^remarkSuccessCall)(NSString *remarkTime,NSString *remark);
 @interface RCClientDetailVC : HXBaseViewController
 /* 客户uuid 代表客户报备id */
 @property(nonatomic,copy) NSString *cusUuid;
+/* 备注成功 */
+@property(nonatomic,copy) remarkSuccessCall remarkSuccessCall;
 @end
 
 NS_ASSUME_NONNULL_END

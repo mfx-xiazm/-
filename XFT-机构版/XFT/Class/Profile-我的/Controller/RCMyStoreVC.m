@@ -47,7 +47,7 @@ static NSString *const MyStoreCell = @"MyStoreCell";
 #pragma mark - 视图UI
 -(void)setUpNavBar
 {
-    [self.navigationItem setTitle:@"门店"];
+    [self.navigationItem setTitle:@"我的门店"];
     
     SPButton *filterItem = [[SPButton alloc] initWithImagePosition:SPButtonImagePositionLeft];
     filterItem.hxn_size = CGSizeMake(44, 44);

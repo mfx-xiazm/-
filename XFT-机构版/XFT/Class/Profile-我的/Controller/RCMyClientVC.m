@@ -598,6 +598,11 @@ static NSString *const MyClientStateCell = @"MyClientStateCell";
         RCClientDetailVC *dvc = [RCClientDetailVC  new];
         RCMyClient *client = self.clients[indexPath.row];
         dvc.cusUuid = client.uuid;
+        dvc.remarkSuccessCall = ^(NSString * _Nonnull remarkTime, NSString * _Nonnull remark) {
+            client.remarkTime = remarkTime;
+            client.remarks = remark;
+            [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+        };
         [self.navigationController pushViewController:dvc animated:YES];
     }
 }

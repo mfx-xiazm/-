@@ -71,8 +71,18 @@ static NSString *const HouseTagsCell = @"HouseTagsCell";
             return NO;
         }
         for (RCReportTarget *person in strongSelf.clients) {
-            if (person.cusName && person.cusName.length && person.cusPhone && person.cusPhone.length && person.cusPhone.length >= 7) {// 信息填写完全
-                
+            if (person.cusName && person.cusName.length && person.cusPhone && person.cusPhone.length) {// 信息填写完全
+                if ([person.cusPhone hasPrefix:@"1"]){//如果以”1“开头就限制11位
+                    if (person.cusPhone.length != 11) {
+                        [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:@"手机号码格式错误"];
+                        return NO;
+                    }
+                }else{
+                    if (person.cusPhone.length < 7) {
+                        [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:@"电话格式错误"];
+                        return NO;
+                    }
+                }
             }else{
                 [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:@"客户信息不完整或者电话格式不对"];
                 return NO;
@@ -244,7 +254,7 @@ static NSString *const HouseTagsCell = @"HouseTagsCell";
         }
     }
     data[@"userRole"] = @([MSUserManager sharedInstance].curUserInfo.agentLoginInside.accRole);//报备人角色 必填
-    data[@"oneQudaoUuid"] = @"K-0017";//一级渠道id
+    data[@"oneQudaoCode"] = @"K-0017";//一级渠道id
     data[@"oneQudaoName"] = @"中介";//一级渠道名称
     data[@"isHidePhone"] = self.hiddenSwitch.isOn?@"1":@"0";//是否隐号报备 0 否 1 是
     data[@"remark"] = [self.remark hasText]?self.remark.text:@"";//备注信息

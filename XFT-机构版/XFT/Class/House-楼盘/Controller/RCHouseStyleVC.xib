@@ -12,6 +12,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="RCHouseStyleVC">
             <connections>
+                <outlet property="consultView" destination="FPh-qa-Loj" id="eB6-7b-Efg"/>
+                <outlet property="reportView" destination="MU8-jS-xAt" id="9ce-Cl-TiR"/>
                 <outlet property="tableView" destination="dnd-Ab-eYC" id="Hlp-pf-AM8"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -91,15 +93,64 @@
                         <constraint firstItem="P2h-TT-nKG" firstAttribute="centerY" secondItem="MU8-jS-xAt" secondAttribute="centerY" id="xL8-Vg-xmK"/>
                     </constraints>
                 </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FPh-qa-Loj">
+                    <rect key="frame" x="0.0" y="802" width="414" height="60"/>
+                    <subviews>
+                        <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZW9-S9-3d9">
+                            <rect key="frame" x="15" y="8" width="384" height="44"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="44" id="Mua-9w-ny1"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
+                            <state key="normal" title="免费咨询">
+                                <color key="titleColor" red="1" green="0.62352941179999999" blue="0.031372549020000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </state>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="layerBoderCorner">
+                                    <real key="value" value="6"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="color" keyPath="boderColor">
+                                    <color key="value" red="1" green="0.62352941179999999" blue="0.031372549020000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="number" keyPath="layerBoderWidth">
+                                    <real key="value" value="1"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="consultClicked:" destination="-1" eventType="touchUpInside" id="3dm-CN-Isk"/>
+                            </connections>
+                        </button>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MWk-dq-7sH" userLabel="分割线">
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="1"/>
+                            <color key="backgroundColor" red="0.96470588239999999" green="0.96862745100000003" blue="0.98431372549999996" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="1" id="qjU-xS-XnY"/>
+                            </constraints>
+                        </view>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="MWk-dq-7sH" firstAttribute="leading" secondItem="FPh-qa-Loj" secondAttribute="leading" id="38d-md-pGr"/>
+                        <constraint firstItem="ZW9-S9-3d9" firstAttribute="centerY" secondItem="FPh-qa-Loj" secondAttribute="centerY" id="8Nh-cz-Yoq"/>
+                        <constraint firstItem="ZW9-S9-3d9" firstAttribute="leading" secondItem="FPh-qa-Loj" secondAttribute="leading" constant="15" id="BQk-kP-ZEh"/>
+                        <constraint firstAttribute="height" constant="60" id="GZS-DC-ur1"/>
+                        <constraint firstAttribute="trailing" secondItem="MWk-dq-7sH" secondAttribute="trailing" id="QrG-tV-8SK"/>
+                        <constraint firstItem="MWk-dq-7sH" firstAttribute="top" secondItem="FPh-qa-Loj" secondAttribute="top" id="T5P-DL-aBU"/>
+                        <constraint firstAttribute="trailing" secondItem="ZW9-S9-3d9" secondAttribute="trailing" constant="15" id="UA0-Yb-VZZ"/>
+                    </constraints>
+                </view>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
+                <constraint firstItem="FPh-qa-Loj" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" id="3mj-ns-1Ue"/>
                 <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="dnd-Ab-eYC" secondAttribute="trailing" id="7K8-SC-ioo"/>
                 <constraint firstItem="dnd-Ab-eYC" firstAttribute="top" secondItem="Q5M-cg-NOt" secondAttribute="top" id="CBa-9B-rzg"/>
+                <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="FPh-qa-Loj" secondAttribute="trailing" id="NQl-WX-gKI"/>
                 <constraint firstItem="Q5M-cg-NOt" firstAttribute="bottom" secondItem="MU8-jS-xAt" secondAttribute="bottom" id="RLe-g3-mcu"/>
                 <constraint firstItem="dnd-Ab-eYC" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" id="T3g-95-VYS"/>
                 <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="MU8-jS-xAt" secondAttribute="trailing" id="lAp-7D-sUY"/>
                 <constraint firstItem="MU8-jS-xAt" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="oUc-Dj-nju"/>
+                <constraint firstItem="Q5M-cg-NOt" firstAttribute="bottom" secondItem="FPh-qa-Loj" secondAttribute="bottom" id="qyP-vQ-QZX"/>
                 <constraint firstItem="MU8-jS-xAt" firstAttribute="top" secondItem="dnd-Ab-eYC" secondAttribute="bottom" id="xHP-HM-SCx"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="Q5M-cg-NOt"/>

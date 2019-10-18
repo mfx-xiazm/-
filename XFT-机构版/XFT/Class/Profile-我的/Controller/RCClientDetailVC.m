@@ -137,6 +137,13 @@
         NSMutableArray *vcs = [NSMutableArray array];
         
         RCClientDetailInfoVC *cvc = [RCClientDetailInfoVC new];
+        hx_weakify(self);
+        cvc.updateRemarkCall = ^(NSString * _Nonnull remarkTime, NSString * _Nonnull remark) {
+            hx_strongify(weakSelf);
+            if (strongSelf.remarkSuccessCall) {
+                strongSelf.remarkSuccessCall(remarkTime,remark);
+            }
+        };
         [self addChildViewController:cvc];
         [vcs addObject:cvc];
         

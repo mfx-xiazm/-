@@ -42,6 +42,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString * totalAre;
 @property (nonatomic, strong) NSString * uuid;
 @property (nonatomic, assign) NSInteger watchCount;
+/* 是否允许隐号报备 默认允许 */
+@property(nonatomic,assign) BOOL isAllowHidden;
 @end
 
 @interface RCHouseStyle : NSObject

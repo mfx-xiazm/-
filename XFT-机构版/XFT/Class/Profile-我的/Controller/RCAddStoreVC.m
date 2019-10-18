@@ -63,30 +63,30 @@
         [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:@"请输入营业执照编码"];
         return;
     }
-    if (![self.bankOpen hasText]) {
-        [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:@"请输入开户行"];
-        return;
-    }
-    if (![self.bankNo hasText]) {
-        [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:@"请输入银行账号"];
-        return;
-    }
-    if (![self.legalName hasText]) {
-        [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:@"请输入法人姓名"];
-        return;
-    }
-    if (![self.legalPhone hasText]) {
-        [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:@"请输入法人电话"];
-        return;
-    }
-    if (!self.companyLogoUrl && !self.companyLogoUrl.length) {
-        [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:@"请上传公司Logo"];
-        return;
-    }
-    if (!self.legalPhotoUrl && !self.legalPhotoUrl.length) {
-        [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:@"请上传法人照片"];
-        return;
-    }
+//    if (![self.bankOpen hasText]) {
+//        [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:@"请输入开户行"];
+//        return;
+//    }
+//    if (![self.bankNo hasText]) {
+//        [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:@"请输入银行账号"];
+//        return;
+//    }
+//    if (![self.legalName hasText]) {
+//        [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:@"请输入法人姓名"];
+//        return;
+//    }
+//    if (![self.legalPhone hasText]) {
+//        [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:@"请输入法人电话"];
+//        return;
+//    }
+//    if (!self.companyLogoUrl && !self.companyLogoUrl.length) {
+//        [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:@"请上传公司Logo"];
+//        return;
+//    }
+//    if (!self.legalPhotoUrl && !self.legalPhotoUrl.length) {
+//        [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:@"请上传法人照片"];
+//        return;
+//    }
     [self addShopRequest];
 }
 - (IBAction)choosePicClicked:(UIButton *)sender {
@@ -109,14 +109,14 @@
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
     NSMutableDictionary *data = [NSMutableDictionary dictionary];
     data[@"shopName"] = self.shopName.text;
-    data[@"userName"] = self.userName.text;
+    data[@"accNo"] = self.userName.text;
     data[@"businessLicenseCode"] = self.busnessCode.text;
-    data[@"bankAccNo"] = self.bankNo.text;
-    data[@"bankOpen"] = self.bankOpen.text;
-    data[@"legalPersonName"] = self.legalName.text;
-    data[@"legalPersonPhone"] = self.legalPhone.text;
-    data[@"companyLOGO"] = self.companyLogoUrl;
-    data[@"legalPersonPhoto"] = self.legalPhotoUrl;
+//    data[@"bankAccNo"] = self.bankNo.text;
+//    data[@"bankOpen"] = self.bankOpen.text;
+//    data[@"legalPersonName"] = self.legalName.text;
+//    data[@"legalPersonPhone"] = self.legalPhone.text;
+//    data[@"companyLOGO"] = self.companyLogoUrl;
+//    data[@"legalPersonPhoto"] = self.legalPhotoUrl;
     
     parameters[@"data"] = data;
     

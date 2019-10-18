@@ -11,6 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface RCMyStore : NSObject
+@property (nonatomic, strong) NSString * accNo;
 @property (nonatomic, strong) NSString * managerName;
 @property (nonatomic, strong) NSString * managerPhone;
 @property (nonatomic, assign) NSInteger reportNum;

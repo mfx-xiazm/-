@@ -576,6 +576,11 @@ static NSString *const MyStoreCell = @"MyStoreCell";
         RCSearchClient *client = self.results[indexPath.row];
         RCClientDetailVC *dvc = [RCClientDetailVC  new];
         dvc.cusUuid = client.baoBeiUuid;
+        dvc.remarkSuccessCall = ^(NSString * _Nonnull remarkTime, NSString * _Nonnull remark) {
+            client.time = remarkTime;
+            client.remark = remark;
+            [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+        };
         [self.navigationController pushViewController:dvc animated:YES];
     }
 }

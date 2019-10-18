@@ -11,15 +11,20 @@
 #import "RCHouseStyleDetailCell.h"
 #import "RCShareView.h"
 #import <zhPopupController.h>
-#import "RCReportVC.h"
+#import "RCHouseReportVC.h"
 #import "zhAlertView.h"
 #import "RCHouseLoanVC.h"
 #import "RCHouseInfo.h"
+#import "RCHouseDetail.h"
 
 static NSString *const HouseStyleDetailCell = @"HouseStyleDetailCell";
 
 @interface RCHouseStyleVC ()<UITableViewDelegate,UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+/** 免费咨询视图 */
+@property (weak, nonatomic) IBOutlet UIView *consultView;
+/** 免费咨询+房源报备视图 */
+@property (weak, nonatomic) IBOutlet UIView *reportView;
 /* 头视图 */
 @property(nonatomic,strong) RCHouseStyleHeader *header;
 /* 户型详情 */
@@ -32,6 +37,15 @@ static NSString *const HouseStyleDetailCell = @"HouseStyleDetailCell";
     [super viewDidLoad];
     [self.navigationItem setTitle:@"户型详情"];
     [self setUpTableView];
+    /** 账号角色 1:中介管理员 2:中介报备人 3:门店主管 4:中介经纪人 */
+    if ([MSUserManager sharedInstance].curUserInfo.agentLoginInside.accRole == 1 || [MSUserManager sharedInstance].curUserInfo.agentLoginInside.accRole == 3) {
+        self.reportView.hidden = YES;
+        self.consultView.hidden = NO;
+    }else{//中介经纪人不可以选择其他，默认自己
+        self.reportView.hidden = NO;
+        self.consultView.hidden = YES;
+    }
+    
     [self getHouseStyleDetailRequest];
 }
 -(void)viewDidLayoutSubviews
@@ -106,12 +120,13 @@ static NSString *const HouseStyleDetailCell = @"HouseStyleDetailCell";
     [self.zh_popupController presentContentView:share duration:0.25 springAnimated:NO];
 }
 - (IBAction)reportClicked:(UIButton *)sender {
-    RCReportVC *rvc = [RCReportVC new];
+    RCHouseReportVC *rvc = [RCHouseReportVC new];
+    rvc.houseDetail = self.houseDetail;
     [self.navigationController pushViewController:rvc animated:YES];
 }
 - (IBAction)consultClicked:(UIButton *)sender {
     hx_weakify(self);
-    zhAlertView *alert = [[zhAlertView alloc] initWithTitle:@"提示" message:@"027-27549123" constantWidth:HX_SCREEN_WIDTH - 50*2];
+    zhAlertView *alert = [[zhAlertView alloc] initWithTitle:@"提示" message:self.houseDetail.salesTel constantWidth:HX_SCREEN_WIDTH - 50*2];
     zhAlertButton *cancelButton = [zhAlertButton buttonWithTitle:@"取消" handler:^(zhAlertButton * _Nonnull button) {
         hx_strongify(weakSelf);
         [strongSelf.zh_popupController dismiss];
@@ -119,7 +134,7 @@ static NSString *const HouseStyleDetailCell = @"HouseStyleDetailCell";
     zhAlertButton *okButton = [zhAlertButton buttonWithTitle:@"拨打" handler:^(zhAlertButton * _Nonnull button) {
         hx_strongify(weakSelf);
         [strongSelf.zh_popupController dismiss];
-        //[[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"tel:%@",@"13496755975"]]];
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"tel:%@",strongSelf.houseDetail.salesTel]]];
     }];
     cancelButton.lineColor = UIColorFromRGB(0xDDDDDD);
     [cancelButton setTitleColor:UIColorFromRGB(0x999999) forState:UIControlStateNormal];

@@ -10,9 +10,12 @@
 
 NS_ASSUME_NONNULL_BEGIN
 @class RCMyClientDetail;
+typedef void(^updateRemarkCall)(NSString *remarkTime,NSString *remark);
 @interface RCClientDetailInfoVC : HXBaseViewController
 /** 客户基本信息 */
 @property(nonatomic,strong) RCMyClientDetail *clientInfo;
+/* 备注 */
+@property(nonatomic,copy) updateRemarkCall updateRemarkCall;
 @end
 
 NS_ASSUME_NONNULL_END

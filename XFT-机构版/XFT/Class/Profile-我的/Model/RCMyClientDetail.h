@@ -17,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,copy) NSString *sex;
 @property(nonatomic,copy) NSString *lastFollowTime;
 @property(nonatomic,copy) NSString *lastVistTime;
-@property(nonatomic,copy) NSString *vistYuqiTime;
+@property(nonatomic,copy) NSString *baobeiYuqiTime;
 @property(nonatomic,assign) NSInteger cusState;
 @property(nonatomic,copy) NSString *transTime;
 @property(nonatomic,copy) NSString *isValid;
@@ -31,7 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,copy) NSString *seeTime;
 @property(nonatomic,copy) NSString *twoQudaoName;
 @property(nonatomic,copy) NSString *idNo;
-@property(nonatomic,copy) NSString *isHidden;
+@property(nonatomic,assign) BOOL isHidden;
 @property(nonatomic,copy) NSString *baoBeiUuid;
 @property(nonatomic,copy) NSString *cusUuid;
 @property(nonatomic,assign) NSInteger yuqiTime;

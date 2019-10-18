@@ -14,7 +14,7 @@
     if ([createTime integerValue]>0) {
         _createTime = [createTime getTimeFromTimestamp:@"yyyy-MM-dd HH:mm"];
     }else{
-        _createTime = @"无";
+        _createTime = @"";
     }
 }
 -(void)setTime:(NSString *)time
@@ -22,7 +22,7 @@
     if ([time integerValue]>0) {
         _time = [time getTimeFromTimestamp:@"yyyy-MM-dd HH:mm"];
     }else{
-        _time = @"无";
+        _time = @"";
     }
 }
 -(void)setLastVistTime:(NSString *)lastVistTime
@@ -30,7 +30,7 @@
     if ([lastVistTime integerValue]>0) {
         _lastVistTime = [lastVistTime getTimeFromTimestamp:@"yyyy-MM-dd HH:mm"];
     }else{
-        _lastVistTime = @"无";
+        _lastVistTime = @"";
     }
 }
 -(void)setSeeTime:(NSString *)seeTime
@@ -38,7 +38,7 @@
     if ([seeTime integerValue]>0) {
         _seeTime = [seeTime getTimeFromTimestamp:@"yyyy-MM-dd HH:mm"];
     }else{
-        _seeTime = @"无";
+        _seeTime = @"";
     }
 }
 @end

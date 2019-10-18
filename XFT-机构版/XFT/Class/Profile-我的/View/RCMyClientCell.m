@@ -98,7 +98,7 @@
         if (_client.salesName && _client.salesName.length) {
             self.priName.text = [NSString stringWithFormat:@"案场顾问：%@(%@-%@)",_client.salesName,_client.teamName,_client.groupName];
         }else{
-            self.priName.text = @"案场顾问：暂无";
+            self.priName.text = @"案场顾问：无";
         }
 
         // @[@"已报备",@"已到访",@"已认筹",@"已认购",@"已签约",@"已退房",@"已失效"];
@@ -132,7 +132,7 @@
             self.state.text = @"已失效";
             self.time2.text = [NSString stringWithFormat:@"失效时间：%@",_client.editTime];
         }
-        self.remark.text = [NSString stringWithFormat:@"备注内容：%@",(_client.remarks && _client.remarks.length)?_client.remarks:@"暂无"];
+        self.remark.text = [NSString stringWithFormat:@"备注内容：%@",(_client.remarks && _client.remarks.length)?_client.remarks:@""];
     }
 }
 -(void)setSearchClient:(RCSearchClient *)searchClient
@@ -144,7 +144,7 @@
         /* 状态 0:报备成功 2:到访 4:认筹 5:认购 6:签约 7:退房 8:失效 */
         if (_searchClient.cusState == 0) {
             self.state.text = [NSString stringWithFormat:@" %@天失效 ",_searchClient.day];
-            self.time.text = [NSString stringWithFormat:@"报备时间：%@",_searchClient.seeTime];
+            self.time.text = [NSString stringWithFormat:@"报备时间：%@",_searchClient.createTime];
         }else if (_searchClient.cusState == 2) {
             self.state.text = @" 已到访 ";
             self.time.text = [NSString stringWithFormat:@"最近到访：%@",_searchClient.lastVistTime];
@@ -162,10 +162,10 @@
             self.time.text = [NSString stringWithFormat:@"最近到访：%@",_searchClient.lastVistTime];
         }else{
             self.state.text = @" 已失效 ";
-            self.time.text = [NSString stringWithFormat:@"报备时间：%@",_searchClient.seeTime];
+            self.time.text = [NSString stringWithFormat:@"报备时间：%@",_searchClient.createTime];
         }
-        self.priName.text = [NSString stringWithFormat:@"报备项目：%@",(_searchClient.proName && _searchClient.proName.length)?_searchClient.proName:@"暂无"];
-        self.reportName.text = [NSString stringWithFormat:@"报备人：%@",(_searchClient.reportName && _searchClient.reportName.length)?_searchClient.reportName:@"暂无"];
+        self.priName.text = [NSString stringWithFormat:@"报备项目：%@",(_searchClient.proName && _searchClient.proName.length)?_searchClient.proName:@""];
+        self.reportName.text = [NSString stringWithFormat:@"报备人：%@",(_searchClient.reportName && _searchClient.reportName.length)?_searchClient.reportName:@""];
     }else{
         self.name.text = _searchClient.name;
         self.time.text = [NSString stringWithFormat:@"报备时间：%@",_searchClient.createTime];
@@ -193,7 +193,7 @@
             self.state.text = @" 已失效 ";
             self.time2.text = [NSString stringWithFormat:@"备注时间：%@",_searchClient.time];
         }
-        self.remark.text = [NSString stringWithFormat:@"备注内容：%@",(_searchClient.remark && _searchClient.remark.length)?_searchClient.remark:@"暂无"];
+        self.remark.text = [NSString stringWithFormat:@"备注内容：%@",(_searchClient.remark && _searchClient.remark.length)?_searchClient.remark:@""];
     }
 }
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

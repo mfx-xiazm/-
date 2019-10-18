@@ -48,12 +48,14 @@ static NSString *const ReportPersonCell = @"ReportPersonCell";
         RCReporter *report = [RCReporter new];
         report.orgname = [MSUserManager sharedInstance].curUserInfo.orgUserInfo.orgName;
         report.orguuid = [MSUserManager sharedInstance].curUserInfo.orgUserInfo.orgUuid;
-        report.shopname = [MSUserManager sharedInstance].curUserInfo.orgUserInfo.shopName;
+        report.shopname = @"自己(默认)";//[MSUserManager sharedInstance].curUserInfo.orgUserInfo.shopName
         report.shopuuid = [MSUserManager sharedInstance].curUserInfo.orgUserInfo.shopUuid;
         report.accMuuid = [MSUserManager sharedInstance].curUserInfo.agentLoginInside.uuid;
         report.accMname = [MSUserManager sharedInstance].curUserInfo.agentLoginInside.name;
+        report.isMyself = YES;
         if (!self.selectReporter) {
             report.isSelected = YES;
+            self.selectReporter = report;
         }
         [_reporters addObject:report];
     }
@@ -141,10 +143,18 @@ static NSString *const ReportPersonCell = @"ReportPersonCell";
 {
     if (self.selectReporter) {
         for (RCReporter *reporter in self.reporters) {
-            if ([reporter.shopuuid isEqualToString:self.selectReporter.shopuuid] && [reporter.orguuid isEqualToString:self.selectReporter.orguuid] && [reporter.accMuuid isEqualToString:self.selectReporter.accMuuid]) {
-                reporter.isSelected = YES;
-                self.selectReporter = reporter;
-                break;
+            if (self.selectReporter.isMyself) {
+                if (reporter.isMyself) {
+                    reporter.isSelected = YES;
+                    self.selectReporter = reporter;
+                    break;
+                }
+            }else{
+                if ([reporter.shopuuid isEqualToString:self.selectReporter.shopuuid] && [reporter.orguuid isEqualToString:self.selectReporter.orguuid] && [reporter.accMuuid isEqualToString:self.selectReporter.accMuuid]) {
+                    reporter.isSelected = YES;
+                    self.selectReporter = reporter;
+                    break;
+                }
             }
         }
     }

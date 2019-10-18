@@ -17,6 +17,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,copy) NSString *accMname;//门店管理姓名
 @property(nonatomic,copy) NSString *orguuid;//机构id
 @property(nonatomic,copy) NSString *orgname;//机构名称
+/* 是否是自己 */
+@property(nonatomic,assign) BOOL isMyself;
 /* 是否选中 */
 @property(nonatomic,assign) BOOL isSelected;
 @end

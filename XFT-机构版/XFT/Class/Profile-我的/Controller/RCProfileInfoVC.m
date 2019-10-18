@@ -75,7 +75,7 @@
         
         self.account.text = [NSString stringWithFormat:@"%@",info[@"accNo"]];
         self.nick.text = [NSString stringWithFormat:@"%@",info[@"nick"]];
-        self.jgName1.text = [NSString stringWithFormat:@"%@",info[@"agentName"]];
+        self.jgName1.text = [NSString stringWithFormat:@"%@",info[@"affiliation"]];
         self.phone.text = [NSString stringWithFormat:@"%@",info[@"regPhone"]];
     }
 }

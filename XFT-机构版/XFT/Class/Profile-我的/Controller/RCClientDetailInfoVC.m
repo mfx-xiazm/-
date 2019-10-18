@@ -92,6 +92,9 @@
                 strongSelf.clientInfo.remark = strongSelf.remark.text;
                 strongSelf.clientInfo.lastRemarkTime = [NSString stringWithFormat:@"%.f",[[NSDate date] timeIntervalSince1970]];
                 strongSelf.remarkTime.text = [NSString stringWithFormat:@"上次备注时间：%@",strongSelf.clientInfo.lastRemarkTime];
+                if (strongSelf.updateRemarkCall) {
+                    strongSelf.updateRemarkCall([NSString stringWithFormat:@"%.f",[[NSDate date] timeIntervalSince1970]],strongSelf.clientInfo.remark);
+                }
             });
         }else{
             [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:responseObject[@"msg"]];

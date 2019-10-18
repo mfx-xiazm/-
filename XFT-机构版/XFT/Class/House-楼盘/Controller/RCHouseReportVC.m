@@ -1,56 +1,38 @@
 //
-//  RCReportVC.m
+//  RCHouseReportVC.m
 //  XFT
 //
-//  Created by 夏增明 on 2019/9/2.
+//  Created by 夏增明 on 2019/10/15.
 //  Copyright © 2019 夏增明. All rights reserved.
 //
 
-#import "RCReportVC.h"
-#import "HXPlaceholderTextView.h"
-#import "RCFilterCell.h"
-#import "RCWishHouseVC.h"
-#import "RCBatchReportVC.h"
-#import "WSDatePickerView.h"
-#import "RCReportPersonVC.h"
-#import "RCReportResultVC.h"
-#import "RCAddPhoneCell.h"
-#import "RCHouseTagsCell.h"
-#import <ZLCollectionViewHorzontalLayout.h>
+#import "RCHouseReportVC.h"
 #import "RCReportHouse.h"
 #import "RCReporter.h"
+#import "HXPlaceholderTextView.h"
+#import "RCHouseDetail.h"
+#import "RCReportPersonVC.h"
+#import "RCReportResultVC.h"
 
-static NSString *const FilterCell = @"FilterCell";
-static NSString *const AddPhoneCell = @"AddPhoneCell";
-static NSString *const HouseTagsCell = @"HouseTagsCell";
-
-@interface RCReportVC ()<UICollectionViewDelegate,UICollectionViewDataSource,ZLCollectionViewBaseFlowLayoutDelegate>
-@property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *houseViewHeight;
+@interface RCHouseReportVC ()
+@property (weak, nonatomic) IBOutlet UILabel *houseName;
 @property (weak, nonatomic) IBOutlet UITextField *name;
 @property (weak, nonatomic) IBOutlet UITextField *phone;
 @property (weak, nonatomic) IBOutlet HXPlaceholderTextView *remark;
 @property (weak, nonatomic) IBOutlet UISwitch *hiddenSwitch;
 @property (weak, nonatomic) IBOutlet UITextField *reportPersonName;
 @property (weak, nonatomic) IBOutlet UIImageView *reportPersonRightImg;
-@property (weak, nonatomic) IBOutlet UIView *reportPersonView;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *reportPersonViewHeight;
 @property (weak, nonatomic) IBOutlet UIButton *sureReportBtn;
-/* 选择的楼盘 */
-@property(nonatomic,strong) NSMutableArray *selectHouses;
-/* 是否允许隐号报备 默认允许 */
-@property(nonatomic,assign) BOOL isAllowHidden;
 /* 选中的那个报备人 */
 @property(nonatomic,strong) RCReporter *selectReporter;
 @end
 
-@implementation RCReportVC
+@implementation RCHouseReportVC
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.navigationItem setTitle:@"报备"];
-    self.navigationItem.rightBarButtonItem = [UIBarButtonItem itemWithTarget:self action:@selector(batchReportClicked) title:@"批量报备" font:[UIFont systemFontOfSize:16] titleColor:UIColorFromRGB(0x333333) highlightedColor:UIColorFromRGB(0x333333) titleEdgeInsets:UIEdgeInsetsZero];
-    self.isAllowHidden = YES;
+
     /** 账号角色 1:中介管理员 2:中介报备人 3:门店主管 4:中介经纪人 */
     if ([MSUserManager sharedInstance].curUserInfo.agentLoginInside.accRole == 2) {//中介报备人可以选择其他
         self.reportPersonRightImg.hidden = NO;
@@ -58,15 +40,10 @@ static NSString *const HouseTagsCell = @"HouseTagsCell";
         self.reportPersonRightImg.hidden = YES;
     }
     self.remark.placeholder = @"请输入补充说明(选填)";
-    [self setUpCollectionView];
-    
+    self.houseName.text = self.houseDetail.name;
     hx_weakify(self);
     [self.sureReportBtn BindingBtnJudgeBlock:^BOOL{
         hx_strongify(weakSelf);
-        if (!strongSelf.selectHouses.count) {
-            [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:@"请选择意向楼盘"];
-            return NO;
-        }
         if (![strongSelf.name hasText]){
             [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:@"请输入客户姓名"];
             return NO;
@@ -92,33 +69,10 @@ static NSString *const HouseTagsCell = @"HouseTagsCell";
         [strongSelf reportSubmitClicked:button];
     }];
 }
--(NSMutableArray *)selectHouses
-{
-    if (_selectHouses == nil) {
-        _selectHouses = [NSMutableArray array];
-    }
-    return _selectHouses;
-}
--(void)setUpCollectionView
-{
-    ZLCollectionViewHorzontalLayout *flowLayout = [[ZLCollectionViewHorzontalLayout alloc] init];
-    flowLayout.delegate = self;
-    flowLayout.canDrag = NO;
-    self.collectionView.collectionViewLayout = flowLayout;
-    self.collectionView.dataSource = self;
-    self.collectionView.delegate = self;
-    
-    [self.collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([RCHouseTagsCell class]) bundle:nil] forCellWithReuseIdentifier:HouseTagsCell];
-}
 #pragma mark -- 点击事件
-- (void)batchReportClicked
-{
-    RCBatchReportVC *rvc = [RCBatchReportVC new];
-    [self.navigationController pushViewController:rvc animated:YES];
-}
 - (IBAction)hiddenPersonPhoneClicked:(UISwitch *)sender {
-    if (!self.isAllowHidden) {//存在楼盘不允许隐号报备
-        [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:@"存在不允许隐号报备的楼盘"];
+    if (!self.houseDetail.isAllowHidden) {//存在楼盘不允许隐号报备
+        [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:@"该楼盘不允许隐号报备"];
         self.hiddenSwitch.on = NO;
         return;
     }
@@ -126,51 +80,21 @@ static NSString *const HouseTagsCell = @"HouseTagsCell";
 }
 
 - (IBAction)reportBtnClicked:(UIButton *)sender {
-    if (sender.tag == 1) {
-        RCWishHouseVC *hvc = [RCWishHouseVC new];
-        hvc.isBatchReport = NO;
-        if (self.selectHouses && self.selectHouses.count) {
-            hvc.lastHouses = self.selectHouses;
+    /** 账号角色 1:中介管理员 2:中介报备人 3:门店主管 4:中介经纪人 */
+    if ([MSUserManager sharedInstance].curUserInfo.agentLoginInside.accRole == 2) {//中介报备人可以选择其他
+        RCReportPersonVC *pvc = [RCReportPersonVC new];
+        if (self.selectReporter) {
+            pvc.selectReporter = self.selectReporter;
         }
         hx_weakify(self);
-        hvc.wishHouseCall = ^(NSArray * _Nonnull houses) {
+        pvc.selectReporterCall = ^(RCReporter * _Nonnull reporter) {
             hx_strongify(weakSelf);
-            strongSelf.selectHouses = [NSMutableArray arrayWithArray:houses];
-            if (strongSelf.selectHouses.count) {
-                strongSelf.houseViewHeight.constant = 50.f+60.f;
-            }else{
-                strongSelf.houseViewHeight.constant = 50.f;
-            }
-            strongSelf.isAllowHidden = YES;
-            for (RCReportHouse *house in strongSelf.selectHouses) {
-                if (!house.isHeidi) {//存在不允许隐号报备的楼盘
-                    strongSelf.isAllowHidden = NO;
-                    strongSelf.hiddenSwitch.on = NO;
-                    break;
-                }
-            }
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.05 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [weakSelf.collectionView reloadData];
-            });
+            strongSelf.selectReporter = reporter;
+            strongSelf.reportPersonName.text = reporter.shopname;
         };
-        [self.navigationController pushViewController:hvc animated:YES];
-    }else{
-        /** 账号角色 1:中介管理员 2:中介报备人 3:门店主管 4:中介经纪人 */
-        if ([MSUserManager sharedInstance].curUserInfo.agentLoginInside.accRole == 2) {//中介报备人可以选择其他
-            RCReportPersonVC *pvc = [RCReportPersonVC new];
-            if (self.selectReporter) {
-                pvc.selectReporter = self.selectReporter;
-            }
-            hx_weakify(self);
-            pvc.selectReporterCall = ^(RCReporter * _Nonnull reporter) {
-                hx_strongify(weakSelf);
-                strongSelf.selectReporter = reporter;
-                strongSelf.reportPersonName.text = reporter.shopname;
-            };
-            [self.navigationController pushViewController:pvc animated:YES];
-        }else{//中介经纪人不可以选择其他，默认自己
-
-        }
+        [self.navigationController pushViewController:pvc animated:YES];
+    }else{//中介经纪人不可以选择其他，默认自己
+        
     }
 }
 - (void)reportSubmitClicked:(UIButton *)sender {
@@ -179,20 +103,16 @@ static NSString *const HouseTagsCell = @"HouseTagsCell";
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
     NSMutableDictionary *data = [NSMutableDictionary dictionary];
     
-    NSMutableArray *proIds = [NSMutableArray array];
-    for (RCReportHouse *house in self.selectHouses) {
-        [proIds addObject:house.uuid];
-    }
-    data[@"proIds"] = proIds;//项目列表 必填
+    data[@"proIds"] = @[self.houseDetail.uuid];//项目列表 必填
     
     data[@"cusInfo"] = @[@{@"name":self.name.text,//客户姓名
                            @"phone":@[self.hiddenSwitch.isOn?[NSString stringWithFormat:@"%@****%@",[self.phone.text substringToIndex:3],[self.phone.text substringFromIndex:self.phone.text.length-4]]:self.phone.text],//客户手机号
                            @"remark":[self.remark hasText]?self.remark.text:@"",//客户备注
                            @"twoQudaoName":([MSUserManager sharedInstance].curUserInfo.orgUserInfo.orgName && [MSUserManager sharedInstance].curUserInfo.orgUserInfo.orgName.length)?[MSUserManager sharedInstance].curUserInfo.orgUserInfo.orgName:@"",//报备人所属机构名称
-                          @"twoQudaoCode":([MSUserManager sharedInstance].curUserInfo.orgUserInfo.orgUuid && [MSUserManager sharedInstance].curUserInfo.orgUserInfo.orgUuid.length)?[MSUserManager sharedInstance].curUserInfo.orgUserInfo.orgUuid:@"",//报备人所属机构id
+                           @"twoQudaoCode":([MSUserManager sharedInstance].curUserInfo.orgUserInfo.orgUuid && [MSUserManager sharedInstance].curUserInfo.orgUserInfo.orgUuid.length)?[MSUserManager sharedInstance].curUserInfo.orgUserInfo.orgUuid:@"",//报备人所属机构id
                            }
                          ];//客户信息 必填
-    if (self.selectReporter && !self.selectReporter.isMyself) {//选择了其他门店的人
+    if (self.selectReporter) {//选择了其他门店的人
         data[@"accUuid"] = self.selectReporter.accMuuid;//报备人id 必填
         data[@"accName"] = self.selectReporter.accMname;//报备人名称
         if (self.selectReporter.orgname && self.selectReporter.orgname.length) {
@@ -272,59 +192,10 @@ static NSString *const HouseTagsCell = @"HouseTagsCell";
 }
 -(void)clearReportData
 {
-    [self.selectHouses removeAllObjects];//清空选择楼盘
-    self.houseViewHeight.constant = 50.f;
-    hx_weakify(self);
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.05 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [weakSelf.collectionView reloadData];
-    });
-    
-    self.isAllowHidden = YES;//重置是否允许隐号报备
     self.name.text = nil;// 重置报备对象信息
     self.phone.text = nil;// 重置报备对象信息
     self.selectReporter = nil; // 重置报备人信息
     self.reportPersonName.text = nil;// 重置报备人信息
     self.remark.text = nil;//清空备注信息
-}
-#pragma mark -- UICollectionView 数据源和代理
-- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    return self.selectHouses.count;
-}
-- (ZLLayoutType)collectionView:(UICollectionView *)collectionView layout:(ZLCollectionViewBaseFlowLayout *)collectionViewLayout typeOfLayout:(NSInteger)section {
-    return ColumnLayout;
-}
-//如果是ClosedLayout样式的section，必须实现该代理，指定列数
-- (NSInteger)collectionView:(UICollectionView *)collectionView layout:(ZLCollectionViewBaseFlowLayout*)collectionViewLayout columnCountOfSection:(NSInteger)section {
-    return 1;
-}
-- (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    RCHouseTagsCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:HouseTagsCell forIndexPath:indexPath];
-    RCReportHouse *house = self.selectHouses[indexPath.item];
-    cell.name.text = house.proName;
-    return cell;
-}
-- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    [self.selectHouses removeObjectAtIndex:indexPath.item];
-    if (!self.selectHouses.count) {
-        self.houseViewHeight.constant = 50.f;
-    }else{
-        self.houseViewHeight.constant = 50.f + 60.f;
-    }
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.05 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [collectionView reloadData];
-    });
-}
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    RCReportHouse *house = self.selectHouses[indexPath.item];
-    return CGSizeMake([house.proName boundingRectWithSize:CGSizeMake(1000000, 30) options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading attributes:@{NSFontAttributeName: [UIFont boldSystemFontOfSize:14]} context:nil].size.width + 50, 30);
-}
-- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section {
-    return 10.f;
-}
-- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
-    return 10.f;
-}
-- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
-    return  UIEdgeInsetsMake(15, 15, 15, 15);
 }
 @end

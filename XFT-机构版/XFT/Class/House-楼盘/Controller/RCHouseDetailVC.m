@@ -21,7 +21,7 @@
 #import "RCHouseStyleVC.h"
 #import "RCHouseNewsVC.h"
 #import "RCHouseNearbyVC.h"
-#import "RCReportVC.h"
+#import "RCHouseReportVC.h"
 #import "RCNewsDetailVC.h"
 #import <JXCategoryTitleView.h>
 #import <JXCategoryIndicatorBackgroundView.h>
@@ -37,6 +37,7 @@
 #import "RCHouseDetail.h"
 #import "RCNearbyPOI.h"
 #import "RCCustomAnnotation.h"
+#import "RCWebContentVC.h"
 
 static NSString *const HouseNearbyCell = @"HouseNearbyCell";
 static NSString *const HouseDetailInfoCell = @"HouseDetailInfoCell";
@@ -78,6 +79,10 @@ static NSString *const HouseGoodsCell = @"HouseGoodsCell";
 @property (weak, nonatomic) IBOutlet UITableView *houseNearbyTableView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *houseNearbyViewHeight;
 @property (weak, nonatomic) IBOutlet UIButton *nearbyFirstBtn;
+/** 免费咨询视图 */
+@property (weak, nonatomic) IBOutlet UIView *consultView;
+/** 免费咨询+房源报备视图 */
+@property (weak, nonatomic) IBOutlet UIView *reportView;
 
 /** 地图 */
 @property (nonatomic, strong) QMapView *mapView;
@@ -119,6 +124,14 @@ static NSString *const HouseGoodsCell = @"HouseGoodsCell";
     [self setUpCycleView];
     [self setUpCollectionView];
     [self setUpTableView];
+    /** 账号角色 1:中介管理员 2:中介报备人 3:门店主管 4:中介经纪人 */
+    if ([MSUserManager sharedInstance].curUserInfo.agentLoginInside.accRole == 1 || [MSUserManager sharedInstance].curUserInfo.agentLoginInside.accRole == 3) {
+        self.reportView.hidden = YES;
+        self.consultView.hidden = NO;
+    }else{//中介经纪人不可以选择其他，默认自己
+        self.reportView.hidden = NO;
+        self.consultView.hidden = YES;
+    }
     // 地图
     [self.mapSuperView addSubview:self.mapView];
     self.lastNearbyBtn = self.nearbyFirstBtn;
@@ -299,11 +312,12 @@ static NSString *const HouseGoodsCell = @"HouseGoodsCell";
 }
 - (IBAction)houseReportClicked:(UIButton *)sender {
     if (sender.tag == 1) {
-        RCReportVC *rvc = [RCReportVC new];
+        RCHouseReportVC *rvc = [RCHouseReportVC new];
+        rvc.houseDetail = self.houseDetail;
         [self.navigationController pushViewController:rvc animated:YES];
     }else{
         hx_weakify(self);
-        zhAlertView *alert = [[zhAlertView alloc] initWithTitle:@"提示" message:@"027-27549123" constantWidth:HX_SCREEN_WIDTH - 50*2];
+        zhAlertView *alert = [[zhAlertView alloc] initWithTitle:@"提示" message:self.houseDetail.salesTel constantWidth:HX_SCREEN_WIDTH - 50*2];
         zhAlertButton *cancelButton = [zhAlertButton buttonWithTitle:@"取消" handler:^(zhAlertButton * _Nonnull button) {
             hx_strongify(weakSelf);
             [strongSelf.zh_popupController dismiss];
@@ -311,7 +325,7 @@ static NSString *const HouseGoodsCell = @"HouseGoodsCell";
         zhAlertButton *okButton = [zhAlertButton buttonWithTitle:@"拨打" handler:^(zhAlertButton * _Nonnull button) {
             hx_strongify(weakSelf);
             [strongSelf.zh_popupController dismiss];
-            //[[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"tel:%@",@"13496755975"]]];
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"tel:%@",strongSelf.houseDetail.salesTel]]];
         }];
         cancelButton.lineColor = UIColorFromRGB(0xDDDDDD);
         [cancelButton setTitleColor:UIColorFromRGB(0x999999) forState:UIControlStateNormal];
@@ -385,9 +399,10 @@ static NSString *const HouseGoodsCell = @"HouseGoodsCell";
         NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
         NSMutableDictionary *data = [NSMutableDictionary dictionary];
         data[@"uuid"] = self.uuid;
+        data[@"type"] = @"3";
         parameters[@"data"] = data;
 
-        [HXNetworkTool POST:HXRC_M_URL action:@"/pro/proBaseInfo/pic" parameters:parameters success:^(id responseObject) {
+        [HXNetworkTool POST:HXRC_M_URL action:@"pro/pro/proBaseInfo/pic" parameters:parameters success:^(id responseObject) {
             if ([responseObject[@"code"] integerValue] == 0) {
                 strongSelf.housePic = [RCHousePic yy_modelWithDictionary:responseObject[@"data"]];
             }else{
@@ -790,10 +805,14 @@ static NSString *const HouseGoodsCell = @"HouseGoodsCell";
     RCHousePicInfo *picInfo = self.handledPics[index];
     
     if (picInfo.type == RCHousePicInfoTypeVR) {
-        RCPanoramaVC *pvc = [RCPanoramaVC new];
-        pvc.url = self.housePic.vrUrl;
-        HXNavigationController *nav = [[HXNavigationController alloc] initWithRootViewController:pvc];
-        [self presentViewController:nav animated:YES completion:nil];
+//        RCPanoramaVC *pvc = [RCPanoramaVC new];
+//        pvc.url = self.housePic.vrUrl;
+//        HXNavigationController *nav = [[HXNavigationController alloc] initWithRootViewController:pvc];
+//        [self presentViewController:nav animated:YES completion:nil];
+        RCWebContentVC *wvc = [RCWebContentVC new];
+        wvc.url = self.housePic.vrUrl;
+        wvc.navTitle = @"全景看房";
+        [self.navigationController pushViewController:wvc animated:YES];
     }else if (picInfo.type == RCHousePicInfoTypeVideo) {
         RCVideoFullScreenVC *fvc = [RCVideoFullScreenVC new];
         fvc.url = self.housePic.videoUrl;
